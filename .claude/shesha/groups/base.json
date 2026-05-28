@@ -1694,6 +1694,23 @@
         }
       ]
     },
+    "entity-type-id": {
+      "desc": "Identifies an entity class by name and module (IEntityTypeIdentifier). Used where entityType is an object rather than a fully-qualified string.",
+      "shape": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "desc": "Entity class name (e.g. \"Person\", \"Event\")."
+        },
+        {
+          "name": "module",
+          "type": "string",
+          "required": false,
+          "desc": "Module the entity belongs to (e.g. \"Boxfusion.SheshaFunctionalTests.Common\")."
+        }
+      ]
+    },
     "calendar-layer": {
       "desc": "A calendar data layer defining an event source. dataSource discriminates 'entity' vs 'custom' (url) variants.",
       "shape": [
@@ -1705,11 +1722,40 @@
         { "name": "allowChangeVisibility", "type": "boolean", "required": false, "desc": "Allow the user to toggle this layer's visibility." },
         { "name": "visible", "type": "boolean", "required": false, "desc": "Whether the layer is visible by default." },
         { "name": "dataSource", "type": "string", "required": true, "options": ["entity", "custom"], "desc": "'entity' fetches via entityType; 'custom' fetches via customUrl." },
-        { "name": "entityType", "type": "form-id", "required": false, "desc": "Entity type identifier ({ name, module }) used when dataSource is 'entity'." },
+        { "name": "entityType", "type": "entity-type-id", "required": false, "desc": "Entity class identifier ({ name, module }) used when dataSource is 'entity'." },
         { "name": "title", "type": "string", "required": false, "desc": "Property name on the entity to use as the event title." },
         { "name": "startTime", "type": "string", "required": false, "desc": "Property name on the entity that holds the event start date/time." },
         { "name": "endTime", "type": "string", "required": false, "desc": "Property name on the entity that holds the event end date/time." },
         { "name": "customUrl", "type": "string", "required": false, "desc": "API URL to fetch events from (used when dataSource is 'custom')." }
+      ]
+    },
+    "modal-settings": {
+      "desc": "Configuration for the 'Add new record' modal in an entity picker (IAddNewRecordProps).",
+      "shape": [
+        { "name": "modalFormId", "type": "form-id", "required": false, "desc": "Form to display inside the modal." },
+        { "name": "modalTitle", "type": "string", "required": false, "desc": "Title shown in the modal header." },
+        { "name": "showModalFooter", "type": "boolean", "required": false, "desc": "Show the modal footer bar." },
+        { "name": "footerButtons", "type": "string", "required": false, "options": ["default", "custom", "none"], "desc": "Which footer buttons to render." },
+        { "name": "modalWidth", "type": "string", "required": false, "desc": "Modal width as pixels (number) or CSS string (e.g. '80%')." },
+        { "name": "buttons", "type": "array", "required": false, "arrayItemType": "button-group-item", "desc": "Custom button definitions shown when footerButtons is 'custom'." }
+      ]
+    },
+    "column-item": {
+      "desc": "Defines a single column in a datatable or kanban view. Shared between table and kanban components.",
+      "shape": [
+        { "name": "id", "type": "string", "required": true, "desc": "Unique column ID (GUID)." },
+        { "name": "itemType", "type": "string", "required": false, "desc": "Item type discriminator (e.g. 'item')." },
+        { "name": "sortOrder", "type": "number", "required": false },
+        { "name": "caption", "type": "string", "required": false, "desc": "Column header label." },
+        { "name": "minWidth", "type": "number", "required": false, "desc": "Minimum column width in pixels." },
+        { "name": "columnType", "type": "string", "required": false, "options": ["data", "action", "calculated"], "desc": "Determines how the column value is sourced." },
+        { "name": "isVisible", "type": "boolean", "required": false, "desc": "Whether the column is visible by default." },
+        { "name": "propertyName", "type": "string", "required": false, "desc": "Entity property bound to this column." },
+        { "name": "displayComponent", "type": "object", "required": false, "desc": "Component used to render the cell in read mode. Shape: { type: string }." },
+        { "name": "editComponent", "type": "object", "required": false, "desc": "Component used to render the cell in edit mode. Shape: { type: string }." },
+        { "name": "createComponent", "type": "object", "required": false, "desc": "Component used to render the cell in create mode. Shape: { type: string }." },
+        { "name": "allowSorting", "type": "boolean", "required": false, "desc": "Allow the column to be sorted." },
+        { "name": "permissions", "type": "array", "required": false, "desc": "Permission strings required to see this column." }
       ]
     }
   }

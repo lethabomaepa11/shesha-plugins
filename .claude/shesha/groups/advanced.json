@@ -199,7 +199,7 @@
       {
         "name": "entityType",
         "type": "string",
-        "desc": "Fully-qualified entity type namespace (used when dataSourceType is 'entitiesList').",
+        "desc": "Fully-qualified entity type (e.g. 'Shesha.Core.Person'). Used when dataSourceType is 'entitiesList'.",
         "required": false,
         "JsReturnType": "string"
       },
@@ -1077,7 +1077,7 @@
       {
         "name": "entityType",
         "type": "string",
-        "desc": "Entity type namespace for the kanban cards.",
+        "desc": "Fully-qualified entity type for the kanban cards (e.g. 'Shesha.Core.Person').",
         "required": false,
         "JsReturnType": "string"
       },
@@ -1112,9 +1112,10 @@
       {
         "name": "items",
         "type": "array",
-        "desc": "Static list of kanban items (used when not data-bound).",
+        "desc": "Column definitions for the kanban view.",
         "required": false,
-        "JsReturnType": "array"
+        "JsReturnType": "array",
+        "arrayItemType": "column-item"
       },
       {
         "name": "kanbanReadonly",
