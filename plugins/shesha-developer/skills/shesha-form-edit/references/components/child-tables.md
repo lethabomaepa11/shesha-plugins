@@ -35,7 +35,7 @@ detail form
 ```
 
 - `<childFkProperty>` is the **child entity's** FK property that references the parent (e.g. Payslip has `employee` → use `"employee"`; if PayGrade is the parent and Employee the child, Employee's FK is `payGrade` → use `"payGrade"`).
-- `{{data.id}}` resolves to the open record's id (the detail form's `data`).
+- `{{data.id}}` resolves to the open record's id (the detail form's `data`). Always use `{{double braces}}` — single-brace `{data.id}` is silently ignored at runtime.
 
 ## Multiple child tables
 

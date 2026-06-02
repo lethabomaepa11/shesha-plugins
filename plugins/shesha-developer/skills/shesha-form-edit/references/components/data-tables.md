@@ -58,6 +58,7 @@ The `datalist` here has **no** `entityType`, **no** `sourceType`, **no** `perman
   "type": "dataTableContext",
   "sourceType": "Url",
   "endpoint": "/api/services/app/EntityHistory/GetAuditTrail?entityId={{data.id}}&entityTypeFullName={{data.modelType}}",
+  // Note: mustache expressions always use {{double braces}} — single {brace} is silently ignored
   "defaultPageSize": 10,
   "components": [ /* datatable or datalist */ ]
 }
