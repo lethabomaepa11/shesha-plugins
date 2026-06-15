@@ -1,10 +1,75 @@
-# button / buttons (toolbar) / link / subForm — actions and configurable-action shape
+# button / buttonGroup / buttons (toolbar) / link / subForm — actions and configurable-action shape
 
 All interactive — require `editMode: "editable"`.
 
+> **Action rows use `buttonGroup`, not standalone `button`.** Every form action (Save/Submit,
+> Back, Cancel, Edit, Delete, Refresh, Add) belongs inside a single `buttonGroup` as an
+> `items[]` entry. A loose top-level `button` in the action row fails QA check **V-A4**
+> ("buttons grouped in a buttonGroup"). Reserve the standalone `button` below for a button
+> placed inline beside text/content (e.g. a link-style action next to a paragraph) — not the
+> form's primary action row. See [buttonGroup](#buttongroup-action-row--preferred) first.
+
 ---
 
-## button (single)
+## buttonGroup (action row — PREFERRED)
+
+The default container for a form's actions. One `buttonGroup` holds every action as an item;
+each item carries its own `actionConfiguration`. `buttonAction` is the shorthand the designer
+uses; `actionConfiguration.actionName`/`actionOwner` is what executes.
+
+```json
+{
+  "id": "<uuid>",
+  "type": "buttonGroup",
+  "componentName": "formActions",
+  "propertyName": "formActions",
+  "label": "Form Actions",
+  "hideLabel": true,
+  "isInline": true,
+  "editMode": "editable",
+  "parentId": "<parent id>",
+  "items": [
+    {
+      "id": "<uuid>",
+      "itemType": "item",
+      "itemSubType": "button",
+      "sortOrder": 0,
+      "name": "btnSave",
+      "label": "Save",
+      "buttonType": "primary",
+      "icon": "SaveOutlined",
+      "buttonAction": "submit",
+      "actionConfiguration": { "_type": "action-config", "actionName": "Submit", "actionOwner": "shesha.form", "handleSuccess": false, "handleFail": false }
+    },
+    {
+      "id": "<uuid>",
+      "itemType": "item",
+      "itemSubType": "button",
+      "sortOrder": 1,
+      "name": "btnBack",
+      "label": "Back",
+      "buttonType": "default",
+      "icon": "ArrowLeftOutlined",
+      "buttonAction": "navigate",
+      "actionConfiguration": { "_type": "action-config", "actionName": "Navigate", "actionOwner": "shesha.common", "actionArguments": { "navigationType": "url", "url": "/dynamic/<module>/<list-form>" }, "handleSuccess": false, "handleFail": false }
+    }
+  ]
+}
+```
+
+Common `buttonAction` → `actionConfiguration` pairings: `submit` → `Submit`/`shesha.form`;
+`navigate` → `Navigate`/`shesha.common`; `cancelFormEdit` → `Cancel Edit`/`shesha.form`;
+`startFormEdit` → `Start Edit`/`shesha.form`; `dialogue` → `Show Dialog`/`shesha.common`;
+`executeScript` → `Execute Script`/`shesha.common`. Exactly one item is `buttonType: "primary"`
+(the forward action); Back/Cancel/Delete are `default` or `link`. Copy a real `buttonGroup`
+from a seed in `../../assets/examples/` and swap the items.
+
+---
+
+## button (single — inline only)
+
+Use only for a button rendered inline beside text/content, not the action row (the action row
+uses [buttonGroup](#buttongroup-action-row--preferred)).
 
 ```json
 {

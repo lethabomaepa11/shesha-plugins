@@ -3,7 +3,7 @@
 For dropdown / radio / checkboxGroup / refListStatus → [dropdowns.md](dropdowns.md).
 For autocomplete / entityPicker → [selectors.md](selectors.md).
 
-All interactive inputs use `editMode: "inherited"`. See [edit-mode.md](edit-mode.md).
+`editMode` per the form-type rule (detail forms `"inherited"`, dialogs/action pages `"editable"`) — see [edit-mode.md](edit-mode.md).
 
 ---
 

@@ -43,6 +43,8 @@ The project's house pattern for full-page forms (auth pages, registration, singl
                     └── text "footer"           ← copyright line
 ```
 
+> The `editMode: "editable"` annotations above are action-page components (auth-login is an anonymous action page — hence `"editable"` per the form-type rule); detail forms use `"inherited"` — see [edit-mode.md](edit-mode.md).
+
 ---
 
 ## Key conventions

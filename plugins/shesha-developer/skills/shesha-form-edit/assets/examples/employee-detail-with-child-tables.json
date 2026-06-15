@@ -1,4 +1,4 @@
-﻿{
+{
   "components": [
     {
       "id": "LTpAs5bjBJSvHv4nGBSJv",
@@ -15,6 +15,18 @@
       "className": "sha-page",
       "settingsValidationErrors": [],
       "components": [
+        {
+          "id": "ve-emp-detailct-3c5f8a",
+          "type": "validationErrors",
+          "componentName": "validationErrors",
+          "propertyName": "validationErrors",
+          "parentId": "LTpAs5bjBJSvHv4nGBSJv",
+          "hidden": false,
+          "isDynamic": false,
+          "version": "1",
+          "label": "Validation Errors",
+          "labelAlign": "right"
+        },
         {
           "id": "MyzOBFZ10-9WqSosKWcTi",
           "type": "container",

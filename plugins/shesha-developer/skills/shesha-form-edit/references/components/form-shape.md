@@ -27,6 +27,7 @@ After `JSON.parse(markup)`:
 }
 ```
 
+- Top-level `components` **MUST be an array**, not a plain object — the designer calls `e.components.forEach(...)`, so an object crashes it with `e.components.forEach is not a function`. When generating with a single root container, wrap it: `"components": [rootContainer]`.
 - `components` is a **nested tree** — containers, tabs, columns, cards have their own `components: []` (or in card's case, `content.components`). Walk recursively.
 - `formSettings.modelType` is the entity full name. Reference-list dropdowns and entity pickers silently fail to bind if this is wrong — keep it in sync with the actual entity binding.
 - `formSettings.layout`: `"horizontal"` (default — labels left of inputs) | `"vertical"` (labels above). Setting `"inline"` rarely produces what users expect; use a `container` with horizontal direction instead.

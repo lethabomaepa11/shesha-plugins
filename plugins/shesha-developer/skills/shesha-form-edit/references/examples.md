@@ -19,13 +19,37 @@ These contain template tokens `{{GEN_KEY}}` / `{{NEW_KEY}}` for some ids — rep
 | Need | Example file | Use when |
 |---|---|---|
 | List/index page | `assets/examples/employee-table.json` | "table form", "list of X", "manage X" |
-| Create / edit in modal | `assets/examples/employee-create.json` | the form the table's **Add** button opens; also the edit form |
-| Detail page, no children | `assets/examples/employee-detail-without-child-tables.json` | a standalone record view/edit page |
+| Create / edit in modal | `assets/examples/employee-create.json` | the form the table's **Add** button opens; submit comes from the modal footer (no in-form button row) |
+| Standalone create / edit **page** (own Save + Back) | `assets/examples/employee-create.json` **+ add a `buttonGroup`** | a full-page create/edit form the user opens directly (not in a modal), e.g. "create a person form with a Save and a Back button" — see note below |
+| Detail page, no children | `assets/examples/employee-detail-without-child-tables.json` | a standalone record view with the **Start Edit / Save / Cancel Edit toggle** lifecycle |
 | Detail page with child tables | `assets/examples/employee-detail-with-child-tables.json` | record view that also lists related child entities |
+
+### Standalone create / edit page (own Save + Back) — compose, don't improvise
+
+The seed set has a **dialog-hosted** create (`employee-create`, submit via modal footer) and a
+**toggle-lifecycle** detail (`employee-detail-*`, Start Edit / Save / Cancel Edit). It has **no**
+seed for a plain full-page create/edit form with its own explicit Save + Back row — the most
+common ad-hoc request ("create a person form with a Save and a Back button"). Build it by
+copying `employee-create`'s fields and **adding one `buttonGroup`** as the action row:
+
+- **Save** item → `buttonType: "primary"`, `buttonAction: "submit"`, `actionConfiguration: { actionName: "Submit", actionOwner: "shesha.form" }`.
+- **Back** item → `buttonType: "default"`, `buttonAction: "navigate"`, `actionConfiguration: { actionName: "Navigate", actionOwner: "shesha.common", actionArguments: { navigationType: "url", url: "/dynamic/<module>/<list-form>" } }`.
+- `editMode: "editable"` on the inputs (a standalone create/edit page is always in edit mode — `inherited` renders dead inputs here; that mode is only for the toggle-lifecycle detail view).
+- Keep the `validationErrors` component (it's in the seed).
+- **Never** emit the buttons as standalone `type: "button"` components — the QA classifier reads form intent only from `buttonGroup` items, so loose buttons get the form misread as read-only and fail the button-grouping check. Full reasoning: [form-quality.md](form-quality.md).
+
+Don't add anything the request didn't ask for — no extra panels, no header band, no `modelType`
+debug text. Match the component count to the field list + validationErrors + the one buttonGroup.
+
+### Scope note — what these seeds do and don't cover
+
+- The employee seeds demonstrate **FK child tables**: `employee-detail-with-child-tables` filters an **Entity-sourced** `dataContext` with a `permanentFilter` on the child's `<parentFk>` (shape below).
+- **M:M junction subtables are NOT in this seed set** — they use the **Url-sourced** `dataContext` canon (code-object `endpoint` returning a `/api/dynamic/<module>/<Junction>/Crud/GetAll?filter=...` URL): see [components/junction-subtables.md](components/junction-subtables.md).
+- **Create dialogs that preset a parent FK** need more than the create seed: pass the parent via `formArguments` on the opening button AND inject it in `formSettings.onPrepareSubmitData` — `setFieldsValue` alone never survives submit (the gql submitter serializes only `_formFields`): see [components/add-dialogs.md](components/add-dialogs.md).
 
 ## The CRUD loop (how the four fit together)
 
-1. **Table** (`employee-table`) lists records. Its toolbar **Add** button is a `buttonGroup` item with `buttonAction: "dialogue"` → `actionName: "Show Dialog"` (owner `shesha.common`) → `actionArguments.formId: { name: "<create-form>", module: "<module>" }`, `modalWidth: "60%"`, `formMode: "edit"`. It does **not** navigate.
+1. **Table** (`employee-table`) lists records. Its toolbar **Add** button is a `buttonGroup` item with `buttonAction: "dialogue"` → `actionName: "Show Dialog"` (owner `shesha.common`) → `actionArguments.formId: { name: "<create-form>", module: "<module>" }`, `modalWidth: "60%"`, `formMode: "edit"`. It does **not** navigate. The Add button's `onSuccess` should be `Refresh table` with `actionOwner` = the `dataContext` **component id** (full shape below).
 2. **Create** (`employee-create`) renders inside that modal. `dataLoaderType: "gql"`, `dataSubmitterType: "gql"`; the dialog's OK button submits it via the form's default endpoints.
 3. **Detail** opens a full record. The header `buttonGroup` carries the lifecycle: **Edit** = `Start Edit` (owner `shesha.form`), **Save** = `Submit` (owner `shesha.form`), **Cancel** = `Cancel Edit` (owner `shesha.form`), plus an optional **Audit Log** = `Show Dialog` → `entity-change-audit-log` (module `Shesha`). There is **no** manual navigate-back Save.
 4. **Child tables** live in a `tabs` component; each tab is a `dataContext` + `datatable` filtered to the parent.

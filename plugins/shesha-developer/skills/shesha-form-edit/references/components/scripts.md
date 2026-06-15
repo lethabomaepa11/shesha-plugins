@@ -4,6 +4,22 @@ Read when authoring any embedded JS (`onChangeCustom`, `onClickCustom`, `customV
 
 ---
 
+## Lifecycle timing (`formSettings.*` hooks)
+
+| Hook | Fires | Form context (`form`, `setFormData`, `formMode`) | Use for |
+|---|---|---|---|
+| `onBeforeDataLoad` | before data fetch — **BEFORE the form context exists** | **undefined** | context-free prep only |
+| `onDataLoaded` | after data load — fires even for create forms (data is empty) | available | `form.formArguments` reads, `form.setFieldsValue(...)`, `setFormData` |
+| `onPrepareSubmitData` | at submit, before the POST | `data` + `form` available; **must `return` the payload object**; async-capable (per the groups index) | FK injection — see [add-dialogs.md](add-dialogs.md) |
+
+Symptoms of form-context access in `onBeforeDataLoad`: `setFormData is not defined`, `Cannot read properties of undefined (reading formMode)`. Move the script to `onDataLoaded`.
+
+- The groups index (`assets/groups/base.json` → `_formSettings.scripts`) lists `form`/`setFormData`/`formMode` in the `onBeforeDataLoad` context — runtime disagrees; trust runtime.
+- Console errors from `onBeforeDataLoad` scripts are often pre-existing — verify they predate your change before treating them as regressions.
+- Seeding values in *any* hook does not make them submit — only real components (`_formFields`) serialize; required contextual FKs need a component **and** `onPrepareSubmitData` injection. See [add-dialogs.md](add-dialogs.md).
+
+---
+
 ## Script context globals
 
 Inside any embedded JS string, these are available:

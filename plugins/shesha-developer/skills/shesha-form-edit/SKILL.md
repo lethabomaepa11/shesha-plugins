@@ -12,6 +12,7 @@ allowed-tools:
   - AskUserQuestion
   - WebFetch
   - Skill
+  - Task
 ---
 
 # Shesha Form Edit
@@ -20,7 +21,23 @@ Round-trip: **GET form JSON → edit → PUT/POST it back**. Also creates new fo
 
 > **For any new table / create / detail form, start from the canonical seeds in `assets/examples/` — see [references/examples.md](references/examples.md).** They are real Shesha-standard forms (verified rendering against a live backend) and encode the CRUD wiring most models get wrong: the **Add button opens the create form in a modal** (`Show Dialog`), detail views toggle edit in place (`Start Edit`/`Submit`), child tables use `tabs` + a `permanentFilter` on `{{data.id}}`, and inputs are chosen by the property's data type ([by-datatype.md](references/components/by-datatype.md)). Copy the matching example, swap entity/properties/captions/`formId`s, re-stamp `parentId`s, push. Don't hand-author structure the examples already provide.
 
-Args received: `$ARGUMENTS`. Flags: `--refresh-cache` (ignore TTL, re-distill metadata/seeds), `--no-browser` (skip Step 9 browser smoke), `--no-design` (skip Step 0 / 9.5 design passes).
+Args received: `$ARGUMENTS`. Flags: `--refresh-cache` (ignore TTL, re-distill metadata/seeds), `--no-browser` (skip Step 9 browser smoke), `--no-design` (skip Step 0 / 9.5 design passes), `--level l1|l2|l3|l4|l5` (override Step R routing).
+
+## Non-interactive (headless) runs — read this first
+
+When invoked non-interactively (`claude -p`, a test harness, CI) or when the task supplies a context block (Backend URL / Username / Password / Module / Working directory): **never call `AskUserQuestion` — it dead-ends the run.** Use the supplied context verbatim — it **overrides** Step 1 URL discovery, Step 2 default credentials, and the target module. Defaults for every ask-gate: Step 0 design ask → skip, author from seeds; Step 3 missing form identity → resolve from the task wording against the module's form list (`GetAll`), else create a new form named `{entity-kebab}-{type}` in the context module; push-failure menu → re-fetch & re-apply once, then stop and report; Step 9.5 → skip. **Always end with a summary naming every form created or modified (module + name + id)** — downstream evaluation identifies your work from that output.
+
+## Step R — Route by capability level (always first)
+
+| Level | Request shape | Path | Cost envelope |
+|---|---|---|---|
+| **L1** | One component / property / script / action on ONE form | Inline. Steps 1–8 only; skip Step 0; Step 9 only if the change is visual/behavioral. | minutes, no agents |
+| **L2** | Create or restructure ONE whole form (table / create / details / dialog / subform / custom) | Inline, full Steps 0–10, seed-first from `assets/examples/`. | one context |
+| **L3** | One page where backend prerequisites may not exist (entity, property, reflist, API, menu item) | Prereq gate (Step 4.5 / prereq-checker agent) BEFORE any form JSON; fix gaps via the owning skill; forms last. | one context + sibling skills |
+| **L4** | Multiple linked pages in one request (CRUD set, dashboard + drill-downs) | Orchestrate per [levels.md](references/levels.md): plan → build create→details→table → cross-link integrity pass. Don't build 3+ forms in one context. | N agents; state the cost first |
+| **L5** | A whole application from a brief/spec/image | Decompose → plan checkpoint → waves of L3/L4. | hours; confirm scope first |
+
+Rules: (1) **Default DOWN** — ambiguity picks the lower level; escalate only on a concrete failed check (signals + triggers: [levels.md](references/levels.md)). (2) **Route OUT non-form work** — pure backend asks (reference list, role, notification, background job, API) go straight to the sibling skill, not wrapped in form workflow. (3) `--level l1|l2|l3|l4|l5` in `$ARGUMENTS` overrides detection.
 
 ## Step 0 — Design consultation (ask first)
 
@@ -36,11 +53,11 @@ On Yes: invoke `Skill(skill="frontend-design", ...)` per [references/design.md](
 
 ## Step 1 — Resolve backend URL
 
-Order: `src/PBF.MembershipManagement.Web.Host/Properties/launchSettings.json` (`profiles.Project.applicationUrl`) → `appsettings.json` (`Kestrel:Endpoints:Http:Url`) → fallback `http://localhost:21021`. Strip trailing slash. Store as `$BASE_URL`. Ping `$BASE_URL/swagger/index.html` to confirm reachability; if it fails, stop and tell the user to start the backend.
+Order: **task-supplied context block (always wins)** → `src/*.Web.Host/Properties/launchSettings.json` (`profiles.Project.applicationUrl`) → `src/*.Web.Host/appsettings.json` (`Kestrel:Endpoints:Http:Url`) → fallback `http://localhost:21021`. Strip trailing slash. Store as `$BASE_URL`. Ping `$BASE_URL/swagger/index.html` to confirm reachability; if it fails, stop and tell the user to start the backend.
 
 ## Step 2 — Authenticate as admin
 
-Local-dev defaults: **`admin` / `123qwe`** — don't ask. POST `$BASE_URL/api/TokenAuth/Authenticate` with `{ userNameOrEmailAddress, password }`; extract `result.accessToken` (or `accessToken` on older builds). See [references/api.md §2](references/api.md). If no token, surface raw response and stop.
+Task-supplied credentials win; local-dev defaults otherwise: **`admin` / `123qwe`** — don't ask. POST `$BASE_URL/api/TokenAuth/Authenticate` with `{ userNameOrEmailAddress, password }`; extract `result.accessToken` (or `accessToken` on older builds). See [references/api.md §2](references/api.md). If no token, surface raw response and stop.
 
 **Module ID lookup** (needed for `Create`): `GET $BASE_URL/api/services/app/Module/GetAll` (note: `app` namespace — `Shesha/Module/GetAll` returns 404). Find the entry where `name === "<module>"` and take its `id`. Cache it for the session. If a subsequent `Create` call returns `"There is no entity Module with id = …"`, the backend was restarted and the ID changed — re-fetch via this endpoint.
 
@@ -62,11 +79,11 @@ Skip if `formSettings.dataLoaderType === "none"`. Otherwise fetch the entity's m
 
 **Get the exact `modelType` string first (critical — wrong type causes 500 errors at runtime):**
 
-The `formSettings.modelType` must be the exact registered C# class name — e.g. `Shesha.Core.Person`, NOT `Shesha.Domain.Person`. Getting this wrong causes 500 errors in the browser when `datatableContext` tries to query the entity.
+The `formSettings.modelType` must be the **exact registered C# class name for THIS backend** — resolve it dynamically every time; never assume or copy a namespace from this doc. The same logical entity is registered under different namespaces across Shesha/BoxStack versions: framework entities like `Person` are `Shesha.Domain.Person` on current versions but `Shesha.Core.Person` on older ones, and a backend may even carry both. **The only authority is the live `EntityConfig` for the running backend.** Getting this wrong causes 500/404 errors in the browser when the loader or `datatableContext` queries the entity (test harness check **C2** fails on any mismatch with the registered `fullClassName`).
 
-Two ways to find it:
-1. **From an existing form**: `GET $BASE_URL/api/services/Shesha/FormConfiguration/GetAll?maxResultCount=50` — find a form bound to the same entity and read its `modelType`.
-2. **From entity config**: `GET $BASE_URL/api/services/app/EntityConfig/GetMainDataList?maxResultCount=200` — find the entity by `className` or `name` and use its `className` as `modelType`.
+Resolve it (in priority order) — and use the result verbatim:
+1. **From entity config (authoritative)**: `GET $BASE_URL/api/services/app/EntityConfig/GetMainDataList?maxResultCount=200` — find the entity by `name`, then use its **`fullClassName`** (fall back to `className`) as `modelType`. This is the same string the QA harness compares against, so it is the one that passes C2.
+2. **Cross-check against an existing form**: `GET $BASE_URL/api/services/Shesha/FormConfiguration/GetAll?maxResultCount=50` — a form bound to the same entity shows the in-use `modelType`. If existing forms disagree with each other (legacy `Shesha.Core.*` vs current `Shesha.Domain.*`), the EntityConfig `fullClassName` wins.
 
 **Entity existence check**: before building any form, verify the entity exists: `GET $BASE_URL/api/services/app/Metadata/GetProperties?container=<exactModelType>`. If the response returns an empty array or error, the entity does not exist — stop and invoke `Skill(skill="shesha-developer:domain-model")`. Never build forms for entities that don't exist; they silently fail at runtime.
 
@@ -74,7 +91,11 @@ Two ways to find it:
 2. Fetch `GET $BASE_URL/api/services/app/Metadata/GetProperties?container=<modelType>` — returns `result` as a direct array of properties (not wrapped). Cache to `.claude/cache/shesha-form-edit/metadata/<entity>.raw.json`.
 3. **Validate `propertyName` against the property list** for every input component you're adding/editing. Surface mismatches before push.
 
+Metadata semantics (`referenceListName` is the full dotted name used **without** any `RefList` prefix; `entityType` is the SHORT class name with `entityModule` separate; FK property names can differ from class names): [api.md §10](references/api.md). Array properties with `listConfiguration.mappingType: "many-to-many"` mean **junction subtables** — read [junction-subtables.md](references/components/junction-subtables.md) before touching those tabs.
+
 TTL 24h; `--refresh-cache` forces re-fetch. If the metadata fetch returns nothing or surfaces a malformed entity, optionally invoke `Skill(skill="shesha-developer:test-entity-crud-api", args="--no-fix")` and fix entity bugs before continuing — a form bound to a broken entity will look fine in markup but fail at runtime.
+
+**For a NEW entity-bound form, or any entity/junction not already verified this session: dispatch the `shesha-developer:fullstack-prereq-checker` agent** (Task tool; pass backend URL, token-file path, and the entity list) and block until its verdict is `ready` — its failures name the fixing skill per gap. Inline checks remain fine for small edits to an already-rendering form. Catalog of backend-rooted symptoms: [full-stack-prereqs.md](references/full-stack-prereqs.md).
 
 ## Step 5 — Apply the user's requirements
 
@@ -97,6 +118,20 @@ Read **only** the topic files relevant to the edit. Most edits need 1–3 files:
 | editMode, visibility, permissions | [references/components/edit-mode.md](references/components/edit-mode.md) |
 | v7 styling system (containers, borders, fonts, shadows, migration) | [references/components/styling-v7.md](references/components/styling-v7.md) |
 | Layout pattern (full-page forms, auth) | [references/components/layout.md](references/components/layout.md) |
+| Style override debugging (5 channels, breakpoints, legacy `style` string) | [references/components/style-channels.md](references/components/style-channels.md) |
+| Detail page anatomy (header band, KIB, label alignment) | [references/components/detail-page-pattern.md](references/components/detail-page-pattern.md) |
+| M:M junction subtables — link, drill-down, delete/unlink | [references/components/junction-subtables.md](references/components/junction-subtables.md) |
+| Add/create dialogs, formArguments, onPrepareSubmitData | [references/components/add-dialogs.md](references/components/add-dialogs.md) |
+| Form quality contract (always-on construction rules) | [references/form-quality.md](references/form-quality.md) |
+| Adding forms to the app navigation/menu | [references/navigation-menu.md](references/navigation-menu.md) |
+| Edits across many forms (pilot-first transforms) | [references/bulk-operations.md](references/bulk-operations.md) |
+| Multi-agent fleet dispatch, verdict schemas, cost table | [references/orchestration.md](references/orchestration.md) |
+| Browser testing, IndexedDB cache, layout measurement | [references/verification.md](references/verification.md) |
+| Symptoms whose fix is backend (reflists, junction DTOs, GQL) | [references/full-stack-prereqs.md](references/full-stack-prereqs.md) |
+
+**Touching more than ~3 forms?** Read [references/bulk-operations.md](references/bulk-operations.md) first — pilot-first is mandatory. Mutations go through **one `shesha-developer:fleet-transformer` agent** (never per-form authoring agents); audits fan out **one `shesha-developer:form-auditor` per form**. Dispatch templates + cost table: [references/orchestration.md](references/orchestration.md).
+
+**Authoring 2+ genuinely distinct new forms?** Dispatch one `shesha-developer:form-author` agent per form in parallel (each gets the seed, metadata, requirements, and an output path); you audit and push centrally afterwards. A single new form stays in-context.
 
 **Seed discovery for new forms** (in this order):
 1. **`assets/examples/` — CANONICAL Shesha-standard seeds. Start here for any table / create / detail form.** See [references/examples.md](references/examples.md) for the index and the CRUD-loop wiring (modal Add button, Start Edit/Submit detail header, child-table tabs). Copy the matching example and change only `modelType`/`entityType`/`propertyName`/captions/`formId`s. This is the highest-priority source — these forms render correctly and follow standards.
@@ -135,6 +170,8 @@ function stampTree(nodes, parentId) {
     if (n.components) n.components = stampTree(n.components, node.id);
     if (n.columns)    n.columns    = stampTree(n.columns,    node.id);
     if (n.tabs)       n.tabs       = n.tabs.map(t => ({ ...t, components: stampTree(t.components||[], node.id) }));
+    if (n.content?.components) n.content = { ...n.content, components: stampTree(n.content.components, node.id) }; // card / collapsiblePanel slot
+    if (n.header?.components)  n.header  = { ...n.header,  components: stampTree(n.header.components,  node.id) };
     return n;
   });
 }
@@ -162,7 +199,7 @@ Common causes of failure: template literals (`` `${x}` ``) inside `dynamicEndpoi
 
 ## Step 6 — Validate
 
-Walk tree (unique ids, valid types, valid parent chain); dead-prop check: look up each component's group in `assets/groups/index.json`, then validate its props against that group file; runtime-type checks (booleans not `"true"`, numbers not `"42"`); dropdown `values` shape (`{ id, label, value }`); `node --check` each script string.
+Walk tree (unique ids, valid types, valid parent chain); dead-prop check: look up each component's group in `assets/groups/index.json`, then validate its props against that group file; runtime-type checks (booleans not `"true"`, numbers not `"42"`); dropdown `values` shape (`{ id, label, value }`); `node --check` each script string. Then run the **[form-quality checklist](references/form-quality.md)** — validationErrors present, human-readable labels, dropdown sources complete, primary action visible, consistent layout.
 
 Then **invoke `clean-form-config` (mandatory, blocking)** — covers layout overflow, label-vs-propertyName refs, missing try/catch, missing async, broken script syntax:
 
@@ -171,6 +208,8 @@ Skill(skill="shesha-developer:clean-form-config", args="<path to your edited for
 ```
 
 If validation fails, present issues to the user before pushing. **Never push a config that fails validation without user confirmation.**
+
+**Before any bulk push (>3 forms changed): fan out `shesha-developer:form-auditor` agents — one per form** — with the verdict contract from [orchestration.md](references/orchestration.md); aggregate and never push a form with a `fail` verdict.
 
 ## Step 7 — Push
 
@@ -205,6 +244,10 @@ After verifying, watch for these patterns in the browser console or from Playwri
 | Create/edit fields show as read-only labels (no input boxes) standalone | `editMode: "inherited"` + form not in edit context | Expected — they become inputs inside the Add modal (`formMode: "edit"`) or after Start Edit. Don't "fix" by forcing `editable`. |
 | Dropdown opens but shows "No matches" / no options | The backend **reference list has no items**, or wrong `referenceListId` | Verify the reflist name via property metadata; confirm items exist in the backend reflist editor. Config itself (see by-datatype.md) is likely correct. |
 | Autocomplete (FK) shows "No matches" | Target entity has no records, or wrong `entityType:{name,module}` | Confirm the FK target short class name + module; ensure records exist. |
+| Junction/child `Crud/Create` 500 on dialog submit | Contextually-preset FK never reached the payload (`_formFields` rule) | Real component + `formSettings.onPrepareSubmitData` — see [add-dialogs.md](references/components/add-dialogs.md) |
+| Push returned 200 but the browser shows old markup | Frontend IndexedDB form cache | Clear from a static page (`/favicon.ico`) — see [verification.md](references/verification.md) |
+
+Full catalog (~40 rows, grouped): [references/debug.md](references/debug.md).
 
 ## Step 9 — Browser smoke (default; `--no-browser` opts out)
 
@@ -215,6 +258,8 @@ Skill(skill="playwright", args="<directive from api.md §12, with FRONTEND_URL +
 ```
 
 Frontend URL: `adminportal/` (auth forms) or `publicportal/` (anonymous) — read the dev port from `<app>/.env*` or `<app>/package.json`. If neither front-end is running, skip the smoke step and warn the user.
+
+Test `*-details` forms via the **table row's view link**, never a pasted `?id=` URL — direct loads render but subtable Add/Create submits 500 (missing page context). If the browser disagrees with a verified API re-fetch, clear the **IndexedDB form cache from `/favicon.ico`** before debugging further. Verify layout claims with `getBoundingClientRect`, not screenshots. Full recipes: [references/verification.md](references/verification.md).
 
 **On any captured error or 4xx/5xx**: consult [references/debug.md](references/debug.md) before guessing — it maps common symptoms to causes. Quote the captured error verbatim; reference the matching row number.
 
@@ -243,7 +288,7 @@ Project-scoped learning state. **Skill reads `.summary.md` by default; opens raw
   ```json
   {
     "type": "datatableContext",
-    "entityType": "Shesha.Core.Person",
+    "entityType": "<resolved modelType — exact EntityConfig fullClassName, same value as formSettings.modelType>",
     "sourceType": "Entity",
     "dataFetchingMode": "paging",
     "defaultPageSize": 10,
@@ -263,13 +308,41 @@ Project-scoped learning state. **Skill reads `.summary.md` by default; opens raw
   - **Row → detail navigation** (only when a separate detail page is wanted): action column item with `columnType: "action"`, `action: "navigate"`, `targetUrl: "/dynamic/<module>/<form>?id={{selectedRow.id}}"`, `icon: "EditOutlined"`.
 - **`actionArguments.target`** for plain Navigate actions: `{ actionName: "Navigate", actionOwner: "shesha.common", actionArguments: { target: "/dynamic/..." } }`.
 - **Preserve ids** on existing components — fresh GUIDs only on clones / new nodes.
-- **`editMode: "inherited"`** on every interactive component (textField, dropdown, button, etc.). Do NOT use `"editable"` — real Shesha forms use `"inherited"` and the form-level context controls edit state. Using `"editable"` explicitly can break form-level edit-mode toggling.
+- **`editMode` is per form type — never blanket-stamp either value.** Detail forms with Start Edit/Submit lifecycle: `"inherited"` (explicit `"editable"` makes fields editable before Edit is clicked). Create/edit dialogs and action/anonymous pages: `"editable"` (`"inherited"` renders dead inputs there). Visual components: omit. Full decision table: [edit-mode.md](references/components/edit-mode.md).
+- **Contextually-preset required FKs on create dialogs need BOTH a real component AND `formSettings.onPrepareSubmitData`** — `formArguments`/`setFieldsValue` alone never reach the submit payload (only `_formFields` serialize). Omission = `Crud/Create` 500. See [add-dialogs.md](references/components/add-dialogs.md).
+- **Row delete/unlink = Execute Script + `await http.delete(...)` + onSuccess `Refresh table` with actionOwner = the dataContext component id.** `actionName: "Delete row"` with owner `"table"` does not exist and throws. See [junction-subtables.md](references/components/junction-subtables.md).
+- **Code-mode props are objects** — a dataContext `endpoint` (or any code-carrying prop) stored as a plain JS string is silently stripped on save; use `{ "_mode": "code", "_code": "..." }`.
 - **JSON-safe script strings** — ALL script values embedded in form JSON must be serialisable without breaking the outer `JSON.stringify`. Rules: (a) no template literals — use string concatenation instead of `` `${x}` ``; (b) no unescaped newlines — use `\n`; (c) no smart/curly quotes — use straight quotes; (d) validate every script-containing component with `node -e "JSON.stringify(comp)"` before push. A broken script string produces `"Expected ',' or '}' after property value"` parse errors in the browser.
 - **No `globalState`** for cross-form state. Default to `contexts.appContext` (app-wide) or `pageContext` (inter-page). `localStorage` / `sessionStorage` are OK only when state must survive a hard refresh AND the data is not sensitive (no auth tokens / PII) — see [shared-state.md](references/components/shared-state.md).
 - **API calls in scripts**: `try/catch` + `async/await` (no `.then()` chains) — see [scripts.md](references/components/scripts.md).
 - **Mustache expressions always use `{{double braces}}`** — e.g. `{{data.id}}`, `{{selectedRow.id}}`. Never write `{data.id}` (single brace). Single-brace expressions are silently ignored at runtime, producing empty values with no error.
 - **`access: 5`** on anonymous forms (login, register, OTP). Verify post-push via re-fetch.
-- **PowerShell + non-ASCII body**: pass UTF-8 bytes (em dashes / curly quotes trigger server 500 — `Unable to translate bytes [E2] ... from specified code page to Unicode`). Use `[System.Text.Encoding]::UTF8.GetBytes($jsonBody)` or `curl --data-binary @file`. Recipe in [api.md](references/api.md).
+- **PowerShell + non-ASCII body**: pass UTF-8 bytes (em dashes / curly quotes trigger server 500 — `Unable to translate bytes [E2] ... from specified code page to Unicode`). Use `[System.Text.Encoding]::UTF8.GetBytes($jsonBody)` or `curl --data-binary @file`. And write staged JSON files **without a BOM** (`New-Object System.Text.UTF8Encoding $false`) — `Out-File -Encoding utf8` emits a BOM that breaks Node's `JSON.parse`. Recipe in [api.md](references/api.md).
+- **Human-readable labels on every field** — labels are user-facing AND how browser-based tests locate fields; a raw `propertyName` as a label fails both. Full contract: [form-quality.md](references/form-quality.md).
+- **`modelType` is resolved, never assumed** — take the exact `fullClassName` from `EntityConfig/GetMainDataList` for the running backend (Step 4.5). Never hardcode a namespace from memory or from this doc's examples; `Shesha.Core.*` vs `Shesha.Domain.*` is version-dependent and a mismatch fails QA check **C2** and 500s at runtime.
+- **A `validationErrors` component is ALWAYS in the tree** (conventionally just above the action row) **whenever the form has any required input**. Omitting it makes a failed submit render nothing and fails QA check **F-I7**. Type string is exactly `validationErrors`; it takes no props. This applies to simple forms too — it is not an "advanced" extra.
+- **Form action buttons live in a `buttonGroup`, never as standalone `button` components — and the Save button MUST carry `actionConfiguration: { actionName: "Submit", actionOwner: "shesha.form" }`.** Save/Submit, Back/Cancel, Edit, Delete, Refresh, Add — every action goes in a single `buttonGroup` (`items[]` of `{ itemType: "item", itemSubType: "button", buttonType, buttonAction, actionConfiguration }`), not as loose top-level `button` nodes. This is the **single highest-leverage rule** — a standalone `button` (type `"button"`) or a Submit wired to anything other than `Submit`/`shesha.form` cascades into THREE failures at once: (1) **V-A4** fails on the scattered button; (2) the QA classifier detects a form's *intent* ONLY from `buttonGroup` item actions — with no detectable `Submit`/`shesha.form` action it sees "no edit intent" and **misclassifies an editable form as read-only** (then penalises it for having buttons), and (3) the submit-button functional check can't find the action. The standalone `button` type in [actions.md](references/components/actions.md) is reserved for rare inline-in-content cases (e.g. a button beside a paragraph), never the form's action row. A **Back** button is a `buttonGroup` item with `actionName: "Navigate"` (owner `shesha.common`). Canonical structure: copy a `buttonGroup` from a seed in `assets/examples/`.
+- **Minimal component count — add only what the request needs.** A "simple form with N fields + Save + Back" is exactly: those N inputs + a `validationErrors` + one `buttonGroup` + the minimum structure to satisfy layout (one `columns`/`sectionSeparator` when >5 inputs). Do NOT pad with extra containers, decorative panels, headers, or duplicate wrappers the user didn't ask for — unnecessary extras fail QA check **C8**. Seeds are a starting point: after copying, strip every node the current request doesn't use.
+
+## Required skill & agent invocations
+
+| Trigger | Invoke | Strength |
+|---|---|---|
+| Entity/property/reflist missing or broken (Step 4.5 gate) | `shesha-developer:domain-model` | MUST before any form push |
+| New entity-bound form / unverified entity this session | `shesha-developer:fullstack-prereq-checker` agent | MUST (block until `ready`) |
+| Form needs a custom (non-dynamic) endpoint for a Url-source or submit | `shesha-developer:shesha-app-layer` | MUST before wiring the endpoint |
+| Every push (Step 6) | `shesha-developer:clean-form-config` | MUST (respect its documented false positives) |
+| >3 forms changed (Step 6) | `shesha-developer:form-auditor` fan-out | MUST before pushing |
+| Any bulk mutation | `shesha-developer:fleet-transformer` agent (exactly one) | MUST |
+| 2+ distinct new forms | `shesha-developer:form-author` per form | SHOULD (parallel) |
+| Any runtime error / failed smoke (Step 8.5/9) | `superpowers:systematic-debugging` | MUST before proposing fixes |
+| Before claiming done (Step 10) | `superpowers:verification-before-completion` | MUST — evidence (re-fetch diff + smoke output) first |
+| Multi-form plan execution | `superpowers:subagent-driven-development` / `dispatching-parallel-agents` | SHOULD |
+| >10 forms or a restructure | `superpowers:writing-plans` first | SHOULD |
+| Requirement mentions notifications / app settings | `shesha-developer:shesha-notifications` / `shesha-settings` | SHOULD |
+| New endpoints exposed post-rollout | `shesha-utils:harden-permissions` | ASK the user |
+
+(Skills via the Skill tool; agents via the Task tool. In headless runs, ASK-strength items are skipped, MUST items still run.)
 
 ## Doc fallback
 

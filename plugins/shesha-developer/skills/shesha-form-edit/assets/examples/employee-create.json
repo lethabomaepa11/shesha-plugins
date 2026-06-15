@@ -1,4 +1,4 @@
-﻿{
+{
   "components": [
     {
       "id": "Q59Ny5bPDA-833Al9kuQljNQY0hDQh",
@@ -15,6 +15,18 @@
       "justifyContent": "left",
       "flexWrap": "wrap",
       "components": [
+        {
+          "id": "ve-emp-create-7f3a1c",
+          "type": "validationErrors",
+          "componentName": "validationErrors",
+          "propertyName": "validationErrors",
+          "parentId": "Q59Ny5bPDA-833Al9kuQljNQY0hDQh",
+          "hidden": false,
+          "isDynamic": false,
+          "version": "1",
+          "label": "Validation Errors",
+          "labelAlign": "right"
+        },
         {
           "propertyName": "detailsPanel",
           "label": "Details Panel",

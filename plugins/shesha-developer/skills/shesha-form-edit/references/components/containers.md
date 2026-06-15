@@ -108,6 +108,15 @@ For a simple inline text + link row, prefer a sub-`container` with `flexDirectio
 
 Per-tab `hidden` lets you conditionally show tabs (uses the IPropertySetting wrapper — see [form-shape.md](form-shape.md)).
 
+**Visual style:**
+
+| Prop | Values | Effect |
+|---|---|---|
+| `tabType` | `"card"` / `"line"` | `card` = boxed tabs; `line` = underline style |
+| `tabPosition` | `"top"` | set alongside `tabType: "line"` |
+
+When switching to `line` style, also remove any leftover `size: "small"` prop.
+
 ---
 
 ## collapsiblePanel

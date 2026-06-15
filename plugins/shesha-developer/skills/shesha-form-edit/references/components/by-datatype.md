@@ -2,6 +2,8 @@
 
 Pick the input component from the entity property's `dataType` (from `Metadata/GetProperties`). This mirrors the canonical `employee-create` example exactly.
 
+> `editMode` per the form-type rule: the table/examples below hardcode the **detail-form** value (`"inherited"`); dialogs/action pages use `"editable"` — see [edit-mode.md](edit-mode.md).
+
 | Property `dataType` | Component `type` | Required config |
 |---|---|---|
 | `string` (short) | `textField` | `propertyName`, `editMode: "inherited"` |

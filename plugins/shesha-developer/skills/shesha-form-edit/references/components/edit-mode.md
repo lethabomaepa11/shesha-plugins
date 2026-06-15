@@ -2,15 +2,19 @@
 
 ---
 
-## editMode rule (non-negotiable)
+## editMode rule (non-negotiable) — decided PER FORM TYPE
 
-**Every interactive component must have `editMode: "editable"`.** That includes `textField`, `textArea`, `numberField`, `dateField`, `dropdown`, `radio`, `checkbox`, `switch`, `button`, `link`, `autocomplete`, `entityPicker`, file uploaders.
+There is no single correct value. Both blanket rules caused real production bugs: blanket `"editable"` made detail-form fields editable before the user clicked Edit; blanket `"inherited"` rendered dead inputs on action pages and dialogs tested standalone. Decide by the form's type:
 
-If you omit `editMode` (or set it to `"inherited"`) on a form whose effective mode resolves to read-only — which happens for forms with `dataLoaderType: "none"`, public/anonymous pages, or details views — the component renders but won't accept input or clicks. Symptom: "looks fine but the field is greyed out / button does nothing." Fix is always the same: set `editMode: "editable"` explicitly.
+| Form type | Interactive inputs (`textField`, `dropdown`, `autocomplete`, …) | Why |
+|---|---|---|
+| **Entity detail form** with a Start Edit / Submit / Cancel Edit lifecycle | `"inherited"` | The form-level mode governs; the lifecycle buttons toggle it. Explicit `"editable"` makes fields editable while the form is still in read mode. |
+| **Create / edit dialog** (opened via Show Dialog with `formMode: "edit"`) | `"editable"` | A dialog is always an edit context; proven canon across 33 production create forms. Also keeps the dialog testable standalone. |
+| **Action / anonymous pages** (`dataLoaderType: "none"`, login, OTP, search forms, custom toolbars) and inline `link`s | `"editable"` | The effective mode resolves read-only, so `"inherited"` renders fields that won't accept input and buttons that swallow clicks. |
+| **Pure visual / display** (`text`, `image`, `container`, `columns`, `card`, `refListStatus`) | `"inherited"` or omit | No interactive surface. |
+| **Detail-header lifecycle `buttonGroup`** (Edit/Save/Cancel) | copy the canonical seed verbatim | The seeds encode the working config; don't restamp. |
 
-Pure visual components — `text`, `image`, `container`, `columns`, `card` — keep `editMode: "inherited"` or omit it. They have no interactive surface.
-
-When validating an edit: walk the tree and assert that every node whose `type` is in the interactive list has `editMode === "editable"`. Treat a missing or non-editable mode as a bug, not a styling choice.
+Never blanket-stamp either value across a whole form. When validating an edit: walk the tree and assert each interactive component's `editMode` matches the **form-type rule above** — flag mismatches per form type, not against a single absolute.
 
 ---
 
@@ -20,7 +24,7 @@ When validating an edit: walk the tree and assert that every node whose `type` i
 |---|---|
 | `hidden` | Boolean OR `IPropertySetting` with `_mode: 'code'` returning bool. When true, the component is removed from the DOM. |
 | `customVisibility` | Pure JS expression returning bool (legacy form of `hidden`). Prefer `hidden` with the code-mode wrapper for new code. |
-| `editMode` | `'editable'` \| `'readOnly'` \| `'inherited'`. **For interactive components, must be `'editable'`** (rule above). |
+| `editMode` | `'editable'` \| `'readOnly'` \| `'inherited'`. **Set per the form-type rule above** (detail forms `inherited`, dialogs/action pages `editable`). |
 | `customEnabled` | JS expression returning bool. When false, the component renders but is disabled (greyed out). |
 
 Use `hidden` (with code-mode wrapper) over `customVisibility` for new code — same effect, better DX:
