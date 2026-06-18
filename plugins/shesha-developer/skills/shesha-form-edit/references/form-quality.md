@@ -18,7 +18,7 @@ must be the registered entity's **`fullClassName` as returned by
 every time, never assume or copy a namespace from memory or examples. The same entity is
 registered under different namespaces across versions (`Person` is `Shesha.Domain.Person` on
 current builds, `Shesha.Core.Person` on older ones; some backends carry both) — a mismatch
-fails harness check **C2** and 500/404s at runtime. Confirm the resolved string exposes
+500/404s at runtime. Confirm the resolved string exposes
 properties via `GET /api/services/app/Metadata/GetProperties?container=<resolved fullClassName>`
 BEFORE building. Never `object`, never an invented/guessed name. Entity class names diverge
 from FK property names (`<fkProp>` can map to class `<FkPropDefinition>`) — when metadata
@@ -59,9 +59,8 @@ Dialog-hosted create forms may instead rely on the Show Dialog footer submit —
 buttons.** A user who can save must be able to leave without saving, so the exit button is
 half of the action row, not an optional extra. The catch: a terse prompt like *"a form with
 one required first-name field"* names no buttons at all, so it's easy to emit only the
-Submit and stop — which trips the deterministic harness check **F-S2** ("form has a
-cancel/dismiss button") and cascades into **V-A3** and **C6**. Treat the exit button as
-implied by *any* create/edit intent. Which exit action depends on how the form is hosted:
+Submit and stop — which leaves the form with no way to dismiss without saving (an incomplete,
+trapped form). Treat the exit button as implied by *any* create/edit intent. Which exit action depends on how the form is hosted:
 
 - **Standalone page** (a create/edit view the user opens directly — the default for "make a
   form for X"): a **Back** button — `buttonAction: "navigate"`,
@@ -76,8 +75,7 @@ explicitly exempts the exit button from "unnecessary extras".
 
 **A `validationErrors` component is ALWAYS in the tree** (conventionally just above the
 action row) — mandatory the moment the form has **any required input**. Without it, a failed
-submit renders nothing — the form looks dead, and the form fails harness check **F-I7**
-("validationErrors component present when form has required fields"). Type string is exactly
+submit renders nothing — the form looks dead, with no surfaced validation messages. Type string is exactly
 `validationErrors`, it takes no props, and it belongs on simple forms too — not just complex
 ones.
 
@@ -109,13 +107,13 @@ not loose top-level `button` components. The standalone `button` type is reserve
 placed inline beside text/content — not the form's action row. Copy a `buttonGroup` from a
 seed in `assets/examples/` rather than hand-authoring the item shape.
 
-This is the highest-leverage construction rule because the QA classifier reads a form's
-*intent* (create / edit / details / read-only) **solely from `buttonGroup` item actions** —
-it never inspects standalone `button` components. A loose `button`, or a Save wired to
-anything other than `actionName: "Submit"` + `actionOwner: "shesha.form"`, triggers three
-failures from one mistake: harness check **V-A4** fails on the scattered button; the form is
-**misclassified as read-only** ("no edit intent" → then docked for having buttons at all);
-and the submit-action functional check finds nothing. So the Save item must be exactly
+This is the highest-leverage construction rule because tooling reads a form's
+*intent* (create / edit / details / read-only) **largely from `buttonGroup` item actions** —
+a standalone `button` is easy to miss. A loose `button`, or a Save wired to
+anything other than `actionName: "Submit"` + `actionOwner: "shesha.form"`, causes three
+problems from one mistake: the scattered button reads as ungrouped/inconsistent layout; the form can be
+**misread as read-only** (no detectable edit intent); and the submit action never fires.
+So the Save item must be exactly
 `actionName: "Submit"`, `actionOwner: "shesha.form"`; a Back item is `actionName: "Navigate"`,
 `actionOwner: "shesha.common"`; Cancel-on-details is `Cancel Edit` / `shesha.form`.
 
@@ -129,12 +127,12 @@ fields + one `validationErrors` + one `buttonGroup` holding **both** Submit **an
 (Back/Close/Cancel) button + the minimum structure (one `columns`/`sectionSeparator` only when
 >5 inputs). A prompt that names only fields — *"a form with one required first-name field"* —
 still gets the Submit **and** the exit button: they are part of a working form, never
-"unnecessary extras". A Submit with no exit button is the defect (fails **F-S2 / V-A3 / C6**),
+"unnecessary extras". A Submit with no exit button is the defect (an incomplete, trapped form),
 not an example of minimalism.
 
 What minimalism actually rules out is structure the request didn't call for: extra containers,
-decorative panels, duplicate wrappers, or headers the user never asked for (harness check
-**C8**). Seeds are a starting point, not a floor — after copying a seed, delete every node the
+decorative panels, duplicate wrappers, headers the user never asked for, or (for tables)
+unrequested toolbar chrome. Seeds are a starting point, not a floor — after copying a seed, delete every node the
 current request doesn't use, but never the `validationErrors` or the Submit/exit pair.
 
 **Destructive actions are NEVER primary.** Delete / Cancel / Reset get `default` or `link`
@@ -163,15 +161,15 @@ not screenshots, and clear the FE IndexedDB form cache from a static page (e.g.
 
 ## Checklist before push
 
-- [ ] `modelType` = exact `fullClassName` resolved from `EntityConfig/GetMainDataList` for this backend (no assumed `Core`/`Domain` namespace, no `object`, no invented names) — **C2**
+- [ ] `modelType` = exact `fullClassName` resolved from `EntityConfig/GetMainDataList` for this backend (no assumed `Core`/`Domain` namespace, no `object`, no invented names)
 - [ ] every input has a non-empty camelCase `propertyName` that exists in metadata
 - [ ] required fields carry `validate.required: true`
 - [ ] every dropdown has `dataSourceType`; reflists have `referenceListId` `{module, name}`
 - [ ] date properties use `dateField` (`showTime` for date-time)
-- [ ] Submit action (`Submit` / `shesha.form` or dialog footer) **and** a paired exit button on every editable form — standalone page → Back (`Navigate` / `shesha.common`), modal → `Close Dialog`, detail → `Cancel Edit` — even when the prompt never mentions buttons — **F-S2 / V-A3 / C6**
-- [ ] `validationErrors` component present whenever the form has any required input — **F-I7**
-- [ ] all action buttons wrapped in a `buttonGroup` (no standalone `button` nodes in the action row) — **V-A4**
-- [ ] component count matches the request — no padding containers/panels/wrappers — **C8**
+- [ ] Submit action (`Submit` / `shesha.form` or dialog footer) **and** a paired exit button on every editable form — standalone page → Back (`Navigate` / `shesha.common`), modal → `Close Dialog`, detail → `Cancel Edit` — even when the prompt never mentions buttons
+- [ ] `validationErrors` component present whenever the form has any required input
+- [ ] all action buttons wrapped in a `buttonGroup` (no standalone `button` nodes in the action row)
+- [ ] component count matches the request — no padding containers/panels/wrappers; tables add no unrequested toolbar chrome
 - [ ] >5 inputs structured into containers; related fields grouped together
 - [ ] labels human-readable; exactly one primary button; destructive never primary
 - [ ] consistent `layout`/`labelCol`; titled header has `fontSize`+`fontWeight`; no clipping/overflow

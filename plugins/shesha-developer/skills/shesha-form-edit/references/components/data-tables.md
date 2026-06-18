@@ -1,16 +1,30 @@
-# dataTableContext, datatable, datalist
+# datatableContext, datatable, datalist
+
+> Versions + minimal shapes: [../component-cheatsheet.md](../component-cheatsheet.md). Read that before opening a large table seed.
+
+---
+
+## Lean by default — add only what the prompt asks for
+
+A table's DEFAULT footprint is: `datatableContext` → (`datatable.quickSearch` + `datatable.pager`) → `datatable`. **Do NOT add `tableViewSelector`, `datatable.filter`, a column-toggle button, a Refresh button, or an Export button unless the prompt explicitly asks for filtering / column control / refresh / export.** The configuration-studio's table generator emits all of that chrome — when you seed from it, strip what wasn't requested. Unrequested toolbar chrome is a quality defect.
+
+**Toolbar buttons go in a `buttonGroup`, never as standalone `type:"button"` nodes** (a bare button in a toolbar is a defect, and the standalone Refresh/Columns buttons the generator emits must be removed or grouped). If the table has any action button, exactly one is `buttonType:"primary"`.
+
+**Add affordance depends on the table type:**
+- **Inline-editable table** (the prompt says "edit/add/remove *in the rows*"): add is the in-row capture row (`canAddInline:"yes"` + `newRowCapturePosition:"top"`) and a `crud-operations` column gives per-row Edit/Delete. **No toolbar "New" button** — it's redundant and there is no valid toolbar inline-add action (wiring one to `Add list items` throws "action not found"). See [inline-editable-tables.md](inline-editable-tables.md).
+- **Display / modal-CRUD table**: ONE primary "Add" button (in a `buttonGroup`) wired to `Show Dialog` opening the create form. This is the standard generator pattern.
 
 ---
 
 ## Wrapper rule (non-negotiable)
 
-**`datatable` and `datalist` MUST be wrapped in a `dataTableContext` (or `dataContext`).** Never put them at root with `entityType` / `sourceType` set on the component itself — that pattern technically renders something in some Shesha versions but is wrong and brittle:
+**`datatable` and `datalist` MUST be wrapped in a `datatableContext` (or `dataContext`).** Never put them at root with `entityType` / `sourceType` set on the component itself — that pattern technically renders something in some Shesha versions but is wrong and brittle:
 
 - The data-fetching, paging, sorting, and filtering all live on the **context wrapper**, not the table/list. Putting them on the inner component means they don't get re-evaluated when filters or sort change, and external components (toolbar buttons, refresh actions) can't target them by `actionOwner: "<contextId>"`.
-- Built-in actions (`Refresh table`, `Export to Excel`, quick-search wiring) all expect to find a `dataTableContext` ancestor. Without it, they silently no-op.
+- Built-in actions (`Refresh table`, `Export to Excel`, quick-search wiring) all expect to find a `datatableContext` ancestor. Without it, they silently no-op.
 - Sub-form-renderer datalists (`formSelectionMode: "name"` with a row-template form) inherit the row data from the context's current row. Without the context, the row template gets nothing.
 
-Common symptoms of a missing wrapper: "datalist isn't refreshing after I change the filter", "the export button does nothing", "the row template isn't seeing the row data". Walk up the `parentId` chain from the datalist; if there isn't a `dataTableContext` ancestor, that's the bug.
+Common symptoms of a missing wrapper: "datalist isn't refreshing after I change the filter", "the export button does nothing", "the row template isn't seeing the row data". Walk up the `parentId` chain from the datalist; if there isn't a `datatableContext` ancestor, that's the bug.
 
 **Only exception**: a datalist with hardcoded `items` (not entity-bound) — e.g. inline help-style display. Even then, prefer the wrapper unless you have a specific reason.
 
@@ -21,7 +35,7 @@ Common symptoms of a missing wrapper: "datalist isn't refreshing after I change 
 ```json
 {
   "id": "...",
-  "type": "dataTableContext",
+  "type": "datatableContext",
   "propertyName": "tiersContext",
   "componentName": "tiersContext",
   "sourceType": "Entity",
@@ -55,7 +69,7 @@ The `datalist` here has **no** `entityType`, **no** `sourceType`, **no** `perman
 
 ```json
 {
-  "type": "dataTableContext",
+  "type": "datatableContext",
   "sourceType": "Url",
   "endpoint": "/api/services/app/EntityHistory/GetAuditTrail?entityId={{data.id}}&entityTypeFullName={{data.modelType}}",
   // Note: mustache expressions always use {{double braces}} — single {brace} is silently ignored
@@ -70,7 +84,7 @@ The `datalist` here has **no** `entityType`, **no** `sourceType`, **no** `perman
 
 | Type | Purpose |
 |---|---|
-| `datatable` | Column-based grid view. Columns go in `items: []`. Sorting/filter/paging inherited from the wrapper. |
+| `datatable` | Column-based grid view. Columns go in `items: []`. Sorting/filter/paging inherited from the wrapper. **Inline editing** (edit/add/delete directly in rows) has its own contract — see [inline-editable-tables.md](inline-editable-tables.md). |
 | `datatable.quickSearch` | Search box that targets the wrapper's data |
 | `datatable.pager` | Pagination controls |
 | `datatable.toolbar` | Toolbar slot (Add / Refresh / Export buttons; their `actionOwner` typically references the wrapper's id) |

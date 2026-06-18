@@ -26,8 +26,56 @@
     "types": {}
   },
   "datatable": {
-    "props": [],
-    "types": {}
+    "props": [
+      "items",
+      "canEditInline",
+      "canAddInline",
+      "canDeleteInline",
+      "inlineEditMode",
+      "inlineSaveMode",
+      "newRowCapturePosition",
+      "newRowInsertPosition",
+      "crud",
+      "isNotWrapped",
+      "selectionMode",
+      "useMultiselect",
+      "freezeHeaders",
+      "flexibleHeight",
+      "noDataText",
+      "noDataSecondaryText",
+      "onRowSaveSuccessAction",
+      "onNewRowInitialize",
+      "rowDimensions",
+      "tableSettings"
+    ],
+    "types": {
+      "canEditInline": "string",
+      "canAddInline": "string",
+      "canDeleteInline": "string",
+      "inlineEditMode": "string",
+      "inlineSaveMode": "string",
+      "newRowCapturePosition": "string",
+      "newRowInsertPosition": "string",
+      "crud": "boolean",
+      "isNotWrapped": "boolean",
+      "useMultiselect": "boolean",
+      "flexibleHeight": "boolean",
+      "items": "array"
+    },
+    "_columnItemProps": [
+      "columnType",
+      "propertyName",
+      "caption",
+      "isVisible",
+      "minWidth",
+      "maxWidth",
+      "allowSorting",
+      "displayComponent",
+      "editComponent",
+      "createComponent",
+      "sortOrder",
+      "itemType"
+    ]
   },
   "datalist": {
     "props": [
