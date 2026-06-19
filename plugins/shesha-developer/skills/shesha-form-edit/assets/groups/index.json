@@ -56,7 +56,6 @@
     "fileUpload": "entity-references",
     "attachmentsEditor": "entity-references",
     "notes": "entity-references",
-    "datatableContext": "tables-and-lists",
     "datatable": "tables-and-lists",
     "datalist": "tables-and-lists",
     "datatable.pager": "tables-and-lists",

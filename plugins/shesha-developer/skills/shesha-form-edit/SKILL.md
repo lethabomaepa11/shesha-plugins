@@ -21,23 +21,22 @@ Round-trip: **GET form JSON → edit → PUT/POST it back**. Also creates new fo
 
 > **For any new table / create / detail form, start from the canonical seeds in `assets/examples/` — see [references/examples.md](references/examples.md).** They are real Shesha-standard forms (verified rendering against a live backend) and encode the CRUD wiring most models get wrong: the **Add button opens the create form in a modal** (`Show Dialog`), detail views toggle edit in place (`Start Edit`/`Submit`), child tables use `tabs` + a `permanentFilter` on `{{data.id}}`, and inputs are chosen by the property's data type ([by-datatype.md](references/components/by-datatype.md)). Copy the matching example, swap entity/properties/captions/`formId`s, re-stamp `parentId`s, push. Don't hand-author structure the examples already provide.
 
-Args received: `$ARGUMENTS`. Flags: `--refresh-cache` (ignore TTL, re-distill metadata/seeds), `--no-browser` (skip Step 9 browser smoke), `--no-design` (skip Step 0 / 9.5 design passes), `--level l1|l2|l3|l4|l5` (override Step R routing).
+Args received: `$ARGUMENTS`. Flags: `--refresh-cache` (ignore TTL, re-distill metadata/seeds), `--no-browser` (skip Step 9 browser smoke), `--no-design` (skip Step 0 / 9.5 design passes).
 
 ## Non-interactive (headless) runs — read this first
 
 When invoked non-interactively (`claude -p`, a test harness, CI) or when the task supplies a context block (Backend URL / Username / Password / Module / Working directory): **never call `AskUserQuestion` — it dead-ends the run.** Use the supplied context verbatim — it **overrides** Step 1 URL discovery, Step 2 default credentials, and the target module. Defaults for every ask-gate: Step 0 design ask → skip, author from seeds; Step 3 missing form identity → resolve from the task wording against the module's form list (`GetAll`), else create a new form named `{entity-kebab}-{type}` in the context module; push-failure menu → re-fetch & re-apply once, then stop and report; Step 9.5 → skip. **Always end with a summary naming every form created or modified (module + name + id)** — downstream evaluation identifies your work from that output.
 
-## Step R — Route by capability level (always first)
+## Step R — Scale the effort to the request (always first)
 
-| Level | Request shape | Path | Cost envelope |
-|---|---|---|---|
-| **L1** | One component / property / script / action on ONE form | Inline. Steps 1–8 only; skip Step 0; Step 9 only if the change is visual/behavioral. | minutes, no agents |
-| **L2** | Create or restructure ONE whole form (table / create / details / dialog / subform / custom) | Inline, full Steps 0–10, seed-first from `assets/examples/`. | one context |
-| **L3** | One page where backend prerequisites may not exist (entity, property, reflist, API, menu item) | Prereq gate (Step 4.5 / prereq-checker agent) BEFORE any form JSON; fix gaps via the owning skill; forms last. | one context + sibling skills |
-| **L4** | Multiple linked pages in one request (CRUD set, dashboard + drill-downs) | Orchestrate per [levels.md](references/levels.md): plan → build create→details→table → cross-link integrity pass. Don't build 3+ forms in one context. | N agents; state the cost first |
-| **L5** | A whole application from a brief/spec/image | Decompose → plan checkpoint → waves of L3/L4. | hours; confirm scope first |
+Match your process weight to the task, and **default down** when unsure:
 
-Rules: (1) **Default DOWN** — ambiguity picks the lower level; escalate only on a concrete failed check (signals + triggers: [levels.md](references/levels.md)). (2) **Route OUT non-form work** — pure backend asks (reference list, role, notification, background job, API) go straight to the sibling skill, not wrapped in form workflow. (3) `--level l1|l2|l3|l4|l5` in `$ARGUMENTS` overrides detection.
+- **A small edit** (one component / property / script / action on an existing form) → stay inline, do Steps 1–8 only, skip the design pass, and only do a browser check (Step 9) if the change is visual/behavioral. Keep it cheap — don't run the full pipeline for a one-line tweak.
+- **One whole form** (table / create / details / dialog / subform) → inline, full Steps 0–10, seed-first from `assets/examples/`.
+- **Backend prerequisites may be missing** (entity / property / reflist / API / menu item) → gate on Step 4.5 (or the `fullstack-prereq-checker` agent) and fix gaps via the owning sibling skill BEFORE writing form JSON.
+- **Multiple linked pages, or a whole app from a brief** → don't build it all in one context: plan first, then build in waves (create → details → table, then cross-link), orchestrating with `superpowers:dispatching-parallel-agents`. State the rough cost up front. See [orchestration.md](references/orchestration.md).
+
+Also **route OUT non-form work** — a pure backend ask (reference list, role, notification, background job, API) goes straight to the sibling skill, not wrapped in form workflow.
 
 ## Step 0 — Design consultation (ask first)
 
@@ -79,13 +78,15 @@ Skip if `formSettings.dataLoaderType === "none"`. Otherwise fetch the entity's m
 
 **Get the exact `modelType` string first (critical — wrong type causes 500 errors at runtime):**
 
-The `formSettings.modelType` must be the **exact registered C# class name for THIS backend** — resolve it dynamically every time; never assume or copy a namespace from this doc. The same logical entity is registered under different namespaces across Shesha/BoxStack versions: framework entities like `Person` are `Shesha.Domain.Person` on current versions but `Shesha.Core.Person` on older ones, and a backend may even carry both. **The only authority is the live `EntityConfig` for the running backend.** Getting this wrong causes 500/404 errors in the browser when the loader or `datatableContext` queries the entity (test harness check **C2** fails on any mismatch with the registered `fullClassName`).
+The `formSettings.modelType` must be the **exact registered C# class name for THIS backend** — resolve it dynamically every time; never assume or copy a namespace from this doc. The same logical entity is registered under different namespaces across Shesha/BoxStack versions: framework entities like `Person` are `Shesha.Domain.Person` on current versions but `Shesha.Core.Person` on older ones, and a backend may even carry both. **The only authority is the live `EntityConfig` for the running backend.** Getting this wrong causes 500/404 errors in the browser when the loader or `dataContext` queries the entity — any mismatch with the registered `fullClassName` is a runtime failure.
 
 Resolve it (in priority order) — and use the result verbatim:
-1. **From entity config (authoritative)**: `GET $BASE_URL/api/services/app/EntityConfig/GetMainDataList?maxResultCount=200` — find the entity by `name`, then use its **`fullClassName`** (fall back to `className`) as `modelType`. This is the same string the QA harness compares against, so it is the one that passes C2.
+1. **From entity config (authoritative)**: `GET $BASE_URL/api/services/app/EntityConfig/GetMainDataList?maxResultCount=200` — find the entity by `name`, then use its **`fullClassName`** (fall back to `className`) as `modelType`. This is the authoritative string — use it verbatim.
 2. **Cross-check against an existing form**: `GET $BASE_URL/api/services/Shesha/FormConfiguration/GetAll?maxResultCount=50` — a form bound to the same entity shows the in-use `modelType`. If existing forms disagree with each other (legacy `Shesha.Core.*` vs current `Shesha.Domain.*`), the EntityConfig `fullClassName` wins.
 
 **Entity existence check**: before building any form, verify the entity exists: `GET $BASE_URL/api/services/app/Metadata/GetProperties?container=<exactModelType>`. If the response returns an empty array or error, the entity does not exist — stop and invoke `Skill(skill="shesha-developer:domain-model")`. Never build forms for entities that don't exist; they silently fail at runtime.
+
+**If you (or `domain-model`) create or change an entity/property/reflist, the backend MUST be rebuilt and restarted before the entity is usable — follow [references/backend-restart.md](references/backend-restart.md).** Do this BEFORE building the form, and in this order: domain change → rebuild + restart (+ the 2-boot lag for new entities) → poll the entity's `…/api/dynamic/<module>/<Entity>/Crud/GetAll` until 200 → only then author/push the form. Never relaunch IIS Express outside Visual Studio (it 500s); headless runs take over :21021 with `dotnet`, attended runs hand the restart back to VS. This restart sequence is the biggest cost/failure sink when improvised — use the runbook.
 
 1. Read `formSettings.modelType` (the exact class name resolved above).
 2. Fetch `GET $BASE_URL/api/services/app/Metadata/GetProperties?container=<modelType>` — returns `result` as a direct array of properties (not wrapped). Cache to `.claude/cache/shesha-form-edit/metadata/<entity>.raw.json`.
@@ -109,7 +110,7 @@ Read **only** the topic files relevant to the edit. Most edits need 1–3 files:
 | Autocomplete, entityPicker | [references/components/selectors.md](references/components/selectors.md) |
 | Containers, card, columns, tabs | [references/components/containers.md](references/components/containers.md) |
 | Buttons, links, subForm, action wiring | [references/components/actions.md](references/components/actions.md) |
-| Datatable, datalist, datatableContext / dataContext | [references/components/data-tables.md](references/components/data-tables.md) |
+| Datatable, datalist, dataContext (data wrapper) | [references/components/data-tables.md](references/components/data-tables.md) |
 | Component selection by property data type | [references/components/by-datatype.md](references/components/by-datatype.md) |
 | Child tables on a detail view (tabs + permanentFilter) | [references/components/child-tables.md](references/components/child-tables.md) |
 | Canonical example seeds (copy these first) | [references/examples.md](references/examples.md) |
@@ -122,19 +123,23 @@ Read **only** the topic files relevant to the edit. Most edits need 1–3 files:
 | Detail page anatomy (header band, KIB, label alignment) | [references/components/detail-page-pattern.md](references/components/detail-page-pattern.md) |
 | M:M junction subtables — link, drill-down, delete/unlink | [references/components/junction-subtables.md](references/components/junction-subtables.md) |
 | Add/create dialogs, formArguments, onPrepareSubmitData | [references/components/add-dialogs.md](references/components/add-dialogs.md) |
+| Inline-editable datatables (editComponent shape, crud-operations column) | [references/components/inline-editable-tables.md](references/components/inline-editable-tables.md) |
 | Form quality contract (always-on construction rules) | [references/form-quality.md](references/form-quality.md) |
 | Adding forms to the app navigation/menu | [references/navigation-menu.md](references/navigation-menu.md) |
 | Edits across many forms (pilot-first transforms) | [references/bulk-operations.md](references/bulk-operations.md) |
 | Multi-agent fleet dispatch, verdict schemas, cost table | [references/orchestration.md](references/orchestration.md) |
 | Browser testing, IndexedDB cache, layout measurement | [references/verification.md](references/verification.md) |
 | Symptoms whose fix is backend (reflists, junction DTOs, GQL) | [references/full-stack-prereqs.md](references/full-stack-prereqs.md) |
+| Rebuild + restart the backend after a domain change (entity/migration) | [references/backend-restart.md](references/backend-restart.md) |
 
 **Touching more than ~3 forms?** Read [references/bulk-operations.md](references/bulk-operations.md) first — pilot-first is mandatory. Mutations go through **one `shesha-developer:fleet-transformer` agent** (never per-form authoring agents); audits fan out **one `shesha-developer:form-auditor` per form**. Dispatch templates + cost table: [references/orchestration.md](references/orchestration.md).
 
 **Authoring 2+ genuinely distinct new forms?** Dispatch one `shesha-developer:form-author` agent per form in parallel (each gets the seed, metadata, requirements, and an output path); you audit and push centrally afterwards. A single new form stays in-context.
 
+**Read [references/component-cheatsheet.md](references/component-cheatsheet.md) FIRST** — it has the current per-component `version` + minimal shape, so you don't burn round-trips probing for versions or read multi-thousand-line seeds. **Never read a large seed wholesale** (`employee-table.json`, `rs-detail-with-header.json`, etc. are thousands of lines — that's tens of thousands of wasted tokens); open them only with `Grep`/offset for one specific fragment. Prefer the small lean seeds (`inline-editable-table.json`, `standalone-create.json`, `rs-create-dialog.json`).
+
 **Seed discovery for new forms** (in this order):
-1. **`assets/examples/` — CANONICAL Shesha-standard seeds. Start here for any table / create / detail form.** See [references/examples.md](references/examples.md) for the index and the CRUD-loop wiring (modal Add button, Start Edit/Submit detail header, child-table tabs). Copy the matching example and change only `modelType`/`entityType`/`propertyName`/captions/`formId`s. This is the highest-priority source — these forms render correctly and follow standards.
+1. **`assets/examples/` — CANONICAL Shesha-standard seeds. Start here for any table / create / detail form.** See [references/examples.md](references/examples.md) for the index and the CRUD-loop wiring (modal Add button, Start Edit/Submit detail header, child-table tabs). Copy the matching example and change only `modelType`/`entityType`/`propertyName`/captions/`formId`s. **Prefer the small/lean seeds; never read the multi-thousand-line ones in full.** These forms render correctly and follow standards.
 2. `assets/patterns/` — other vendor seeds (index: [references/patterns.md](references/patterns.md)).
 3. `.claude/cache/shesha-form-edit/seeds/` — project-specific forms cached from prior edits.
 4. **MCP `search_forms`** — query `mcp__shesha__search_forms` for forms in this backend matching the layout type. Use the closest match as a seed; cache it under `seeds/` for next time.
@@ -148,9 +153,9 @@ Read **only** the topic files relevant to the edit. Most edits need 1–3 files:
 
 For every new or edited form, before writing a single component object:
 
-1. **List every component `type` you plan to use.** (e.g. for a table form: `container`, `text`, `button`, `datatableContext`, `datatable`)
+1. **List every component `type` you plan to use.** (e.g. for a table form: `container`, `text`, `button`, `dataContext`, `datatable`)
 
-2. **Confirm each type exists** in the component index at `assets/groups/index.json` (bundled in this skill's assets folder). If a type is missing, you have the wrong name. The index is the authoritative source for the exact `type` string used in form JSON (e.g. `datatableContext` not `dataTableContext`; `datatable` not `dataTable`).
+2. **Confirm each type exists** in the component index at `assets/groups/index.json` (bundled in this skill's assets folder). If a type is missing, you have the wrong name. The index is the authoritative source for the exact `type` string used in form JSON (e.g. `dataContext` for the table/list data wrapper; `datatable` not `dataTable`).
 
 3. **Load the group file** for each component type (the index maps type → group file). Read the group file to get the full list of valid property names, their expected types, and descriptions. Only use properties listed there — anything else will be stripped by `clean-form-config` at Step 6.
 
@@ -201,19 +206,29 @@ Common causes of failure: template literals (`` `${x}` ``) inside `dynamicEndpoi
 
 Walk tree (unique ids, valid types, valid parent chain); dead-prop check: look up each component's group in `assets/groups/index.json`, then validate its props against that group file; runtime-type checks (booleans not `"true"`, numbers not `"42"`); dropdown `values` shape (`{ id, label, value }`); `node --check` each script string. Then run the **[form-quality checklist](references/form-quality.md)** — validationErrors present, human-readable labels, dropdown sources complete, primary action visible, consistent layout.
 
-Then **invoke `clean-form-config` (mandatory, blocking)** — covers layout overflow, label-vs-propertyName refs, missing try/catch, missing async, broken script syntax:
+**Migration-safety checks (mandatory — each of these silently passed review yet crashed the live form):**
+- **Every component has an integer `version`.** A versionless component re-runs the whole legacy migration chain at render and can throw `e.match` / `reading 'migrator'` / `reading 'version'`. Flag any component object missing `version` (except pure layout slots).
+- **No `defaultValue` that is a non-string** (array/number/object). `defaultValue` is resolved as a mustache template via `.match()`; a literal array → `e.match is not a function`. Flag and remove (or convert to a data binding).
+- **Datatable `editComponent`/`createComponent` is `[not-editable]` or `{type, settings:{…}}`** — never `[default]` (→ `reading 'migrator'`), never a flat model missing the `settings` wrapper (→ `reading 'version'`). Flag either.
+- **`checkboxGroup` hardcoded options live in `items` (not `values`)** with `version: 5`.
+
+Then **invoke `clean-form-config` ONCE, right before the final push** (mandatory, blocking) — covers layout overflow, label-vs-propertyName refs, missing try/catch, missing async, broken script syntax:
 
 ```
 Skill(skill="shesha-developer:clean-form-config", args="<path to your edited form>")
 ```
 
-If validation fails, present issues to the user before pushing. **Never push a config that fails validation without user confirmation.**
+**Run it once on the finished markup — not after every intermediate edit** (re-running it per change is a large, repeated cost for no extra signal). **Known false positives — don't re-investigate or strip these:** the `dataContext` data props (`entityType`, `sourceType`, `dataFetchingMode`, `defaultPageSize`, …), container `direction`/`flexDirection`, `text.padding`, and the datatable inline props (`canEditInline`/`canAddInline`/`canDeleteInline`/`inlineEditMode`/`inlineSaveMode`) are valid and render in live forms; the bundled index just doesn't enumerate them.
+
+If validation surfaces a REAL issue, fix it before pushing. **Never push a config that fails validation without user confirmation.**
 
 **Before any bulk push (>3 forms changed): fan out `shesha-developer:form-auditor` agents — one per form** — with the verdict contract from [orchestration.md](references/orchestration.md); aggregate and never push a form with a `fail` verdict.
 
 ## Step 7 — Push
 
 Default: **UpdateMarkup** — `PUT $BASE_URL/api/services/Shesha/FormConfiguration/UpdateMarkup`, body `{ "id": "$FORM_ID", "markup": "<stringified form JSON>" }`. Build the body in Node to avoid escaping pain. See [api.md §5](references/api.md).
+
+**Scratch-script hygiene (avoids a recurring time-sink):** write build/push scripts and staged JSON into the **supplied working directory**, NOT `/tmp` — git-bash `/tmp` maps to `%TEMP%` (e.g. `C:\Users\…\AppData\Local\Temp`), which is a *different* path than Windows `C:\tmp` and from PowerShell `$env:TEMP`, so a file written by `bash` is frequently "not found" by `node`/PowerShell. Pass values into Node via **env vars** (`VAR=x node script.js`), not positional argv that the shell may not forward. Prefer **one combined fetch→mutate→push script** over many small probe commands (each round-trip is cost).
 
 Alternative: **ImportJson** — multipart upload (`ItemId` + `file`). See [api.md §6](references/api.md). Both write `Markup` on the form configuration.
 
@@ -235,9 +250,9 @@ After verifying, watch for these patterns in the browser console or from Playwri
 
 | Error | Cause | Fix |
 |---|---|---|
-| `HTTP 400` on datatableContext data load | Entity doesn't have GQL query API enabled in backend | Invoke `shesha-developer:domain-model` to enable GQL on entity, or use `sourceType: "Url"` with an explicit REST endpoint |
+| `HTTP 400` on dataContext data load | Entity doesn't have GQL query API enabled in backend | Invoke `shesha-developer:domain-model` to enable GQL on entity, or use `sourceType: "Url"` with an explicit REST endpoint |
 | `HTTP 404` on metadata fetch (`"Failed to fetch metadata of type …"`) | Wrong entity class name in `formSettings.modelType` | Re-verify entity type via `EntityConfig/GetMainDataList` or `FormConfiguration/GetAll` on existing forms |
-| `HTTP 500` on datatableContext | `entityType` or `sourceType` missing on `datatableContext` component | Add `entityType`, `sourceType: "Entity"`, `dataFetchingMode`, `defaultPageSize`, `uniqueStateId` |
+| `HTTP 500` on dataContext | `entityType` or `sourceType` missing on the `dataContext` component | Add `entityType`, `sourceType: "Entity"`, `dataFetchingMode`, `defaultPageSize`, `uniqueStateId` |
 | `JSON parse error` in browser console | Malformed script string in form markup — template literals or literal newlines | Run Step 5.5 JSON safety check; replace template literals with concatenation |
 | Form shows blank/empty without error | Short IDs (`pr1`, `btn2`) or all-`root` parentIds | Re-run `stampTree`; ensure `crypto.randomUUID()` IDs |
 | Detail form shows blank when navigated to without `?id=` | Normal — `gql` loader has no ID to fetch | This is expected; test detail forms with `?id=<real-guid>` |
@@ -259,7 +274,14 @@ Skill(skill="playwright", args="<directive from api.md §12, with FRONTEND_URL +
 
 Frontend URL: `adminportal/` (auth forms) or `publicportal/` (anonymous) — read the dev port from `<app>/.env*` or `<app>/package.json`. If neither front-end is running, skip the smoke step and warn the user.
 
-Test `*-details` forms via the **table row's view link**, never a pasted `?id=` URL — direct loads render but subtable Add/Create submits 500 (missing page context). If the browser disagrees with a verified API re-fetch, clear the **IndexedDB form cache from `/favicon.ico`** before debugging further. Verify layout claims with `getBoundingClientRect`, not screenshots. Full recipes: [references/verification.md](references/verification.md).
+Test `*-details` forms via the **table row's view link**, never a pasted `?id=` URL — direct loads render but subtable Add/Create submits 500 (missing page context). If the browser disagrees with a verified API re-fetch, clear the **IndexedDB form cache from `/favicon.ico`** before debugging further.
+
+**Verification cost discipline (this is where runs blow up — keep it tight):**
+- Assert with the **a11y snapshot** + `getBoundingClientRect`/`getComputedStyle`, **not screenshots**. Reading a full-page screenshot is ~60 KB of tokens each — take **at most ONE screenshot, at the very end** for a final visual confirmation, never one per iteration.
+- **Batch all DOM measurements into a single `evaluate` call** rather than climbing the tree across many calls.
+- Before reaching for the browser, check whether the layout question is already answered by a recipe — e.g. full-width = `flexDirection:"column"` + `alignItems:"stretch"` (see [styling-v7.md](references/components/styling-v7.md)); date renders `&#x2F;` = use `{{{triple-brace}}}`. Don't rediscover documented gotchas with a long browser loop.
+
+Full recipes: [references/verification.md](references/verification.md).
 
 **On any captured error or 4xx/5xx**: consult [references/debug.md](references/debug.md) before guessing — it maps common symptoms to causes. Quote the captured error verbatim; reference the matching row number.
 
@@ -283,11 +305,12 @@ Project-scoped learning state. **Skill reads `.summary.md` by default; opens raw
 
 ## Non-negotiables
 
-- **`datatableContext` (lowercase t) is the correct type** — `dataTableContext` (capital T) is NOT a valid type and silently renders nothing. The clean-form-config index uses `datatableContext`; use that exact string.
-- **`datatableContext` requires explicit `entityType` + `sourceType`** — it does NOT inherit from `formSettings.modelType`. A bare `datatableContext` without these props causes HTTP 500 on page load. Mandatory props: `entityType` (same value as `formSettings.modelType`), `sourceType: "Entity"`, `dataFetchingMode: "paging"`, `defaultPageSize: 10`, `uniqueStateId: "<componentName>"`, `componentName: "<name>"`, `propertyName: "<name>"`. Template:
+- **`dataContext` (v8) is the data wrapper for `datatable`/`datalist`.** It's the universal wrapper — verified to render display tables, multiselect tables, datalists, AND inline-editable tables, and it reliably fires the entity data query. Wrap every `datatable`/`datalist` in a `dataContext` carrying `sourceType: "Entity"` + `entityType` (string) + the fetching props (see the template below). The canonical seeds `employee-table.json` / `rs-table.json` use it.
+- **`dataContext` requires explicit `entityType` + `sourceType`** — it does NOT inherit from `formSettings.modelType`. A bare `dataContext` without these props causes HTTP 500 on page load. Mandatory props: `entityType` (string, same value as `formSettings.modelType`), `sourceType: "Entity"`, `dataFetchingMode: "paging"`, `defaultPageSize: 10`, `uniqueStateId: "<componentName>"`, `componentName: "<name>"`, `propertyName: "<name>"`. Template:
   ```json
   {
-    "type": "datatableContext",
+    "type": "dataContext",
+    "version": 8,
     "entityType": "<resolved modelType — exact EntityConfig fullClassName, same value as formSettings.modelType>",
     "sourceType": "Entity",
     "dataFetchingMode": "paging",
@@ -301,10 +324,14 @@ Project-scoped learning state. **Skill reads `.summary.md` by default; opens raw
   ```
 - **`parentId` on every component** — set to the direct parent's `id`; root-level components get `"root"`. Use `stampTree` (see Step 5). Missing `parentId` or all-`root` parentIds crashes the Shesha renderer with no useful error.
 - **`id` must be a real UUID** — use `crypto.randomUUID()` or `uuid.v4()`. Short placeholder IDs like `btn1`, `pr2` are NOT valid; the renderer ignores components with non-UUID ids, causing forms to render blank.
+- **Every authored component carries its component-type's current `version`** (an integer). At render Shesha runs each component's settings-migration chain as `upgrade({ ...settings, version: settings.version ?? -1 })`. A component with **no `version`** is treated as `-1`, so the ENTIRE legacy migration chain re-runs on already-current data and a step can throw (`e.match is not a function`, `Cannot read properties of undefined (reading 'migrator')` / `(reading 'version')`). Copy components from a canonical seed that carries `version`, or stamp the current version. Versions are framework-version-specific — confirm against the running app's existing forms (grep a form dump). For `@shesha-io/reactjs 0.45.x` the current values are: `checkbox`/`checkboxGroup` **5**, `textField` **6**, `numberField` **3**, `dateField` **7**, `dropdown` **7–11**, `autocomplete` **8**, `datatable` **29**, `tableViewSelector` **2**, `button` **9**, `buttonGroup` **15**, `alert` **2**.
+- **`defaultValue` is a mustache-TEMPLATE STRING, never a literal non-string.** At render the value resolver does `defaultValue.match(/{{key.accessor}}/)` to detect templates. A literal **array** (e.g. a multi-select default `["a","b"]`), **number**, or **object** has no `.match` → **`e.match is not a function`**, and the component (often the whole form) fails to render. Allowed: a plain string (returned as-is when not a `{{…}}` expression) or a mustache string. For a multi-select default (checkboxGroup / multi-`dropdown`), do NOT set a literal-array `defaultValue` — bind the value through form data / the data loader, or omit it.
+- **Datatable inline-editing column editors (verified shape):** an inline-editable `data` column's `editComponent`/`createComponent` MUST be either `{ "type": "[not-editable]" }` (read-only cell) OR `{ "type": "<editorType>", "settings": { <FULL component model: its own `type` + `version` + `editMode:"inherited"` + `hideLabel:true` + styling> } }`. **NEVER `{ "type": "[default]" }`** (only `displayComponent` resolves `[default]`; edit/create cells pass it straight to the component wrapper → `F6()["[default]"]` is `undefined` → `reading 'migrator'`), and **NEVER a FLAT model without the `settings` wrapper** (the cell wrapper reads `customComponent.settings`; flat → `undefined` → `reading 'version'`). Per-row Edit/Delete/Save controls require a `{ "columnType": "crud-operations", "sortOrder": -1, "itemType": "item" }` column, plus `canEditInline`/`canAddInline`/`canDeleteInline: "yes"` on the datatable. Full recipe + seed: [inline-editable-tables.md](references/components/inline-editable-tables.md).
+- **`checkboxGroup` hardcoded options use `items` (NOT `values`), each `{ label, value }`** — plus `version: 5`, `dataSourceType: "values"`, `referenceListId: null`, `container: {}`, `validate: {}`. (`dropdown`/`radio` use `values` with `{id,label,value}`; `checkboxGroup` is different — do not conflate.) See [dropdowns.md](references/components/dropdowns.md).
 - **CRUD wiring follows the canonical examples (`references/examples.md`), not ad-hoc navigation:**
   - **Table "Add" button** = a `buttonGroup` item with `buttonAction: "dialogue"`, `actionConfiguration.actionName: "Show Dialog"` (owner `shesha.common`), `actionArguments.formId: { name: "<create-form>", module: "<module>" }`, `modalWidth: "60%"`, `formMode: "edit"`. It opens the create form in a **modal** — verified to render the create form's fields inline. Do NOT make Add a Navigate.
   - **Detail-view lifecycle buttons** = a header `buttonGroup`: Edit → `Start Edit`, Save → `Submit`, Cancel → `Cancel Edit` (all owner `shesha.form`); optional Audit Log → `Show Dialog` → `{ name: "entity-change-audit-log", module: "Shesha" }`. The form toggles edit state in place; there is no manual navigate-back Save.
-  - **Standalone create/edit page Save + Back** = one `buttonGroup`: Save → `Submit`/`shesha.form` (primary), Back → `Navigate`/`shesha.common` (default). Copy `assets/examples/standalone-create.json` whole. **The Back button is mandatory even when the prompt mentions no buttons** (e.g. "a form with one required field") — a create form with no exit fails harness checks **F-S2 / V-A3 / C6**.
+  - **Standalone create/edit page Save + Back** = one `buttonGroup`: Save → `Submit`/`shesha.form` (primary), Back → `Navigate`/`shesha.common` (default). Copy `assets/examples/standalone-create.json` whole. **The Back button is mandatory even when the prompt mentions no buttons** (e.g. "a form with one required field") — a create form with no way out is incomplete.
   - **Toolbar Refresh / column-toggle** buttons use `actionName: "Refresh table"` / `"Toggle Columns Selector"` with `actionOwner` set to the **dataContext component's id**.
   - **Row → detail navigation** (only when a separate detail page is wanted): action column item with `columnType: "action"`, `action: "navigate"`, `targetUrl: "/dynamic/<module>/<form>?id={{selectedRow.id}}"`, `icon: "EditOutlined"`.
 - **`actionArguments.target`** for plain Navigate actions: `{ actionName: "Navigate", actionOwner: "shesha.common", actionArguments: { target: "/dynamic/..." } }`.
@@ -317,19 +344,21 @@ Project-scoped learning state. **Skill reads `.summary.md` by default; opens raw
 - **No `globalState`** for cross-form state. Default to `contexts.appContext` (app-wide) or `pageContext` (inter-page). `localStorage` / `sessionStorage` are OK only when state must survive a hard refresh AND the data is not sensitive (no auth tokens / PII) — see [shared-state.md](references/components/shared-state.md).
 - **API calls in scripts**: `try/catch` + `async/await` (no `.then()` chains) — see [scripts.md](references/components/scripts.md).
 - **Mustache expressions always use `{{double braces}}`** — e.g. `{{data.id}}`, `{{selectedRow.id}}`. Never write `{data.id}` (single brace). Single-brace expressions are silently ignored at runtime, producing empty values with no error.
+- **A domain change requires a backend rebuild + restart before the entity is usable** — follow [references/backend-restart.md](references/backend-restart.md). Order: domain change → restart → poll the entity's `…/Crud/GetAll` until 200 → then build the form. **Never relaunch IIS Express outside Visual Studio** (`hostingModel=InProcess` + `%LAUNCHER_PATH%` → 500.0 ANCM); headless = take over :21021 with `dotnet` (Kestrel), attended = hand the restart to VS. A **new** entity needs **two boots** (its dynamic CRUD controller registers a boot late). After any restart, re-verify your forms resolve by name (`GetByName`) and re-push if a live revision was orphaned.
 - **`access: 5`** on anonymous forms (login, register, OTP). Verify post-push via re-fetch.
 - **PowerShell + non-ASCII body**: pass UTF-8 bytes (em dashes / curly quotes trigger server 500 — `Unable to translate bytes [E2] ... from specified code page to Unicode`). Use `[System.Text.Encoding]::UTF8.GetBytes($jsonBody)` or `curl --data-binary @file`. And write staged JSON files **without a BOM** (`New-Object System.Text.UTF8Encoding $false`) — `Out-File -Encoding utf8` emits a BOM that breaks Node's `JSON.parse`. Recipe in [api.md](references/api.md).
 - **Human-readable labels on every field** — labels are user-facing AND how browser-based tests locate fields; a raw `propertyName` as a label fails both. Full contract: [form-quality.md](references/form-quality.md).
-- **`modelType` is resolved, never assumed** — take the exact `fullClassName` from `EntityConfig/GetMainDataList` for the running backend (Step 4.5). Never hardcode a namespace from memory or from this doc's examples; `Shesha.Core.*` vs `Shesha.Domain.*` is version-dependent and a mismatch fails QA check **C2** and 500s at runtime.
-- **A `validationErrors` component is ALWAYS in the tree** (conventionally just above the action row) **whenever the form has any required input**. Omitting it makes a failed submit render nothing and fails QA check **F-I7**. Type string is exactly `validationErrors`; it takes no props. This applies to simple forms too — it is not an "advanced" extra.
-- **Form action buttons live in a `buttonGroup`, never as standalone `button` components — and the Save button MUST carry `actionConfiguration: { actionName: "Submit", actionOwner: "shesha.form" }`.** Save/Submit, Back/Cancel, Edit, Delete, Refresh, Add — every action goes in a single `buttonGroup` (`items[]` of `{ itemType: "item", itemSubType: "button", buttonType, buttonAction, actionConfiguration }`), not as loose top-level `button` nodes. This is the **single highest-leverage rule** — a standalone `button` (type `"button"`) or a Submit wired to anything other than `Submit`/`shesha.form` cascades into THREE failures at once: (1) **V-A4** fails on the scattered button; (2) the QA classifier detects a form's *intent* ONLY from `buttonGroup` item actions — with no detectable `Submit`/`shesha.form` action it sees "no edit intent" and **misclassifies an editable form as read-only** (then penalises it for having buttons), and (3) the submit-button functional check can't find the action. The standalone `button` type in [actions.md](references/components/actions.md) is reserved for rare inline-in-content cases (e.g. a button beside a paragraph), never the form's action row. A **Back** button is a `buttonGroup` item with `actionName: "Navigate"` (owner `shesha.common`). Canonical structure: copy a `buttonGroup` from a seed in `assets/examples/`.
-- **Minimal component count — add only what the request needs, but the Submit + exit pair is part of the floor, not an extra.** Every editable form is exactly: the requested input fields + a `validationErrors` + one `buttonGroup` holding **both Submit and an exit (Back/Close/Cancel) button** + the minimum structure to satisfy layout (one `columns`/`sectionSeparator` when >5 inputs). A terse prompt that names only fields ("a form with one required first-name field") still gets the Submit **and** the exit button — they are part of a working form, never "unnecessary extras", and a Submit with no exit fails **F-S2 / V-A3 / C6**. What **C8** rules out is padding the user didn't ask for: extra containers, decorative panels, headers, or duplicate wrappers. Seeds are a starting point: after copying, strip every node the current request doesn't use — but never the `validationErrors` or the Submit/exit pair.
+- **`modelType` is resolved, never assumed** — take the exact `fullClassName` from `EntityConfig/GetMainDataList` for the running backend (Step 4.5). Never hardcode a namespace from memory or from this doc's examples; `Shesha.Core.*` vs `Shesha.Domain.*` is version-dependent and a mismatch 500s at runtime.
+- **A `validationErrors` component is ALWAYS in the tree** (conventionally just above the action row) **whenever the form has any required input**. Omitting it makes a failed submit render nothing — the user sees a dead form. Type string is exactly `validationErrors`; it takes no props. This applies to simple forms too — it is not an "advanced" extra.
+- **Form action buttons live in a `buttonGroup`, never as standalone `button` components — and the Save button MUST carry `actionConfiguration: { actionName: "Submit", actionOwner: "shesha.form" }`.** Save/Submit, Back/Cancel, Edit, Delete, Refresh, Add — every action goes in a single `buttonGroup` (`items[]` of `{ itemType: "item", itemSubType: "button", buttonType, buttonAction, actionConfiguration }`), not as loose top-level `button` nodes. This is the **single highest-leverage rule** — a standalone `button` (type `"button"`) or a Submit wired to anything other than `Submit`/`shesha.form` causes three problems at once: (1) the scattered button reads as ungrouped/inconsistent layout; (2) tooling that infers a form's *intent* from its `buttonGroup` item actions can misread an editable form as read-only when there's no proper `Submit`/`shesha.form` action to detect; and (3) the submit wiring never fires. The standalone `button` type in [actions.md](references/components/actions.md) is reserved for rare inline-in-content cases (e.g. a button beside a paragraph), never the form's action row. A **Back** button is a `buttonGroup` item with `actionName: "Navigate"` (owner `shesha.common`). Canonical structure: copy a `buttonGroup` from a seed in `assets/examples/`.
+- **Minimal component count — add only what the request needs, but the Submit + exit pair is part of the floor, not an extra.** Every editable form is exactly: the requested input fields + a `validationErrors` + one `buttonGroup` holding **both Submit and an exit (Back/Close/Cancel) button** + the minimum structure to satisfy layout (one `columns`/`sectionSeparator` when >5 inputs). A terse prompt that names only fields ("a form with one required first-name field") still gets the Submit **and** the exit button — they are part of a working form, never "unnecessary extras", and a Submit with no exit is an incomplete form. What to avoid is padding the user didn't ask for: extra containers, decorative panels, headers, or duplicate wrappers, and (for tables) unrequested toolbar chrome. Seeds are a starting point: after copying, strip every node the current request doesn't use — but never the `validationErrors` or the Submit/exit pair.
 
 ## Required skill & agent invocations
 
 | Trigger | Invoke | Strength |
 |---|---|---|
 | Entity/property/reflist missing or broken (Step 4.5 gate) | `shesha-developer:domain-model` | MUST before any form push |
+| After a domain change (entity/property/reflist/migration created) | [backend-restart.md](references/backend-restart.md) runbook (rebuild + restart + 2-boot + poll CRUD) | MUST before building the form |
 | New entity-bound form / unverified entity this session | `shesha-developer:fullstack-prereq-checker` agent | MUST (block until `ready`) |
 | Form needs a custom (non-dynamic) endpoint for a Url-source or submit | `shesha-developer:shesha-app-layer` | MUST before wiring the endpoint |
 | Every push (Step 6) | `shesha-developer:clean-form-config` | MUST (respect its documented false positives) |

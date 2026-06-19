@@ -204,3 +204,28 @@ Note: `fontSize` as a direct prop uses Tailwind class strings (`"text-xs"`, `"te
 4. Move any margin/padding values from the old `style` return into `stylingBox`.
 5. Move `backgroundColor` → `background.color`, `borderRadius` → `border.radius.all`, `boxShadow` → `shadow.*`.
 6. Remove `shadowStyle` if present (v6 relic).
+
+---
+
+## Recipe: make a child fill its parent's full width
+
+A single child of a container sizes to its **content** (~700px), not the parent (e.g. a
+`dataContext` inside a `sha-index-table-full` container looks narrow even though the container
+is full width). The v7 renderer **ignores the legacy `direction: "vertical"`** prop. Fix by making
+the container a column flexbox that stretches its children:
+
+```jsonc
+{ "type": "container", "version": 7, "flexDirection": "column", "display": "flex",
+  "alignItems": "stretch" /* + width 100% via desktop.dimensions if needed */ }
+```
+
+`flexDirection: "column"` + `alignItems: "stretch"` makes the child fill the parent's width.
+(Verified: this turns a 700px list into a full-width one.) Set it up front for any "full width /
+stretch across the page" request — don't burn a browser DOM-climbing loop rediscovering it.
+
+## Recipe: `text` component content escaping (`{{{triple-brace}}}`)
+
+The `text` component renders its `content` via Mustache. `{{double-brace}}` **HTML-escapes** the
+value — so a date/path like `2023/11/17` renders as `2023&#x2F;11&#x2F;17`. Use **triple-brace**
+`{{{creationTime}}}` for raw/unescaped output. (Don't also apply a `date-time` `dataType` on top of
+triple-brace — that double-renders the value.)

@@ -168,7 +168,7 @@ On junction rows delete = **unlink**; on owned children delete = destroys the en
 ```
 
 - `<Entity>` = the enclosing `dataContext.entityType` (the junction on M:M tabs).
-- Resolve the Refresh owner by **walking the datatable's parent chain to the first `dataContext`/`datatableContext`** — NOT `datatable.parentId`, which is a container on table pages.
+- Resolve the Refresh owner by **walking the datatable's parent chain to the first `dataContext`/`dataContext`** — NOT `datatable.parentId`, which is a container on table pages.
 - **NEVER** `actionName: "Delete row"` with `actionOwner: "table"` — throws *"Action 'Delete row' in the owner 'table' not found"*.
 - `canDeleteInline: "yes"` alone shows **nothing** on a read-only display table.
 - **Verify soft-deletes via `Crud/GetAll` `totalCount === 0`** filtered on the row id — never via `Crud/Get?id=` (Get skips the soft-delete filter and happily returns deleted rows).

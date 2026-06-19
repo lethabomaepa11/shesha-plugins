@@ -54,4 +54,8 @@ Find the reference-list name from the property metadata: `referenceListName` + `
 
 > A bare `autocomplete`/`entityPicker` with no `entityType` renders an empty box. A `dropdown` without `dataSourceType` renders no options. Always set the data-source config.
 
+## As a datatable inline-edit column editor
+
+The SAME component types above are the editors for inline-editable datatable columns — but they are nested under the column's `editComponent`/`createComponent` as `{ "type": "<editorType>", "settings": { <the full component model from this table, incl `version` + `editMode:"inherited"` + `hideLabel:true`> } }`, NOT placed directly. The column's `propertyName` provides the binding, so the `settings` is widget config only (no `propertyName` needed). Map: string→`textField`, number→`numberField`, date→`dateField`, reference-list-item→`dropdown` (referenceList), entity FK→`autocomplete`. Read-only columns use `{ "type": "[not-editable]" }`. Never `[default]`, never a flat (un-`settings`-wrapped) model. Full recipe: [inline-editable-tables.md](inline-editable-tables.md).
+
 > **When you copy a dropdown/autocomplete from a seed, you MUST override its data-source for the new field.** A copied dropdown keeps the seed's `referenceListId`/`referenceListName` (e.g. it'll still point at `EmploymentType`), and a copied autocomplete keeps the seed's `entityType`. Always replace `referenceListId`+`referenceListName` (dropdown) or `entityType` (autocomplete) with the new field's own values — verified: forgetting this makes the field show the wrong list's options.

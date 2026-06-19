@@ -4,8 +4,8 @@ All interactive — require `editMode: "editable"`.
 
 > **Action rows use `buttonGroup`, not standalone `button`.** Every form action (Save/Submit,
 > Back, Cancel, Edit, Delete, Refresh, Add) belongs inside a single `buttonGroup` as an
-> `items[]` entry. A loose top-level `button` in the action row fails QA check **V-A4**
-> ("buttons grouped in a buttonGroup"). Reserve the standalone `button` below for a button
+> `items[]` entry. A loose top-level `button` in the action row reads as ungrouped/inconsistent
+> layout (and a Refresh/Columns button in a table toolbar is the same defect). Reserve the standalone `button` below for a button
 > placed inline beside text/content (e.g. a link-style action next to a paragraph) — not the
 > form's primary action row. See [buttonGroup](#buttongroup-action-row--preferred) first.
 

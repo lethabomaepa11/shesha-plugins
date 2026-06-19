@@ -86,7 +86,7 @@ const SCRIPT_KEYS = [
   'customSubmit', 'validator',
 ];
 
-const STRUCTURAL_TYPES = new Set(['container', 'card', 'columns', 'tabs', 'dataTableContext']);
+const STRUCTURAL_TYPES = new Set(['container', 'card', 'columns', 'tabs', 'dataContext']);
 
 function summarizeForm(form, name) {
   const counts = {};

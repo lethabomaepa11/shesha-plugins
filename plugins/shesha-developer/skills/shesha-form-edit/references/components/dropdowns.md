@@ -61,9 +61,48 @@ Validation: when `dataSourceType === "values"`, each item in `values` is `{ id, 
 
 ---
 
-## radio / checkboxGroup
+## radio
 
-Same `dataSourceType` rules as `dropdown` (above). `radio` is single-select; `checkboxGroup` is multi-select.
+Same `dataSourceType` rules as `dropdown` (above). `radio` is single-select.
+
+---
+
+## checkboxGroup (multi-select)
+
+**`checkboxGroup` does NOT match `dropdown`'s shape — do not conflate them.** Verified against a working form:
+
+- Hardcoded options live in **`items`** (NOT `values`), and each item is **`{ label, value }`** (no `id` needed — the renderer auto-assigns one).
+- Carries **`version: 5`**, plus `dataSourceType: "values"`, `referenceListId: null`, `container: {}`, `validate: {}`.
+- For a reference-list source, use `dataSourceType: "referenceList"` + `referenceListId: { module, name }` (same as dropdown), with `items`/`values` null.
+
+```json
+{
+  "id": "...",
+  "type": "checkboxGroup",
+  "propertyName": "operatingSystems",
+  "label": "Operating Systems",
+  "version": 5,
+  "dataSourceType": "values",
+  "mode": "multiple",
+  "direction": "vertical",
+  "editMode": "readOnly",
+  "referenceListId": null,
+  "container": {},
+  "validate": {},
+  "items": [
+    { "label": "Windows", "value": "windows" },
+    { "label": "Linux", "value": "linux" }
+  ]
+}
+```
+
+**Do NOT give a checkboxGroup (or any multi-select) a literal-array `defaultValue`** — see the `defaultValue` rule below. To pre-select values on a display form, bind through form data / a data loader rather than `defaultValue`.
+
+---
+
+## `defaultValue` is a mustache template string — never a literal non-string
+
+The framework resolves `defaultValue` at render via `defaultValue.match(/{{key.accessor}}/)`. A plain string is returned as-is (when it isn't a `{{…}}` expression); a mustache string is resolved against form data. But a literal **array** (e.g. a multi-select default `["a","b"]`), **number**, or **object** has no `.match` → **`e.match is not a function`** and the component fails to render (`'checkboxGroup' has configuration issue(s) — e.match is not a function`). Only ever set `defaultValue` to a string. For multi-value defaults, omit it and bind via data.
 
 ---
 

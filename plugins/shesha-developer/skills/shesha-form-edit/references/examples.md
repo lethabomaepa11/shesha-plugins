@@ -19,6 +19,7 @@ These contain template tokens `{{GEN_KEY}}` / `{{NEW_KEY}}` for some ids — rep
 | Need | Example file | Use when |
 |---|---|---|
 | List/index page | `assets/examples/employee-table.json` | "table form", "list of X", "manage X" |
+| Inline-editable table (edit/add/delete in-row) | `assets/examples/inline-editable-table.json` | "edit details / add / remove **directly inside the rows**", inline-CRUD grid — has `crud-operations` column + concrete `{type, settings}` editors. See [components/inline-editable-tables.md](components/inline-editable-tables.md) |
 | Create / edit in modal | `assets/examples/employee-create.json` | the form the table's **Add** button opens; submit comes from the modal footer (no in-form button row) |
 | Standalone create / edit **page** (own Save + Back) | `assets/examples/standalone-create.json` | a full-page create/edit form the user opens directly (not in a modal), e.g. "create a person form" or "a form with a required first-name field" — the Save + Back row is mandatory even when the prompt never mentions buttons; see note below |
 | Detail page, no children | `assets/examples/employee-detail-without-child-tables.json` | a standalone record view with the **Start Edit / Save / Cancel Edit toggle** lifecycle |
@@ -35,20 +36,18 @@ on any "create a form for X" / "make me a person form" request, including terse 
 
 **The Save + Back row is mandatory even when the prompt says nothing about buttons.** Requests
 like *"a person form with one required first-name field"* describe only the fields, but a
-create form with no way out fails the deterministic harness check **F-S2** (and cascades into
-**V-A3** and **C6**). The exit button is implied by create/edit intent — don't wait for the
-user to ask for it. (This was a real eval miss: a one-field form shipped with Save but no
-Back and lost 3 checks.)
+create form with no way out is incomplete — a user who can save must be able to leave without
+saving. The exit button is implied by create/edit intent — don't wait for the user to ask for
+it. (This was a real miss: a one-field form shipped with Save but no Back.)
 
 Key points the seed already encodes — preserve them:
 
 - `editMode: "editable"` on the inputs (a standalone create/edit page is always in edit mode —
   `inherited` renders dead inputs here; that mode is only for the toggle-lifecycle detail view).
-- The `validationErrors` component (mandatory once any field is required — **F-I7**).
+- The `validationErrors` component (mandatory once any field is required).
 - Buttons live **inside the `buttonGroup`**, never as standalone `type: "button"` components —
-  the QA classifier reads form intent only from `buttonGroup` items, so loose buttons get the
-  form misread as read-only and fail the button-grouping check. Full reasoning:
-  [form-quality.md](form-quality.md).
+  tooling reads form intent largely from `buttonGroup` items, so loose buttons can get the
+  form misread as read-only. Full reasoning: [form-quality.md](form-quality.md).
 
 Beyond that floor, don't add what the request didn't ask for — no extra panels, no `modelType`
 debug text. Match the component count to the field list + validationErrors + the one buttonGroup
@@ -84,7 +83,7 @@ The captured `employee-table` Add button has `handleSuccess: false`, so creating
 
 ## Non-obvious specifics the examples encode
 
-- **Data context type is `dataContext`** (canonical here) with `sourceType: "Entity"`, `entityType: "<full.Class.Name>"`, `dataFetchingMode: "paging"`, `defaultPageSize: 10`, `uniqueStateId`, `componentName`, `propertyName`, `sortMode: "standard"`, `allowReordering: "no"`. (`datatableContext` is an accepted alias but match the example and use `dataContext`.)
+- **Data context type is `dataContext`** (canonical here) with `sourceType: "Entity"`, `entityType: "<full.Class.Name>"`, `dataFetchingMode: "paging"`, `defaultPageSize: 10`, `uniqueStateId`, `componentName`, `propertyName`, `sortMode: "standard"`, `allowReordering: "no"`. (`dataContext` is an accepted alias but match the example and use `dataContext`.)
 - **Toolbar buttons are context-scoped**: Refresh = `actionName: "Refresh table"`, column toggle = `"Toggle Columns Selector"`, both with `actionOwner` set to the **dataContext component's id** (not `shesha.common`).
 - **Layout uses a `columns` component** named `detailsPanel`, `hideLabel: true`, `gutterX: 10`, `gutterY: 10`, two columns each `flex: 12` (24-grid → 50/50). Fields go inside the columns' `components`.
 - **Component choice is driven by the property's data type** — see [components/by-datatype.md](components/by-datatype.md).

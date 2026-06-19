@@ -56,7 +56,6 @@
     "fileUpload": "entity-references",
     "attachmentsEditor": "entity-references",
     "notes": "entity-references",
-    "datatableContext": "tables-and-lists",
     "dataContext": "tables-and-lists",
     "datatable": "tables-and-lists",
     "datalist": "tables-and-lists",
@@ -77,7 +76,6 @@
     "tabs": "layout",
     "wizard": "layout",
     "subForm": "layout",
-    "menuList": "layout",
-    "dataContext": "tables-and-lists"
+    "menuList": "layout"
   }
 }

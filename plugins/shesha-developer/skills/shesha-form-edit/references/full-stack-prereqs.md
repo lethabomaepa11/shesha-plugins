@@ -47,6 +47,22 @@ Read when a correctly-authored form misbehaves at runtime. Every section: **symp
 
 ---
 
+## 3b. Domain change made but not visible — backend not (properly) restarted
+
+**Symptom:** you (or `domain-model`) created/changed an entity + migration, but the new entity/property
+still 404s on `Metadata/GetProperties` or `…/Crud/GetAll`, OR the whole app returns
+**`HTTP 500.0 — ANCM In-Process handler load failure`** after a restart attempt.
+
+**Backend causes + fixes:**
+- A code-first domain change only applies after a **rebuild + restart** (Shesha runs migrations + seeds `EntityConfig` on startup). Runtime/`ModelConfigurations` entities are metadata-only (no table) — not a no-restart shortcut.
+- **`500.0 ANCM in-process`** = IIS Express was relaunched outside Visual Studio (`hostingModel=InProcess` needs VS's `%LAUNCHER_PATH%`). Don't relaunch IIS Express; use the Kestrel `dotnet` path.
+- **New entity still 404s after one restart** = the dynamic CRUD controller registers only on the boot *after* `EntityConfig` is seeded — restart **twice** for a brand-new entity.
+- **A previously-edited form 404s on `GetByName` after the restart** (while `GetJson?id=` works) = startup config bootstrappers orphaned its live revision — re-push via `UpdateMarkup`.
+
+**Full procedure (headless takeover vs VS hand-off, the 2-boot lag, form re-verify):** [backend-restart.md](backend-restart.md).
+
+---
+
 ## 4. Dynamic CRUD is not interceptable
 
 **Symptom:** you write a custom app service to add server-side behavior (e.g. block delete when children exist) and the form's table still hits the old behavior.

@@ -106,17 +106,17 @@ Output format:
 
 ---
 
-## Check L5 — datatable / datalist outside a datatableContext
+## Check L5 — datatable / datalist outside a dataContext
 
 **Trigger:** Any component whose `type` is `"datatable"` or `"datalist"`.
 
-**Rule:** Both components require a `datatableContext` (or the legacy `"tableContext"`) ancestor in order to receive data. A `datatable` or `datalist` placed at the root level, or nested only inside layout containers (card, panel, container, columns, tabs, etc.), will render but show no data.
+**Rule:** Both components require a `dataContext` ancestor (the data wrapper that fetches the rows) in order to receive data. A `datatable` or `datalist` placed at the root level, or nested only inside layout containers (card, panel, container, columns, tabs, etc.), will render but show no data.
 
 **How to check:**
 
 1. Walk the component's ancestor chain (via `parentId` lookups) up to the form root.
 2. At each ancestor, check `ancestor.type`.
-3. Pass if **any** ancestor has `type === "dataContext"` (current) or `type === "datatableContext"` (legacy).
+3. Pass if **any** ancestor has `type === "dataContext"`.
 4. Fail (flag as `[MANUAL REVIEW]`) if no such ancestor is found.
 
 Layout-only container types to skip past (not data contexts): `container`, `card`, `collapsiblePanel`, `columns`, `sizableColumns`, `tabs`, `wizard`, `drawer`, `subForm`, `space`, `section`, `sectionSeprator`.
@@ -124,8 +124,8 @@ Layout-only container types to skip past (not data contexts): `container`, `card
 Output format:
 
 ```
-  • "MyTable" (datatable) — not inside a datatableContext; will show no data [MANUAL REVIEW]
-  • "ResultList" (datalist) — not inside a datatableContext; will show no data [MANUAL REVIEW]
+  • "MyTable" (datatable) — not inside a dataContext; will show no data [MANUAL REVIEW]
+  • "ResultList" (datalist) — not inside a dataContext; will show no data [MANUAL REVIEW]
 ```
 
 ---
