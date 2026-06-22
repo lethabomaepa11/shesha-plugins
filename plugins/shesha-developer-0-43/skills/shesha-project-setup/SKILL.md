@@ -241,6 +241,32 @@ Parse the JSON output:
 - `buildPass` — whether the build still passes
 - If `buildPass` is false, check `errors` and address critical issues (warnings are acceptable)
 
+### 6.3 Configure .shaconfig Auto-Embedding
+
+Find the Application project `.csproj` (typically `<AppName>.Application.csproj`) using the paths discovered in Phase 1.
+
+Search the `.csproj` for any existing `.shaconfig` entries:
+
+```xml
+<EmbeddedResource Include="ConfigMigrations\*.shaconfig"
+```
+
+- If the wildcard pattern already exists, skip — already configured.
+- If individual `<EmbeddedResource>` entries exist for `.shaconfig` files, remove them — the wildcard pattern below replaces them.
+
+Add the following two `ItemGroup` blocks inside the root `<Project>` element, near other `ItemGroup` entries:
+
+```xml
+<ItemGroup>
+  <None Remove="ConfigMigrations\*.shaconfig" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="ConfigMigrations\*.shaconfig" />
+</ItemGroup>
+```
+
+Both entries are required — `None Remove` prevents a duplicate item build error; `EmbeddedResource Include` embeds the files into the DLL. After this, any `.shaconfig` file added to `ConfigMigrations/` is automatically embedded on the next build with no further `.csproj` edits.
+
 ---
 
 ## Phase 7: Summary Report
@@ -275,6 +301,7 @@ MCP Servers:
 Dev Environment:
   - CLAUDE.md:     Created / Updated
   - Analyzers:     {summary of added/updated/unchanged}
+  - .shaconfig Embed: Configured / Already Present
   - Credentials:   Saved to .sheshadev.local.json
   - .gitignore:    Updated (if needed)
 
