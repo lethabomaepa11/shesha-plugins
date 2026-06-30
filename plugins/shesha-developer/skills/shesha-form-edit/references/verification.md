@@ -80,7 +80,7 @@ Example assertions that have caught real regressions:
 - `border-left: 1px solid rgb(217,217,217)` on KIB columns 2+.
 - `.sha-page-content` padding `12px → 0px` after appending the `no-padding` class.
 - Toolbar↔table left alignment via the `sha-index-table-control` class: measure the quick-search box's x-offset relative to the datatable edge (a −8px overhang means the class is missing).
-- Squeezed/scrolling header containers: fix is `dimensions.minHeight: 'fit-content'` (runtime-verified; not in the groups index — clean-form-config may flag it; do NOT strip) — `dimensions` is the only channel reaching the container's outer div; see [style-channels.md](style-channels.md).
+- Squeezed/scrolling header containers: fix is `dimensions.minHeight: 'fit-content'` (runtime-verified; not in the groups index — clean-form-config may flag it; do NOT strip) — `dimensions` is the only channel reaching the container's outer div; see `style-channels.md` (in `shesha-design-system`).
 
 For pixel-parity work ("match the reference form"), compare **computed** styles in-browser AND do a bidirectional full-key JSON diff — identical-looking designer props can render differently because of one extra key (e.g. a stray `font.color`).
 

@@ -7,7 +7,7 @@ description: Use when a Shesha form must match a specific visual design and cont
 
 ## Overview
 
-**Core principle: placement is measured, not guessed.** When a form is built from a *prose* description of a design ("a header, then a two-column body, then related panels"), the builder has to re-imagine where every container sits — so columns, nesting depth, tab assignment and grouping drift. This skill removes the guessing: it produces a **layout blueprint** — a hybrid-Markdown intermediate representation that carries the *exact* container tree, grid column counts, spans, tab keys and field bindings — and then **verifies the built Shesha form against that blueprint by re-measuring the rendered DOM**. The blueprint is a placement *contract*, and the verification loop enforces it.
+**Core principle: placement is measured, not guessed.** When a form is built from a *prose* description of a design ("a header, then a two-column body, then related panels"), the builder has to re-imagine where every container sits — so columns, nesting depth, tab assignment and grouping drift. This skill removes the guessing: it produces a **layout blueprint** — a hybrid-Markdown intermediate representation that carries the *exact* container tree, flex-row split-child counts, native widths, tab keys and field bindings — and then **verifies the built Shesha form against that blueprint by re-measuring the rendered DOM**. The blueprint is a placement *contract*, and the verification loop enforces it.
 
 This is the layer between "I have a design" and "build the form". It does **not** author form JSON, pick colours, or push — it tells the builder *exactly what to build where*, and checks that it did.
 
@@ -55,15 +55,15 @@ markitdown (MCP `convert_to_markdown`, or the CLI) **flattens 2-D layout by desi
 |---|---|
 | Print the browser_evaluate payload (this environment) | `node scripts/layout-probe.js --emit-eval --screen <name>` then pass it to `mcp__playwright__browser_evaluate` |
 | Run locally (CI / playwright installed) | `node scripts/layout-probe.js --url <url> --screen <name> --out <file>.json` |
-| Read the signal | the `multiColumnContainers` array = column count + child widths per container; normalise widths to /24 for the blueprint |
+| Read the signal | the `multiColumnContainers` array = split-child count + child widths per container; record widths in native units (px/fr/%) and map each child to a flex-container `desktop.dimensions.width` (calc / % / px) for the blueprint |
 
-Pin **one** viewport (default 1440×900) for *both* capture and verification. Probe output is structural — assert on column **membership / grouping / nesting depth / tab key**, never absolute pixels.
+Pin **one** viewport (default 1440×900) for *both* capture and verification. Probe output is structural — assert on split-child **membership / grouping / nesting depth / tab key**, never absolute pixels.
 
 ## Non-negotiables
 
-- **Measure, don't guess.** Every grid column count / span in a blueprint must come from a probe measurement, a parsed source grid template, or (Tier C only) explicit vision reading — never from prose intuition. Stamp the blueprint with its fidelity tier and confidence.
+- **Measure, don't guess.** Every split-child count / span in a blueprint must come from a probe measurement, a parsed source grid template, or (Tier C only) explicit vision reading — never from prose intuition. Stamp the blueprint with its fidelity tier and confidence.
 - **The blueprint is a contract.** Whatever the `assertions` block states MUST be re-verified after the build. A blueprint without verification is just a prettier prose brief.
-- **Normalise to Shesha's grid.** Express spans both in native units (px/fr) and normalised to the 24-column AntD flex grid (`columns.flex`, total 24). A fixed-width rail (e.g. 332px) is recorded as native px **and** its /24 approximation; the diff accepts the /24 mapping and only fails on wrong cluster/parent/tab.
+- **Express splits as flex-container children — NEVER the Shesha `columns` component.** A split is built as a `container` with `display:"flex"` + `flexDirection:"row"` + a `gap` (every flex container MUST set `display:"flex"` or `flexDirection`/`gap` are inert and children stack full-width). Record spans in **native units (px/fr/%)** and map each split child to that child container's **`desktop.dimensions.width`** — the ONLY channel that reaches the child's outer div: a filling main column = `width:"calc(100% - <rail+gap>px)"` (e.g. `"calc(100% - 348px)"` for a 332px rail + 16px gap); a fixed rail = `width:"332px"` with matching `minWidth`/`maxWidth`. A fixed-width rail (e.g. 332px) is recorded as native px **and** as the `width:"332px"` it builds to. Per-child `customStyle:{flex:…}` is **INERT** for outer sizing (it lands on the inner div) — do NOT express spans as `customStyle flex`, and never as a `columns` component. The diff asserts cluster membership / grouping / nesting depth / tab key — never pixels.
 - **Stay in your lane.** Produce blueprints + verification verdicts. Never author form JSON, never set colours, never push — route those to `shesha-form-edit` and `shesha-design-system`.
 - **One viewport.** Never compare measurements taken at different viewports; record the viewport in every capture.
 
@@ -71,7 +71,7 @@ Pin **one** viewport (default 1440×900) for *both* capture and verification. Pr
 
 - **Reading markitdown output as layout.** It is reading-order, not placement. Use it for content/labels only.
 - **Parsing the compiled/offline single-file bundle.** A minified app bundle yields gibberish — *run* it (Tier B) and probe the rendered DOM, or read the un-minified source (Tier A).
-- **Asserting pixels.** Responsive reflow and the pixel↔24-col mapping make pixel asserts brittle. Assert membership/grouping/depth/tab.
+- **Asserting pixels.** Responsive reflow and the pixel↔`calc()`/% width mapping make pixel asserts brittle. Assert membership/grouping/depth/tab.
 - **Skipping the re-probe.** If you don't measure the built form, you haven't verified placement — you've only re-described it.
 
 ## Relationship to the other skills

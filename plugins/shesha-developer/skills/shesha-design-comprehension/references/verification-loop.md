@@ -13,27 +13,27 @@ Runs as **gate 5a.5** in `shesha-claude-designer` — after structural integrity
 5. **Diff actual vs the blueprint `assertions`** — structurally, not by pixels (next section).
 6. **Route mismatches back to `shesha-form-edit`** as concrete fixes; rebuild → re-publish → clear cache → re-probe → re-diff until every assertion passes.
 
-## What to diff (and why it survives the pixel↔24-col gap)
+## What to diff (and why it survives the pixel↔width-expression gap)
 
-Assert on properties that are stable across the design's pixel grid and Shesha's 24-column AntD grid:
+Assert on properties that are stable across the design's pixel grid and Shesha's flex-container `calc()`/% widths:
 
 | Dimension | How to measure from the probe | Example assertion |
 |---|---|---|
-| **Column membership** | which x-cluster a node falls in (`colIndex` within its parent) | "both related panels in the RIGHT cluster" |
+| **Split-cell membership** | which x-cluster a node falls in (`colIndex` within its parent) | "both related panels in the RIGHT cluster" |
 | **Row grouping** | nodes sharing a `rowBand` (y-band) | "Details rows are 2-cell, label and control on one row" |
 | **Nesting depth / parent** | the `parentId` ancestor chain | "panels are children of the rail column, not the page root" |
 | **Tab assignment** | which tab panel a node lives under | "child table X is under the 'Endpoints' tab" |
 | **Split ratio (range)** | left:right width ratio, with tolerance | "left ≥ 2.5× right; rail ≈ 332px ± 40" |
 
-**Never** assert absolute pixels or exact /24 numbers — a `minmax(0,1fr) 332px` design grid is *satisfied* by an 18/6 (or 16/8) Shesha split. Fail only on **wrong cluster / wrong parent / wrong tab / ratio out of range**.
+**Never** assert absolute pixels or exact width expressions — a `minmax(0,1fr) 332px` design grid is *satisfied* by a flex-row split whose fill cell is `width:"calc(100% - 356px)"` and whose rail cell is a fixed `width:"332px"` (the ratio, not the exact calc, is what matters). Fail only on **wrong cluster / wrong parent / wrong tab / ratio out of range**.
 
 ## Routed-fix vocabulary (speak `shesha-form-edit`'s language)
 
 A failing assertion becomes an instruction phrased in the builder's terms, e.g.:
 
-> **A2 FAIL** — `Required End-points` panel measured in the LEFT x-cluster (x≈40, colIndex 0) but the blueprint asserts the RIGHT rail. *Fix:* move that panel's node into the right `columns` slot; ensure the body `columns` carries `flex:[18,6]` and the rail column has a complete flex block (a column with no flex block collapses to the left).
+> **A2 FAIL** — `Required End-points` panel measured in the LEFT x-cluster (x≈40, colIndex 0) but the blueprint asserts the RIGHT rail. *Fix:* move that panel's node into the right flex `container` row; ensure the body row carries `display:"flex"` + `flexDirection:"row"` + `gap`, the fill cell has `desktop.dimensions.width:"calc(100% - 356px)"` and the rail cell has its own `desktop.dimensions.width:"332px"` (a cell with no width set grows/shrinks freely and can collapse to the left).
 
-> **A4 FAIL** — `Details` rows measured full-width (one node per rowBand) but blueprint asserts 2-cell rows. *Fix:* wrap each label+control in a 2-column `columns` (`flex:[?,?]`), or use the detail-attributes recipe's label/value row.
+> **A4 FAIL** — `Details` rows measured full-width (one node per rowBand) but blueprint asserts 2-cell rows. *Fix:* wrap each label+control into a 2-cell flex row — a `container` with `display:"flex"` + `flexDirection:"row"` + `gap` whose two child `container`s each carry a `desktop.dimensions.width` — or use the detail-attributes recipe's label/value row.
 
 Keep each fix to: the failing assertion id, the measured fact (with numbers), the asserted fact, and the structural change in `shesha-form-edit` terms.
 

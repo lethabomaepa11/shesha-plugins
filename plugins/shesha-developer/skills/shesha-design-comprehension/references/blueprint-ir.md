@@ -4,9 +4,9 @@ The intermediate representation that carries a screen's placement from design to
 
 ## Why hybrid Markdown (not pure JSON/YAML)
 
-The blueprint has two audiences. A **human** reviews and approves placement at the planning gate — they read Markdown, not a 24-deep JSON tree. A **builder** (`shesha-form-edit`) consumes it as a requirements brief — archetype + grid spec + bindings is exactly the input it already takes. So the doc is human-readable Markdown **headings/prose**, with the machine-precise parts isolated in **three fenced code blocks per region**:
+The blueprint has two audiences. A **human** reviews and approves placement at the planning gate — they read Markdown, not a 24-deep JSON tree. A **builder** (`shesha-form-edit`) consumes it as a requirements brief — archetype + layout spec + bindings is exactly the input it already takes. So the doc is human-readable Markdown **headings/prose**, with the machine-precise parts isolated in **three fenced code blocks per region**:
 
-- ` ```layout-tree ` — the container tree: regions → sections → rows → columns → fields, with explicit column counts and per-cell spans.
+- ` ```layout-tree ` — the container tree: regions → sections → flex-row splits → split children → fields, with explicit child counts and per-child native widths.
 - ` ```bindings ` — a table mapping each label to its entity property, component type and datatype.
 - ` ```assertions ` — the placement contract: the statements the verification loop re-measures against.
 
@@ -43,20 +43,20 @@ The blueprint's `Archetype` must be one of `shesha-form-edit`'s archetypes, so t
 
 Indentation = nesting (DOM depth). Each line: `<node-name>  <kind> [attributes]`.
 
-- **kind**: `region | container | columns | card | tabs | tab | datatable | datalist | field | text | buttonGroup | chip`.
-- **`columns` attributes**: `flex=[a,b,…]` (the /24 split, total 24) and optionally `native=[…px|fr]` (the design's real units) and `align=start|center|stretch`, `gutterX=<px>`.
-- **fixed-width column**: write `flex=[18,6] native=[1fr,332px]` — keep the native fixed px so the builder can set a fixed rail width and the diff can reason structurally.
+- **kind**: `region | container | row | card | tabs | tab | datatable | datalist | field | text | buttonGroup | chip`. A `row` is a flex-row split — a `container` that builds with `display:"flex"` + `flexDirection:"row"` + `gap`; its children are split cells, each its own `container`.
+- **`row` attributes**: `row=[a,b,…]` listing each child's native size (`1fr` / `fill` for a filling cell, `<n>px` for a fixed cell, e.g. `row=[1fr, 332px]` or `row=[fill, 332px]`), plus optionally `gap=<px>`, `align=start|center|stretch`. Each child of the row maps to a `container` sized via **`desktop.dimensions.width`**: a `fill`/`1fr` cell → `width:"calc(100% - <fixed+gap>px)"` (e.g. `"calc(100% - 348px)"` for a 332px sibling + 16px gap); a fixed cell → `width:"<n>px"` with matching `minWidth`/`maxWidth`. The row container itself MUST carry `display:"flex"` (or the children stack full-width) + `flexDirection:"row"` + the `gap`.
+- **fixed-width cell**: write `row=[fill, 332px]` — keep the native fixed px so the builder sets a fixed rail width (`width:"332px"`, `minWidth`/`maxWidth` `"332px"`) and the diff can reason structurally.
 - **field/text/chip**: append `← <Entity>.<property>` for a binding, and `(recipe: <name>)` for the design-system recipe.
 
-## `/24` normalisation rules
+## Native-width recording rules
 
-- Measure child widths within their container (probe `multiColumnContainers[].childWidths`), divide by the container content width, ×24, round. Total should be ~24.
-- A **fixed-width** element (rail, icon column, action column) keeps its native px in `native=[…]`; its `/24` value is an approximation the builder maps to the nearest `columns.flex` slot (or a fixed width where the component supports it).
-- Sub-pixel/handle columns (e.g. a 16px drag handle) round to a small span (1) or a fixed width — never 0; the builder needs a real slot.
+- Measure child widths within their container (probe `multiColumnContainers[].childWidths`) and record them in **native units** (px for fixed cells, `fill`/`1fr` for the filling cell) in `row=[…]`. Do NOT normalise to a 24-unit grid and do NOT use the Shesha `columns` component.
+- A **fixed-width** cell (rail, icon column, action column) is recorded as its native px and builds to a `container` with `width:"<n>px"` (+ `minWidth`/`maxWidth`). The filling sibling builds to `width:"calc(100% - <fixed+gap>px)"`.
+- A sub-pixel/handle cell (e.g. a 16px drag handle) keeps its small fixed px (`16px`) — never collapse it to 0; the builder needs a real fixed cell.
 
 ## Worked example — `view-detail` (measured, Tier A/B, 1440×900)
 
-Grounded in the live probe of the design's *Grant Application Form* view-detail screen: body split measured `widths=[962,332]` → `flex=[18,6]` with the rail fixed at **332px**; KIB measured `cols=6`; header content `[18/6]`; requirement rows `[handle 16 / content 905]`.
+Grounded in the live probe of the design's *Grant Application Form* view-detail screen: body split measured `widths=[962,332]` → `row=[fill, 332px]` (left fills `calc(100% - 348px)`, rail fixed at **332px**, gap 24); KIB measured 6 equal cells; header content split `[fill, 332px]`-style; requirement rows `[handle 16px / content fill]`.
 
 ````markdown
 # Blueprint — view-detail
@@ -70,17 +70,17 @@ Viewport captured:  1440x900    Source:  blueprints/_probe/view-detail-design.la
 ```layout-tree
 region: header-band            container col
   ├─ breadcrumb                text  "Project / Module / Views / {name}"        (recipe: breadcrumb)
-  ├─ title-row                 columns  flex=[18,6] align=center
-  │   ├─ title-block (col 1)   container col
+  ├─ title-row                 row  row=[fill, auto] gap=16 align=center   (flex: display:flex+flexDirection:row)
+  │   ├─ title-block (cell 1)  container col   width:"calc(100% - <actions+gap>px)" (fill)
   │   │   ├─ title             text  ← ViewDefinition.name                       (recipe: page-title)
   │   │   ├─ status-chip       chip  ← ViewDefinition.status                     (recipe: status-chip)
   │   │   └─ subtitle          text  ← ViewDefinition.description                (recipe: subtitle)
-  │   └─ actions (col 2)       buttonGroup  [Mockup | Trace]                     (recipe: ghost-link-actions)
+  │   └─ actions (cell 2)      buttonGroup  [Mockup | Trace]   (fixed/auto-width cell, right-aligned)  (recipe: ghost-link-actions)
 ```
 
 ## Region 2 — Key Info Bar (KIB)  (recipe: kib-strip)
 ```layout-tree
-region: kib                    columns  flex=[4,4,4,4,4,4]  native=6-equal  align=stretch
+region: kib                    row  row=[1fr,1fr,1fr,1fr,1fr,1fr]  native=6-equal  gap=<g> align=stretch   (flex: display:flex+flexDirection:row; each cell width≈"calc((100% - 5*<g>px)/6)" or flex-basis equivalent)
   ├─ Module                    field  micro-label + value ← ViewDefinition.module
   ├─ Release                   field  ← ViewDefinition.release
   ├─ View Type                 field  ← ViewDefinition.viewType
@@ -91,12 +91,12 @@ region: kib                    columns  flex=[4,4,4,4,4,4]  native=6-equal  alig
 
 ## Region 3 — Body  (the split that drifts — measured 962/332)
 ```layout-tree
-region: body                   columns  flex=[18,6] native=[1fr,332px] align=start gutterX=24
-  ├─ LEFT (flex 18) ─ capture
+region: body                   row  row=[fill, 332px] native=[1fr,332px] gap=24 align=start   (flex: display:flex+flexDirection:row+gap:24)
+  ├─ LEFT (fill) ─ capture   container col   width:"calc(100% - 356px)"   (332px rail + 24px gap)
   │   └─ requirements-card     card  (header: "View Requirements" + count-badge ← count; filter; Cards/Notepad toggle)
   │       └─ req-list          datalist  ← ViewDefinition.requirements         (capture rows)
-  │            row: [handle | seq | category-chip | status-chip | description | refs(UC,endpoint) | delete]
-  └─ RIGHT (flex 6, fixed 332px) ─ rail   container col, gap=16
+  │            row: [handle 16px | seq | category-chip | status-chip | description | refs(UC,endpoint) | delete]
+  └─ RIGHT (fixed 332px) ─ rail   container col   width:"332px" minWidth/maxWidth:"332px", gap=16
       ├─ details-card          card "Details"  → rows (label-left / control-right)
       │     fields ← status, viewType, sequence, module, release, centralEntity, mockupStatus
       ├─ panel: Realises Use Cases   card + count-badge + "+"  → datalist ← ViewDefinition.realisesUseCases
@@ -128,17 +128,17 @@ A2  the related panels (Realises Use Cases, Required End-points) are BOTH in the
 A3  the requirements list/capture card is in the LEFT column (not the rail)
 A4  the "Details" card rows are 2-cell (label + control side by side), not full-width stacked
 A5  nesting: the related panels are children of the rail column, not of the page root
-A6  the KIB is a single row of 6 equal columns directly under the header band
+A6  the KIB is a single flex row of 6 equal cells directly under the header band
 A7  header actions (Mockup, Trace) sit in the header band, right-aligned on the title row
 ```
 ````
 
-This one document is simultaneously: the thing a reviewer signs off (prose + tree), the requirements brief the builder works from (archetype → seed `rs-detail-with-header.json`, spans → `columns.flex`, bindings → component+propertyName), and the contract the verification loop measures (`assertions` A1–A7).
+This one document is simultaneously: the thing a reviewer signs off (prose + tree), the requirements brief the builder works from (archetype → seed `rs-detail-with-header.json`, splits → flex-row `container`s with per-child `desktop.dimensions.width`, bindings → component+propertyName), and the contract the verification loop measures (`assertions` A1–A7).
 
 ## Authoring checklist
 
 - [ ] `Archetype` is one of the eight, with a variant note if needed.
-- [ ] Every `columns` line has a `/24` `flex=[…]` totalling ~24; fixed widths also carry `native=[…px]`.
+- [ ] Every `row` line records native cell widths (`row=[…]`, `fill`/`1fr` + fixed px) and a `gap`; no Shesha `columns` component, no `/24` normalisation. Each cell maps to a `container` sized via `desktop.dimensions.width` (fill → `calc(100% - <fixed+gap>px)`, fixed → `<n>px`); the row carries `display:"flex"`.
 - [ ] Every bound field has `← Entity.property`; every region names its design-system `recipe`.
-- [ ] `assertions` cover: column membership, row grouping, nesting depth, tab assignment — the things that drift. No pixel asserts.
+- [ ] `assertions` cover: split-cell membership, row grouping, nesting depth, tab assignment — the things that drift. No pixel asserts.
 - [ ] Fidelity tier + confidence + viewport stamped at the top.

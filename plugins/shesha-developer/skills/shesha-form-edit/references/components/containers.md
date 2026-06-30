@@ -191,7 +191,7 @@ Stat-row component for 2–4 key facts across the top of a record page.
 
 **Styling values**: add `desktop.font` with `size: 15`, `weight: "600"`, `color: "#111827"` on the `textField` — makes the actual data pop.
 
-**Card wrapper**: give the KIB component itself a `desktop` block with `border`, `background.color: "#ffffff"`, `shadow`, and `stylingBox` padding to turn it into a white stat-card (see styling-v7.md).
+**Card wrapper**: give the KIB component itself a `desktop` block with `border`, `background.color: "#ffffff"`, `shadow`, and `stylingBox` padding to turn it into a white stat-card (styling lives in `shesha-design-system` → `styling-v7-mechanics.md`).
 
 ---
 

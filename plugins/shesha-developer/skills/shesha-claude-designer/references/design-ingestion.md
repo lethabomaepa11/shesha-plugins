@@ -22,4 +22,3 @@ markitdown (`mcp__markitdown__convert_to_markdown`) normalises mixed inputs (a P
 - A token set persisted as a `shesha-design-system` theme file (`assets/themes/<brand>.tokens.json`).
 - A screen inventory (names + types + entities) used by Step 3 planning.
 - **For the layout blueprint that drives placement, REQUIRED: `shesha-developer:shesha-design-comprehension`** — run it per screen (Step 2) on the same source.
-1

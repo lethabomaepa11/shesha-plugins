@@ -8,8 +8,8 @@ The conductor (`shesha-claude-designer`) coordinates three specialists. This is 
 |---|---|---|
 | `shesha-claude-designer` | ingest design, comprehend→plan, sequence, gate, verify end-to-end | author form JSON, pick hexes, push |
 | `shesha-design-comprehension` | per-screen measured layout blueprint + placement verification (the probe + the diff) | author form JSON, pick hexes, push |
-| `shesha-form-edit` | structure, CRUD wiring, validation, push, publish | choose the design's layout/tokens itself |
-| `shesha-design-system` | map tokens → app theme + per-component v7 style blocks; audit | author structure, wire CRUD, push |
+| `shesha-form-edit` | structure, CRUD wiring, validation, push, publish; **splits via flex `container` rows (never `columns`), sized via `desktop.dimensions.width`** | apply v7 appearance blocks itself; author `columns`; pick tokens/hexes |
+| `shesha-design-system` | **all appearance**: app theme + per-component v7 style blocks + the v7 mechanics/channels docs + the capability matrix; audit | author structure, wire CRUD, push, or author `columns` |
 
 ## Contracts
 
@@ -26,7 +26,7 @@ The conductor (`shesha-claude-designer`) coordinates three specialists. This is 
 - shesha-design-system returns: styled JSON (style blocks only, structure untouched), app-theme changes, role→colour trace, audit findings. It does NOT push — hands styled JSON back for the parent to route through `shesha-form-edit`.
 
 **Comprehension ↔ form-edit (Step 5a.5, per screen)**
-- After build+publish, comprehension re-probes the rendered form and diffs against the blueprint `assertions`; each mismatch is a routed fix phrased in `shesha-form-edit`'s vocabulary (move node to the right `columns` slot, give the rail column a complete flex block, wrap rows 2-cell, assign to the right tab). Loop until all assertions pass.
+- After build+publish, comprehension re-probes the rendered form and diffs against the blueprint `assertions`; each mismatch is a routed fix phrased in `shesha-form-edit`'s vocabulary (move node into the right flex `container` row, give the child its `desktop.dimensions.width`, add `display:"flex"` to a stacking row, wrap rows 2-cell, assign to the right tab). Loop until all assertions pass.
 
 ## Sequencing rules
 

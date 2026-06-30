@@ -18,7 +18,8 @@ How a brand token (from `<brand>.tokens.json`) becomes an exact Shesha value. Re
 | `spacing.*` | `stylingBox` (JSON string) padding/margin keys; field gap 16, section gap 24, card pad 16/24 |
 | `radius.md` (6) | controls `desktop.border.radius.all`; App theme `borderRadius` |
 | `radius.lg` (8–12) | cards `desktop.border.radius.all`; App theme `borderRadiusLG` |
-| `shadow.overlay` | `desktop.shadow.{offsetX,offsetY,blurRadius,color}` on modals/popovers only (cards = no shadow) |
+| `shadow.card` | `desktop.shadow {offsetX:0, offsetY:1, blurRadius:4, spreadRadius:0, color}` on **every card/panel** (the live app renders `0 1 4 rgba(0,0,0,0.06)`) — paired with the hairline border |
+| `shadow.overlay` | `desktop.shadow` on **floating surfaces only** — modals, popovers, dropdown menus |
 | `statusLifecycle.badges.<status>` | `refListStatus` component colours per item (bg/fg/border) — see component-recipes status-chip |
 
 **Worked micro-example — card with header strip:** container (`background.color`=surface, `border.all.color`=lines.border, `border.radius.all`=radius.lg) → header text (fontColor=brand.primary, fontWeight=600, fontSize=cardHeader) on a child whose `background.color`=surfaceAlt with a bottom `border` hairline → body container `stylingBox` padding 16.

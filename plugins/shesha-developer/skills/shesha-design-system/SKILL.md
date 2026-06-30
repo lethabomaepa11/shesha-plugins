@@ -24,13 +24,19 @@ A form looks "cheap" when only one layer is done (AntD still default-blue, or no
 1. **Pick the theme.** Themes in `assets/themes/<brand>.tokens.json`. Default: `requirements-studio` (LandBank green `#0d685a`, Inter, white cards on `#f0f2f5` canvas, radii 4/6/12, status lifecycle Draft→Confirmed→InBuild→Delivered→Rejected→OnHold). New brand → copy the file, swap values. Load with Read; resolve `roles.*` (role → token path) before authoring.
 2. **Apply the app-level theme (once per project).** Set brand primary, font, base radius so the portal inherits them. [app-theme.md](references/app-theme.md). Skip only for a one-off tweak where the app theme is already correct; never skip when the complaint is "buttons/links are the wrong colour".
 3. **Apply per-component v7 blocks.** For each component the design touches, copy the matching recipe from [component-recipes.md](references/component-recipes.md) and fill it with the theme's resolved values; map token→exact prop via [token-to-prop-mapping.md](references/token-to-prop-mapping.md). Mirror the block across desktop/tablet/mobile unless the design is genuinely responsive.
-4. **Audit (optional).** Given a screenshot + the theme, return **prop-level fixes** (component, prop path, current vs target, one-line reason), ordered by impact. Suggestions, not blockers.
+4. **Audit (optional).** Given a screenshot + the theme, return **prop-level fixes** (component, prop path, current vs target, one-line reason), ordered by impact. Suggestions, not blockers. Grading rubric: [references/appearance-quality.md](references/appearance-quality.md) (the appearance companion to `shesha-form-edit`'s construction `form-quality.md` — never override a construction guardrail).
 
-General Shesha conventions every recipe respects (light-mode, 14px body, 400/600 weights, borders-not-shadows, sentence-case labels, semantic-colour-for-status-only): [references/shesha-design-standards.md](references/shesha-design-standards.md).
+General Shesha conventions every recipe respects (light-mode; scale-by-surface type with a 14px dense default; weight-by-role 400/500/600; surface elevation = hairline **+ subtle card shadow**; splits are flex rows sized via `dimensions.width`, never `columns`; sentence-case labels; semantic-colour-for-status-only): [references/shesha-design-standards.md](references/shesha-design-standards.md).
 
 ## Shesha-specific gotchas
 
 - `stylingBox` is a JSON **string** (padding/margin keys only). Text components take `fontSize` (Tailwind class) + `fontWeight` as direct props. Per-side borders need `borderType: "custom"`. A card surface is a white container with a white background. Brand primary on buttons comes from the **app theme** — don't override per-button. Code-carrying props are objects `{ "_mode": "code", "_code": "…" }`.
+
+## Mechanics & capability (this skill owns the v7 style system)
+
+- **v7 style-block shapes** (border / background / font / dimensions / shadow / stylingBox, per `desktop`/`tablet`/`mobile`), the **5-channel precedence** (including the legacy `style` JS-string footgun that overrides everything), and where each channel lands in the DOM: [styling-v7-mechanics.md](references/styling-v7-mechanics.md) + [style-channels.md](references/style-channels.md). (These moved here from `shesha-form-edit` — appearance is this skill's job.)
+- **Capability matrix** — which channel actually RENDERS per component, measured live and version-stamped: [capability-matrix.md](references/capability-matrix.md). **Never author a style on a channel the matrix marks `no-op`.**
+- **Sizing flex-split children: use `desktop.dimensions.width`** (calc / % / px) — it reaches the container's OUTER div. Per-child `customStyle:{flex:…}` is **inert** for outer sizing (it lands on the inner div). A flex container MUST set `display:"flex"` or `flexDirection` is ignored. Splits are flex `container` rows, **never** the `columns` component (firm project rule).
 
 ## Non-negotiables
 
