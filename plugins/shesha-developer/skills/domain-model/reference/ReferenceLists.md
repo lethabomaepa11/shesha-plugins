@@ -98,7 +98,7 @@ This example shows how to define a data-based reference list for locations using
 public class Person
 {
    ...
-   [ReferenceList("MyOrg.MyProject", "Locations")]
+   [ReferenceList("Locations")]
    public long? Location { get; set; }
    ...
 }
