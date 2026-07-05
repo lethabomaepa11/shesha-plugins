@@ -1,6 +1,6 @@
 ---
 name: shesha-design-system
-description: Use whenever a Shesha form or page needs to LOOK like a specific design or brand — "make it match the design", "apply our branding", "style this form", "it doesn't look good", "match Requirements Studio / the Figma / the Claude design", or any request for a polished, consistent visual result rather than just working fields. Maps design tokens (colour, type, spacing, radius, shadow, status lifecycle) onto Shesha's app-level Ant Design theme and per-component v7 style blocks. Themeable, ships the requirements-studio theme and accepts new brand token files. Pairs with shesha-form-edit (which builds structure) and is orchestrated by shesha-claude-designer. Do NOT use it to author structure/components, wire CRUD, or fix runtime errors — that is shesha-form-edit's job.
+description: Use whenever a Shesha form or page needs to LOOK like a specific design or brand — "make it match the design", "apply our branding", "style this form", "it doesn't look good", "match Requirements Studio / the Figma / the Claude design", or any request for a polished, consistent visual result rather than just working fields. Maps design tokens (colour, type, spacing, radius, shadow, status lifecycle) onto Shesha's app-level Ant Design theme and per-component v7 style blocks. Themeable, ships the requirements-studio theme and accepts new brand token files. Pairs with shesha-form-edit (which builds structure) and is orchestrated by shesha-claude-designer. Also invoked automatically by shesha-form-edit (Step 6.5) to apply the shipped default shesha theme to every new form built with no design source — no-design never means unstyled. Do NOT use it to author structure/components, wire CRUD, or fix runtime errors — that is shesha-form-edit's job.
 ---
 
 # Shesha Design System
@@ -22,7 +22,7 @@ A form looks "cheap" when only one layer is done (AntD still default-blue, or no
 ## Steps
 
 1. **Pick the theme — default vs custom brand.** Theme token files live in one folder: `plugins/shesha-developer/skills/shesha-design-system/assets/themes/<brand>.tokens.json`. Choose which brand applies:
-   - **No brand named, or a generic Shesha app → use the shipped default `shesha`** (`shesha.tokens.json`): Cobalt `#003BB2` interactive anchor, Navy `#000E8E` sidebar/header chrome, system-ui type, Nero `#181818` ink, white cards on Athens Grey `#F8F8F9` canvas, radii 2/4/6/8, **borders-not-shadows**, five operational status tones, and a ready-to-apply `$antdTheme` ConfigProvider block. This is the fallback whenever the user does not specify a brand.
+   - **No brand named, or a generic Shesha app → use the shipped default `shesha`** (`shesha.tokens.json`): Cobalt `#003BB2` interactive anchor, Navy `#000E8E` sidebar/header chrome, system-ui type, Nero `#181818` ink, white cards on Athens Grey `#F8F8F9` canvas, radii 2/4/6/8, **borders-not-shadows**, five operational status tones, and a ready-to-apply `$antdTheme` ConfigProvider block. This is the fallback whenever the user does not specify a brand — and it is applied **unconditionally** to new no-design forms via `shesha-form-edit` Step 6.5, using the cost-capped recipe in [references/default-theme-quickpass.md](references/default-theme-quickpass.md) (when invoked for that quick pass, follow that file and skip the deeper references).
    - **User names a brand / hands you brand tokens / an app-specific `<brand>.tokens.json` already exists → use that brand.** The shipped example of a custom brand is `requirements-studio` (LandBank green `#0d685a`, Inter, white cards on `#f0f2f5` canvas, radii 4/6/12, RsStatus lifecycle Draft→Confirmed→InBuild→Delivered→Rejected→OnHold).
    - **A design introduces a genuinely new brand → author it in that same `assets/themes/` folder:** copy the default `shesha.tokens.json` → `<brand>.tokens.json`, swap the values (palette / type / spacing / radius / shadow / statusLifecycle / roles, and the `$antdTheme` block), but **keep every key name identical** so all recipes, block-overlays and `roles.*` resolve unchanged. Then treat the new file as the active brand.
 
@@ -32,6 +32,8 @@ A form looks "cheap" when only one layer is done (AntD still default-blue, or no
 4. **Audit (optional).** Given a screenshot + the theme, return **prop-level fixes** (component, prop path, current vs target, one-line reason), ordered by impact. Suggestions, not blockers. Grading rubric: [references/appearance-quality.md](references/appearance-quality.md) (the appearance companion to `shesha-form-edit`'s construction `form-quality.md` — never override a construction guardrail).
 
 General Shesha conventions every recipe respects (light-mode; scale-by-surface type with a 14px dense default; weight-by-role 400/500/600; surface elevation = hairline **+ subtle card shadow**; splits are flex rows sized via `dimensions.width`, never `columns`; sentence-case labels; semantic-colour-for-status-only): [references/shesha-design-standards.md](references/shesha-design-standards.md).
+
+**The canonical build style — measured layout/component anatomy (brand-independent):** [references/default-layout-patterns.md](references/default-layout-patterns.md). Page anatomy, the table look (44px uppercase headers, divider-only rows, ghost Add), item-list cards, flat hairline cards with header strips, form label conventions, detail record bars/KIB/tabs, button/chip anatomy, modals, and the "clean lines" rules. Every styling pass builds to these shapes regardless of brand — the brand tokens only recolour them.
 
 ## Shesha-specific gotchas
 
@@ -48,7 +50,7 @@ General Shesha conventions every recipe respects (light-mode; scale-by-surface t
 - No custom CSS/React/HTML — everything is component props on Shesha JSON.
 - Tokens live in theme files, never inline hexes.
 - **Style, don't restructure** — if the structure is wrong, route back to `shesha-form-edit` (and the layout is owned by `shesha-design-comprehension`); never move containers here.
-- Mirror style blocks across breakpoints; verify against the running app (mechanics are version-dependent).
+- Mirror style blocks across breakpoints; verify against the running app (mechanics are version-dependent). **On 0.43-class backends there ARE no breakpoint blocks — style props are flat on the component model** (`height`, `borderColor`, `style`, `stylingBox`, per `shesha-form-edit/assets/components-kb/_shared-style-fields.json`); authoring `desktop.*` blocks there is inert. Resolve the target generation before styling.
 - This skill produces styled JSON/edits; it does **not** own auth/push/publish — `shesha-form-edit` does.
 
 ## Relationship to the other skills

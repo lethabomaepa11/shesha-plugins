@@ -15,7 +15,9 @@ audit-all (auditor fan-out, 1 agent/form)
    → synthesize report
 ```
 
-Exit criteria per stage: audit = every target has a verdict; pilot = assertions pass AND browser checks pass (computed styles, not screenshots); rollout = every push re-fetched and asserted; re-audit = zero `fail` verdicts.
+Exit criteria per stage: audit = every target has a verdict; pilot = assertions pass AND browser checks pass (computed styles, not screenshots); rollout = every push re-fetched and asserted; re-audit = zero `fail` verdicts **including the `appearance` family**.
+
+**Audit and re-audit specs MUST include the `appearance` check family** (the appearance floor in `form-quality.md` / the auditor's `appearance` checks). A built-but-unstyled form is a `fail`, not a cosmetic nit — styling silently dropping on later forms is the single most common fleet defect.
 
 ---
 
@@ -33,6 +35,21 @@ Exit criteria per stage: audit = every target has a verdict; pilot = assertions 
 ## Shared state between agents
 
 Authenticate ONCE; write the bearer token to a workspace file (e.g. `<workspace>/.token`) and pass the path in every dispatch prompt — agents `cat` it instead of re-authenticating. Put the audit spec / transform spec in a JSON file and pass its path too. Every dispatch prompt must include: the skill root path, backend URL, token-file path, module, the form(s), and the expected output contract.
+
+## Per-form manifest (mandatory for any multi-form run)
+
+Maintain `<workspace>/form-manifest.json` — one entry per target form, updated after **every** stage:
+
+```json
+[
+  { "module": "MyModule", "name": "person-create", "id": "<guid|null>",
+    "built": true, "styled": true, "audited": true, "pushed": true, "verified": false }
+]
+```
+
+- Create the manifest when the plan is made (every planned form gets an all-`false` entry) — forms are forgotten at planning time, not build time.
+- **No run is complete while any form has `styled: false` or `verified: false`.** "Built but unstyled" and "pushed but never re-fetched" are the two states that silently ship broken.
+- The final summary is generated **from the manifest**, never from memory — list every form with its flags. A form missing from the summary is a form missing from the manifest, which is the defect.
 
 ## Dispatch prompt template — auditor fan-out
 

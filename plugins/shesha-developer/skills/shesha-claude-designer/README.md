@@ -140,5 +140,5 @@ shesha-design-system/              ── APPEARANCE ──
 ## When to use which skill directly
 
 - A **design exists** and you want it realised in Shesha across one or more screens → start at **`shesha-claude-designer`**.
-- A **single isolated form, no design source** → go straight to **`shesha-form-edit`**.
+- A **single isolated form, no design source** → go straight to **`shesha-form-edit`** (its mandatory Step 6.5 default-theme pass means the result is still styled with the shipped `shesha` brand).
 - **Style an already-working form** → go straight to **`shesha-design-system`**.

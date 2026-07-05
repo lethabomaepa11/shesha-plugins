@@ -123,6 +123,8 @@ both `content.components` and `components[]` — if it does, keep `content.compo
 
 > These are *construction* rules — how the form is assembled and behaves. The **look** of a form (surfaces, backgrounds, shadows, layering, spacing values, radii, type scale) is owned by `shesha-design-system` — see its `appearance-quality.md` + `component-recipes.md`. A structural build applies the rules below; it does **not** author v7 appearance blocks.
 
+**Construction follows the canonical build style.** The default structural conventions — labels **on top** in create/edit forms and modals (horizontal 170–200px right-aligned label columns only on read-only detail views), action rows **right-aligned** (Cancel ghost before Submit primary), **card-per-section** grouping with header strips, table toolbars with quick-search + a ghost Add button, main+rail splits at rail ≈332px / gap 24 — are specified with measurements in `shesha-design-system/references/default-layout-patterns.md`. Structure to those shapes; the styling pass then only has to recolour them.
+
 **Group fields into sections.** Build the sections the design shows — or, absent a design, group by information architecture (identity / classification / audit / free-text). Each group is a flex `container` row (split via `desktop.dimensions.width` — **never** `columns`), a `tabs` set, a `sectionSeparator`, or a `card`+section-header. The trigger is *"the design groups them"* or *">1 logical group exists"* — **not a raw field count**: a 4-field form with two clear groups gets two sections; a 7-field form that is genuinely one list stays one column. A flat wall of unrelated fields reads as machine-generated. (How the sections *look* is `shesha-design-system`.) Shapes: [components/containers.md](components/containers.md).
 
 **Group related fields under the same container/section.** Address parts together,
@@ -178,6 +180,15 @@ current request doesn't use, but never the `validationErrors` or the Submit/exit
 styling (e.g. `link` + `DeleteOutlined` icon). Primary is reserved for the main
 forward action (Save/Submit).
 
+**Appearance floor (presence check, not a styling guide).** A form built with no brand/design
+source must still show the default-theme markers when it ships: page root carries the canvas
+background (`#F8F8F9`), section surfaces are white hairline cards, titles carry
+`fontSize`+`fontWeight`, and the action `buttonGroup` has exactly one primary. HOW those values
+are authored is `shesha-design-system`'s job (the Step 6.5 quick pass,
+`shesha-design-system/references/default-theme-quickpass.md`); that the pass HAPPENED is a
+construction-level check — an all-default unstyled tree is a defect, the same class as a missing
+`validationErrors`. Exempt only when a brand/blueprint pipeline styled the form instead.
+
 **One layout grid.** `formSettings.layout` + `labelCol`/`wrapperCol` are set once at form
 level and stay consistent. Field-level `labelCol` is silently IGNORED by the renderer — to
 align a lone full-width field with a 2-column grid, place it in a 50% column instead (see
@@ -218,6 +229,7 @@ not screenshots, and clear the FE IndexedDB form cache from a static page (e.g.
 - [ ] fields grouped into the design's sections (or by IA); related fields together — flex containers, never `columns`
 - [ ] labels human-readable; one primary per action zone; destructive never primary
 - [ ] consistent `layout`/`labelCol`; titled header has `fontSize`+`fontWeight`; no clipping/overflow
+- [ ] appearance floor: default `shesha` theme pass applied (canvas page background, white hairline card surfaces, styled titles) — unless a brand/blueprint pipeline styled the form
 
 ---
 

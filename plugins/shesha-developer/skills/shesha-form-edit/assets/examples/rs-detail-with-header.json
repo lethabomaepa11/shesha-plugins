@@ -5575,7 +5575,7 @@
          "name": "btnSave",
          "label": "Save",
          "itemSubType": "button",
-         "buttonType": "link",
+         "buttonType": "primary",
          "icon": "CheckOutlined",
          "buttonAction": "submit",
          "actionConfiguration": {

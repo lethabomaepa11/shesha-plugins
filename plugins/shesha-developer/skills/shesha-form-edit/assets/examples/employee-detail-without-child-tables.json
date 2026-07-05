@@ -1581,7 +1581,7 @@
                   "selected": false,
                   "icon": "CheckOutlined",
                   "buttonAction": "submit",
-                  "buttonType": "link",
+                  "buttonType": "primary",
                   "actionConfiguration": {
                     "actionOwner": "shesha.form",
                     "actionName": "Submit",
