@@ -36,11 +36,8 @@
           "fontWeight": "400",
           "fontColor": "#1a1a1a",
           "width": "100%",
-          "height": "auto",
           "minWidth": "0px",
-          "maxWidth": "auto",
           "minHeight": "0px",
-          "maxHeight": "auto",
           "overflow": true
         },
         {
@@ -99,12 +96,8 @@
                       "hideBorder": false,
                       "borderRadius": 8,
                       "fontWeight": "400",
-                      "width": "auto",
-                      "height": "auto",
                       "minWidth": "0px",
-                      "maxWidth": "auto",
-                      "minHeight": "32px",
-                      "maxHeight": "auto"
+                      "minHeight": "32px"
                     },
                     {
                       "id": "f3f5d6b901154096b2f1773280",
@@ -143,12 +136,8 @@
                       "hideBorder": false,
                       "borderRadius": 8,
                       "fontWeight": "400",
-                      "width": "auto",
-                      "height": "auto",
                       "minWidth": "0px",
-                      "maxWidth": "auto",
                       "minHeight": "32px",
-                      "maxHeight": "auto",
                       "display": "flex"
                     }
                   ],
@@ -159,12 +148,8 @@
                   "hideBorder": false,
                   "borderRadius": 8,
                   "fontWeight": "400",
-                  "width": "auto",
-                  "height": "auto",
                   "minWidth": "0px",
-                  "maxWidth": "auto",
                   "minHeight": "32px",
-                  "maxHeight": "auto",
                   "display": "flex"
                 },
                 {
@@ -175,7 +160,7 @@
                   "parentId": "{{NEW_KEY}}",
                   "hidden": false,
                   "version": 6,
-                  "direction": "vertical",
+                  "direction": "horizontal",
                   "className": "sha-index-toolbar",
                   "label": "Container7e44f9",
                   "components": [
@@ -288,21 +273,22 @@
                       "gap": "middle",
                       "hideBorder": false,
                       "borderRadius": 8,
-                      "fontWeight": "400",
-                      "width": "auto",
-                      "height": "auto"
+                      "fontWeight": "400"
                     }
                   ],
                   "shadowStyle": "none",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                  "alignItems": "center",
+                  "style": "return { width: '100%' };",
                   "hideBorder": false,
                   "borderRadius": 8,
                   "fontWeight": "400",
-                  "width": "auto",
-                  "height": "auto",
+                  "width": "100%",
                   "minWidth": "0px",
-                  "maxWidth": "auto",
-                  "minHeight": "32px",
-                  "maxHeight": "auto"
+                  "maxWidth": "100%",
+                  "minHeight": "32px"
                 },
                 {
                   "id": "9f7e0c44bea145d895efead8e5",
@@ -669,10 +655,7 @@
                   "fontSize": 14,
                   "fontWeight": "400",
                   "fontColor": "#000",
-                  "width": "100%",
-                  "height": "auto",
-                  "minHeight": "auto",
-                  "maxHeight": "auto"
+                  "width": "100%"
                 }
               ],
               "sortMode": "standard",
@@ -698,11 +681,8 @@
           "fontWeight": "400",
           "fontColor": "#1a1a1a",
           "width": "100%",
-          "height": "auto",
           "minWidth": "0px",
-          "maxWidth": "auto",
           "minHeight": "0px",
-          "maxHeight": "auto",
           "overflow": true
         }
       ],
@@ -720,11 +700,9 @@
       "fontWeight": "400",
       "fontColor": "#1a1a1a",
       "width": "100%",
-      "height": "auto",
       "minWidth": "0px",
       "maxWidth": "100%",
-      "minHeight": "100vh",
-      "maxHeight": "auto"
+      "minHeight": "100vh"
     }
   ],
   "formSettings": {

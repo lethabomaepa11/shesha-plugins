@@ -248,16 +248,16 @@
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=8",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\"",
         "dimensions.minWidth -> minWidth=\"0px\"",
-        "dimensions.maxWidth -> maxWidth=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"32px\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.minHeight -> minHeight=\"32px\""
       ],
       "dropped": [
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.width=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxWidth=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (default zero shadow)",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)"
       ]
@@ -269,16 +269,16 @@
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=8",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\"",
         "dimensions.minWidth -> minWidth=\"0px\"",
-        "dimensions.maxWidth -> maxWidth=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"32px\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.minHeight -> minHeight=\"32px\""
       ],
       "dropped": [
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.width=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxWidth=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (default zero shadow)",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)"
       ]
@@ -316,11 +316,11 @@
         "border.all.color -> borderColor=\"#d3d3d3\"",
         "border.radius.all -> borderRadius=0",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=100% (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",
@@ -342,12 +342,12 @@
         "font.size -> fontSize=14",
         "font.weight -> fontWeight=\"400\"",
         "font.color -> fontColor=\"#000\"",
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
         "font.align=left (no 0.43 font target on this component)",
         "font.type=Segoe UI (font-family not a 0.43 per-component prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=auto (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",
@@ -369,12 +369,12 @@
         "font.size -> fontSize=14",
         "font.weight -> fontWeight=\"400\"",
         "font.color -> fontColor=\"#000\"",
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
         "font.align=left (no 0.43 font target on this component)",
         "font.type=Segoe UI (font-family not a 0.43 per-component prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=auto (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",
@@ -416,11 +416,11 @@
         "border.all.color -> borderColor=\"#d3d3d3\"",
         "border.radius.all -> borderRadius=0",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=100% (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",
@@ -495,11 +495,11 @@
         "border.all.color -> borderColor=\"#d3d3d3\"",
         "border.radius.all -> borderRadius=0",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=100% (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",
@@ -574,11 +574,11 @@
         "border.all.color -> borderColor=\"#d3d3d3\"",
         "border.radius.all -> borderRadius=0",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=100% (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",
@@ -692,11 +692,11 @@
         "border.all.color -> borderColor=\"#d3d3d3\"",
         "border.radius.all -> borderRadius=0",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=100% (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",
@@ -770,11 +770,11 @@
         "border.all.color -> borderColor=\"#d3d3d3\"",
         "border.radius.all -> borderRadius=0",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=100% (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",
@@ -871,11 +871,11 @@
         "border.all.color -> borderColor=\"#d3d3d3\"",
         "border.radius.all -> borderRadius=0",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=100% (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",
@@ -961,10 +961,10 @@
       "seed": "rs-create-dialog.json",
       "component": "autocomplete:usedModules",
       "applied": [
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=auto (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",

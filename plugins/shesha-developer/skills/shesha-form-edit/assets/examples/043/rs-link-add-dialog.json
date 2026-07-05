@@ -59,8 +59,7 @@
           "fontSize": 14,
           "fontWeight": "400",
           "fontColor": "#000",
-          "width": "100%",
-          "height": "auto"
+          "width": "100%"
         }
       ],
       "direction": "vertical",
@@ -74,12 +73,8 @@
       "hideBorder": false,
       "borderRadius": 8,
       "fontWeight": "400",
-      "width": "auto",
-      "height": "auto",
       "minWidth": "0px",
-      "maxWidth": "auto",
-      "minHeight": "32px",
-      "maxHeight": "auto"
+      "minHeight": "32px"
     }
   ],
   "formSettings": {

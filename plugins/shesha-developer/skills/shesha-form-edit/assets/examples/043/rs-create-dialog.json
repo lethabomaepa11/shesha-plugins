@@ -99,8 +99,7 @@
                       "fontSize": 14,
                       "fontWeight": "400",
                       "fontColor": "#000",
-                      "width": "100%",
-                      "height": "auto"
+                      "width": "100%"
                     }
                   ]
                 },
@@ -135,8 +134,7 @@
                       "fontSize": 14,
                       "fontWeight": "400",
                       "fontColor": "#000",
-                      "width": "100%",
-                      "height": "auto"
+                      "width": "100%"
                     }
                   ]
                 }
@@ -149,8 +147,7 @@
               "borderColor": "#d3d3d3",
               "borderRadius": 0,
               "fontWeight": "400",
-              "width": "100%",
-              "height": "auto"
+              "width": "100%"
             },
             {
               "id": "create_sep_details",
@@ -257,8 +254,7 @@
               "borderColor": "#d3d3d3",
               "borderRadius": 0,
               "fontWeight": "400",
-              "width": "100%",
-              "height": "auto"
+              "width": "100%"
             },
             {
               "id": "79280091-3805-4001-8a2f-b7f16d2413df",
@@ -345,8 +341,7 @@
               "borderColor": "#d3d3d3",
               "borderRadius": 0,
               "fontWeight": "400",
-              "width": "100%",
-              "height": "auto"
+              "width": "100%"
             },
             {
               "id": "c9c650f9-82ec-494b-9a31-4d47e594e471",
@@ -415,8 +410,7 @@
               "borderColor": "#d3d3d3",
               "borderRadius": 0,
               "fontWeight": "400",
-              "width": "100%",
-              "height": "auto"
+              "width": "100%"
             },
             {
               "id": "645e3e7c1f8a43f1ad11e5ba51",
@@ -549,8 +543,7 @@
               "borderColor": "#d3d3d3",
               "borderRadius": 0,
               "fontWeight": "400",
-              "width": "100%",
-              "height": "auto"
+              "width": "100%"
             },
             {
               "id": "4b4238c6-ce16-4881-af49-30971bc93d32",
@@ -641,8 +634,7 @@
               "borderColor": "#d3d3d3",
               "borderRadius": 0,
               "fontWeight": "400",
-              "width": "100%",
-              "height": "auto"
+              "width": "100%"
             },
             {
               "id": "OJj6zOhJzMh8meSe70qJzEo-1PjfoX",
@@ -749,8 +741,7 @@
               "borderColor": "#d3d3d3",
               "borderRadius": 0,
               "fontWeight": "400",
-              "width": "100%",
-              "height": "auto"
+              "width": "100%"
             },
             {
               "id": "00af5a41ccca4d5fa65ed51cbd79",
@@ -784,32 +775,23 @@
               "validate": {},
               "entityTypeShortAlias": "Shesha.RequirementsStudio.Domain.ModuleDefinition",
               "useRawValues": true,
-              "width": "100%",
-              "height": "auto"
+              "width": "100%"
             }
           ],
           "shadowStyle": "none",
           "hideBorder": false,
           "borderRadius": 8,
           "fontWeight": "400",
-          "width": "auto",
-          "height": "auto",
           "minWidth": "0px",
-          "maxWidth": "auto",
-          "minHeight": "32px",
-          "maxHeight": "auto"
+          "minHeight": "32px"
         }
       ],
       "shadowStyle": "none",
       "hideBorder": false,
       "borderRadius": 8,
       "fontWeight": "400",
-      "width": "auto",
-      "height": "auto",
       "minWidth": "0px",
-      "maxWidth": "auto",
-      "minHeight": "32px",
-      "maxHeight": "auto"
+      "minHeight": "32px"
     }
   ],
   "formSettings": {

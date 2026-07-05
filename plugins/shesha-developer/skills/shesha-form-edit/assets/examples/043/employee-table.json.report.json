@@ -103,17 +103,17 @@
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=8",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\"",
-        "dimensions.minWidth -> minWidth=\"0px\"",
-        "dimensions.maxWidth -> maxWidth=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"auto\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.minWidth -> minWidth=\"0px\""
       ],
       "dropped": [
         "showAdvanced=false (not in 0.43 catalog for this component)",
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.width=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxWidth=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.minHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (default zero shadow)",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)"
       ]
@@ -128,17 +128,17 @@
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=0",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\"",
-        "dimensions.minWidth -> minWidth=\"0px\"",
-        "dimensions.maxWidth -> maxWidth=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"auto\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.minWidth -> minWidth=\"0px\""
       ],
       "dropped": [
         "showAdvanced=false (not in 0.43 catalog for this component)",
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.width=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxWidth=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.minHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (default zero shadow)",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)"
       ]
@@ -152,17 +152,17 @@
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=8",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\"",
-        "dimensions.minWidth -> minWidth=\"0px\"",
-        "dimensions.maxWidth -> maxWidth=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"auto\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.minWidth -> minWidth=\"0px\""
       ],
       "dropped": [
         "showAdvanced=false (not in 0.43 catalog for this component)",
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.width=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxWidth=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.minHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (default zero shadow)",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)"
       ]
@@ -177,17 +177,17 @@
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=8",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\"",
-        "dimensions.minWidth -> minWidth=\"0px\"",
-        "dimensions.maxWidth -> maxWidth=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"auto\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.minWidth -> minWidth=\"0px\""
       ],
       "dropped": [
         "showAdvanced=false (not in 0.43 catalog for this component)",
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.width=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxWidth=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.minHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (default zero shadow)",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)"
       ]
@@ -212,17 +212,17 @@
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=8",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\"",
-        "dimensions.minWidth -> minWidth=\"0px\"",
-        "dimensions.maxWidth -> maxWidth=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"auto\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.minWidth -> minWidth=\"0px\""
       ],
       "dropped": [
         "showAdvanced=false (not in 0.43 catalog for this component)",
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.width=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxWidth=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.minHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (default zero shadow)",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)"
       ]
@@ -250,17 +250,17 @@
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=0",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\"",
-        "dimensions.minWidth -> minWidth=\"0px\"",
-        "dimensions.maxWidth -> maxWidth=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"auto\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.minWidth -> minWidth=\"0px\""
       ],
       "dropped": [
         "showAdvanced=false (not in 0.43 catalog for this component)",
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.width=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxWidth=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.minHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (default zero shadow)",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)"
       ]
@@ -274,17 +274,17 @@
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=8",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\"",
+        "dimensions.width -> width=\"100%\"",
         "dimensions.minWidth -> minWidth=\"0px\"",
-        "dimensions.maxWidth -> maxWidth=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"auto\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.maxWidth -> maxWidth=\"100%\""
       ],
       "dropped": [
         "showAdvanced=false (not in 0.43 catalog for this component)",
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.minHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (default zero shadow)",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)"
       ]
@@ -295,13 +295,13 @@
       "applied": [
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=8",
-        "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\""
+        "font.weight -> fontWeight=\"400\""
       ],
       "dropped": [
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.width=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=auto (no 0.43 target on this component)",
         "dimensions.minHeight=0px (no 0.43 target on this component)",
@@ -319,17 +319,17 @@
         "border.hideBorder -> hideBorder=false",
         "border.radius.all -> borderRadius=8",
         "font.weight -> fontWeight=\"400\"",
-        "dimensions.width -> width=\"auto\"",
-        "dimensions.height -> height=\"auto\"",
-        "dimensions.minWidth -> minWidth=\"0px\"",
-        "dimensions.maxWidth -> maxWidth=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"auto\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.minWidth -> minWidth=\"0px\""
       ],
       "dropped": [
         "showAdvanced=false (not in 0.43 catalog for this component)",
         "border.all (style:none) (border not rendered)",
         "font.align=left (no 0.43 font target on this component)",
+        "dimensions.width=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxWidth=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.minHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (default zero shadow)",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)"
       ]
@@ -347,17 +347,17 @@
         "font.size -> fontSize=14",
         "font.weight -> fontWeight=\"400\"",
         "font.color -> fontColor=\"#000\"",
-        "dimensions.width -> width=\"100%\"",
-        "dimensions.height -> height=\"auto\"",
-        "dimensions.minHeight -> minHeight=\"auto\"",
-        "dimensions.maxHeight -> maxHeight=\"auto\""
+        "dimensions.width -> width=\"100%\""
       ],
       "dropped": [
         "rowDimensions (object) (no flat 0.43 equivalent)",
         "font.align=left (no 0.43 font target on this component)",
         "font.type=Segoe UI (font-family not a 0.43 per-component prop)",
+        "dimensions.height=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "dimensions.minWidth=0px (no 0.43 target on this component)",
         "dimensions.maxWidth=none (no 0.43 target on this component)",
+        "dimensions.minHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
+        "dimensions.maxHeight=auto (CSS keyword default — no-op/crash risk as a flat 0.43 prop)",
         "shadow (no shadow field in 0.43 catalog (value lost))",
         "enableStyleOnReadonly=false (not in 0.43 catalog for this component)",
         "striped=true (not in 0.43 catalog for this component)",

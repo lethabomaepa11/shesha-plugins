@@ -150,8 +150,19 @@ function flattenBreakpoints(node, kb, report, seedName) {
   const applied = [];
   const dropped = [];
 
+  // CSS keyword defaults are no-ops as flat 0.43 props — and worse: a truthy "auto" on a
+  // numeric prop (e.g. datatable minHeight) sends the 0.43 renderer down mutation paths that
+  // crash ("Cannot add property minHeight, object is not extensible"). Never emit them.
+  const NOOP_VALUES = new Set(['auto', 'none', 'unset', 'initial', 'inherit']);
+  const numericField = (prop) => {
+    const fields = (kb && kb.settingsFields) || [];
+    const f = fields.find((x) => x.path === prop);
+    return f ? /number/i.test(f.editorType || '') : false;
+  };
   const set = (prop, value, from) => {
     if (isEmpty(value)) return;
+    if (typeof value === 'string' && NOOP_VALUES.has(value.trim())) { drop(`${from}=${value}`, 'CSS keyword default — no-op/crash risk as a flat 0.43 prop'); return; }
+    if (typeof value === 'string' && /^\d+(\.\d+)?px$/.test(value.trim()) && numericField(prop)) value = parseFloat(value);
     if (node[prop] === undefined) { node[prop] = value; applied.push(`${from} -> ${prop}=${JSON.stringify(value)}`); }
   };
   const drop = (from, why) => dropped.push(`${from} (${why})`);

@@ -122,12 +122,7 @@
                   "hideBorder": false,
                   "borderRadius": 8,
                   "fontWeight": "400",
-                  "width": "auto",
-                  "height": "auto",
                   "minWidth": "0px",
-                  "maxWidth": "auto",
-                  "minHeight": "auto",
-                  "maxHeight": "auto",
                   "flexDirection": "column"
                 },
                 {
@@ -149,12 +144,7 @@
                   "hideBorder": false,
                   "borderRadius": 8,
                   "fontWeight": "400",
-                  "width": "auto",
-                  "height": "auto",
-                  "minWidth": "0px",
-                  "maxWidth": "auto",
-                  "minHeight": "auto",
-                  "maxHeight": "auto"
+                  "minWidth": "0px"
                 }
               ],
               "editMode": "inherited",
@@ -163,12 +153,7 @@
               "hideBorder": false,
               "borderRadius": 8,
               "fontWeight": "400",
-              "width": "auto",
-              "height": "auto",
               "minWidth": "0px",
-              "maxWidth": "auto",
-              "minHeight": "auto",
-              "maxHeight": "auto",
               "display": "grid",
               "gridColumnsCount": 2
             }
@@ -183,12 +168,7 @@
           "hideBorder": false,
           "borderRadius": 0,
           "fontWeight": "400",
-          "width": "auto",
-          "height": "auto",
           "minWidth": "0px",
-          "maxWidth": "auto",
-          "minHeight": "auto",
-          "maxHeight": "auto",
           "style": "    return {\r\n        backgroundColor: 'white',\r\n        padding: '12px',\r\n        borderBottom: '1px solid lightgrey'\r\n    }"
         },
         {
@@ -552,9 +532,7 @@
               "editMode": "editable",
               "hideBorder": false,
               "borderRadius": 8,
-              "fontWeight": "400",
-              "width": "auto",
-              "height": "auto"
+              "fontWeight": "400"
             }
           ],
           "version": 6,
@@ -567,12 +545,7 @@
           "hideBorder": false,
           "borderRadius": 0,
           "fontWeight": "400",
-          "width": "auto",
-          "height": "auto",
-          "minWidth": "0px",
-          "maxWidth": "auto",
-          "minHeight": "auto",
-          "maxHeight": "auto"
+          "minWidth": "0px"
         },
         {
           "id": "P927vPjBPClDFCjlmlGtS",
@@ -1067,8 +1040,7 @@
                                 "fontSize": 14,
                                 "fontWeight": "400",
                                 "fontColor": "#000",
-                                "width": "100%",
-                                "height": "auto"
+                                "width": "100%"
                               },
                               {
                                 "propertyName": "terminationDate",
@@ -1106,8 +1078,7 @@
                         "borderColor": "#d3d3d3",
                         "borderRadius": 0,
                         "fontWeight": "400",
-                        "width": "100%",
-                        "height": "auto"
+                        "width": "100%"
                       }
                     ],
                     "editMode": "inherited",
@@ -1116,12 +1087,7 @@
                     "hideBorder": false,
                     "borderRadius": 8,
                     "fontWeight": "400",
-                    "width": "auto",
-                    "height": "auto",
                     "minWidth": "0px",
-                    "maxWidth": "auto",
-                    "minHeight": "auto",
-                    "maxHeight": "auto",
                     "display": "block"
                   }
                 ]
@@ -1235,12 +1201,8 @@
                               "hideBorder": false,
                               "borderRadius": 8,
                               "fontWeight": "400",
-                              "width": "auto",
-                              "height": "auto",
                               "minWidth": "0px",
-                              "maxWidth": "auto",
-                              "minHeight": "32px",
-                              "maxHeight": "auto"
+                              "minHeight": "32px"
                             },
                             {
                               "items": [
@@ -1293,8 +1255,7 @@
                                       "fontSize": 14,
                                       "fontWeight": "400",
                                       "fontColor": "#000",
-                                      "width": "100%",
-                                      "height": "auto"
+                                      "width": "100%"
                                     }
                                   },
                                   "createComponent": {
@@ -1323,8 +1284,7 @@
                                       "fontSize": 14,
                                       "fontWeight": "400",
                                       "fontColor": "#000",
-                                      "width": "100%",
-                                      "height": "auto"
+                                      "width": "100%"
                                     }
                                   }
                                 },
@@ -1841,10 +1801,7 @@
                               "fontSize": 14,
                               "fontWeight": "400",
                               "fontColor": "#000",
-                              "width": "100%",
-                              "height": "auto",
-                              "minHeight": "auto",
-                              "maxHeight": "auto"
+                              "width": "100%"
                             }
                           ],
                           "id": "5ULjHSQ7Nlwa_SdhKaDuQsSRPo1hCz",
@@ -1893,8 +1850,6 @@
                   "backgroundColor": "#FFFFFF",
                   "fontSize": 14,
                   "fontWeight": "500",
-                  "width": "auto",
-                  "height": "auto",
                   "stylingBox": "{\"marginBottom\":\"5\",\"paddingLeft\":\"16\",\"paddingBottom\":\"16\",\"paddingTop\":\"16\",\"paddingRight\":\"16\"}"
                 }
               ],
@@ -1904,12 +1859,7 @@
               "hideBorder": false,
               "borderRadius": 8,
               "fontWeight": "400",
-              "width": "auto",
-              "height": "auto",
-              "minWidth": "0px",
-              "maxWidth": "auto",
-              "minHeight": "auto",
-              "maxHeight": "auto"
+              "minWidth": "0px"
             }
           ],
           "version": 6,
@@ -1922,12 +1872,7 @@
           "hideBorder": false,
           "borderRadius": 8,
           "fontWeight": "400",
-          "width": "auto",
-          "height": "auto",
-          "minWidth": "0px",
-          "maxWidth": "auto",
-          "minHeight": "auto",
-          "maxHeight": "auto"
+          "minWidth": "0px"
         }
       ],
       "version": 6,
@@ -1940,12 +1885,7 @@
       "hideBorder": false,
       "borderRadius": 0,
       "fontWeight": "400",
-      "width": "auto",
-      "height": "auto",
-      "minWidth": "0px",
-      "maxWidth": "auto",
-      "minHeight": "auto",
-      "maxHeight": "auto"
+      "minWidth": "0px"
     }
   ],
   "formSettings": {

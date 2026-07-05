@@ -69,12 +69,8 @@
               "hideBorder": false,
               "borderRadius": 8,
               "fontWeight": "400",
-              "width": "auto",
-              "height": "auto",
               "minWidth": "0px",
-              "maxWidth": "auto",
               "minHeight": "0px",
-              "maxHeight": "auto",
               "className": "index-table-controls-right"
             },
             {
@@ -264,27 +260,24 @@
                   "container": {},
                   "hideBorder": false,
                   "borderRadius": 8,
-                  "fontWeight": "400",
-                  "width": "auto",
-                  "height": "auto"
+                  "fontWeight": "400"
                 }
               ],
               "stylingBox": "{\"paddingLeft\":\"20\",\"paddingRight\":\"20\",\"paddingTop\":\"8\",\"paddingBottom\":\"8\"}",
               "className": "sha-index-toolbar",
               "display": "flex",
               "flexDirection": "row",
+              "style": "return { width: '100%' };",
               "hideBorder": true,
               "borderRadius": 0,
               "backgroundColor": "transparent",
               "fontSize": 14,
               "fontWeight": "400",
               "fontColor": "#1a1a1a",
-              "width": "auto",
-              "height": "auto",
+              "width": "100%",
               "minWidth": "0px",
-              "maxWidth": "none",
+              "maxWidth": "100%",
               "minHeight": "0px",
-              "maxHeight": "auto",
               "flexWrap": "wrap",
               "alignSelf": "end",
               "justifySelf": "end"
@@ -297,12 +290,8 @@
           "hideBorder": false,
           "borderRadius": 8,
           "fontWeight": "400",
-          "width": "auto",
-          "height": "auto",
           "minWidth": "0px",
-          "maxWidth": "auto",
           "minHeight": "32px",
-          "maxHeight": "auto",
           "className": "sha-index-table-control"
         },
         {
@@ -593,10 +582,7 @@
           "fontSize": 14,
           "fontWeight": "400",
           "fontColor": "#000",
-          "width": "100%",
-          "height": "auto",
-          "minHeight": "auto",
-          "maxHeight": "auto"
+          "width": "100%"
         }
       ],
       "sortMode": "standard",

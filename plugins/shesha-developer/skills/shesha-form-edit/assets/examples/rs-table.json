@@ -1178,7 +1178,7 @@
                   "hidden": false,
                   "isDynamic": false,
                   "version": 7,
-                  "direction": "vertical",
+                  "direction": "horizontal",
                   "className": "sha-index-toolbar",
                   "label": "Container7e44f9",
                   "labelAlign": "right",
@@ -1505,12 +1505,12 @@
                       "weight": "400"
                     },
                     "dimensions": {
-                      "width": "auto",
+                      "width": "100%",
                       "height": "auto",
                       "minHeight": "32px",
                       "maxHeight": "auto",
                       "minWidth": "0px",
-                      "maxWidth": "auto"
+                      "maxWidth": "100%"
                     },
                     "shadow": {
                       "offsetX": 0,
@@ -1564,12 +1564,12 @@
                       "weight": "400"
                     },
                     "dimensions": {
-                      "width": "auto",
+                      "width": "100%",
                       "height": "auto",
                       "minHeight": "32px",
                       "maxHeight": "auto",
                       "minWidth": "0px",
-                      "maxWidth": "auto"
+                      "maxWidth": "100%"
                     },
                     "shadow": {
                       "offsetX": 0,
@@ -1623,12 +1623,12 @@
                       "weight": "400"
                     },
                     "dimensions": {
-                      "width": "auto",
+                      "width": "100%",
                       "height": "auto",
                       "minHeight": "32px",
                       "maxHeight": "auto",
                       "minWidth": "0px",
-                      "maxWidth": "auto"
+                      "maxWidth": "100%"
                     },
                     "shadow": {
                       "offsetX": 0,
@@ -1641,7 +1641,12 @@
                     "enableStyleOnReadonly": false
                   },
                   "shadowStyle": "none",
-                  "enableStyleOnReadonly": false
+                  "enableStyleOnReadonly": false,
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end",
+                  "alignItems": "center",
+                  "style": "return { width: '100%' };"
                 },
                 {
                   "id": "9f7e0c44bea145d895efead8e5",

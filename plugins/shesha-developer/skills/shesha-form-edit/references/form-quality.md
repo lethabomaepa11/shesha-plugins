@@ -156,6 +156,16 @@ So the Save item must be exactly
 `actionName: "Submit"`, `actionOwner: "shesha.form"`; a Back item is `actionName: "Navigate"`,
 `actionOwner: "shesha.common"`; Cancel-on-details is `Cancel Edit` / `shesha.form`.
 
+**Every far-right element in a table's header zone aligns flush with the table's right edge** —
+toolbar `buttonGroup`s (Refresh / column toggle / Add), alerts, count labels, and pagination all
+end exactly at the table edge. The toolbar-row container is a full-width flex row with
+`justifyContent:"flex-end"` (or `"space-between"` when a quick-search/filter cluster sits left).
+Two silent killers (both browser-verified): `justifyContent` with no explicit `display:"flex"`
+is inert, and the container's inner div shrink-wraps unless forced to full width — `desktop.
+dimensions.width:"100%"` on 0.45, `style: "return { width: '100%' };"` on 0.43 (no flat width
+field exists there; the `style` channel is what reaches the inner div). Copy the toolbar from a
+canonical table seed — they carry the working recipe.
+
 **One primary per action zone.** Each visible action zone has exactly one `buttonType: "primary"`
 — the zone's main forward action — reachable in the default state (not hidden in a collapsed panel
 or a non-default tab). With split toolbars (above) a header zone and a footer zone may each have

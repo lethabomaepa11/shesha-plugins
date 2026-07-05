@@ -1591,7 +1591,7 @@
                     }
                   ],
                   "direction": "horizontal",
-                  "justifyContent": "flex-start",
+                  "justifyContent": "flex-end",
                   "version": 7,
                   "flexWrap": "wrap",
                   "componentName": "horizontalContainer4",
@@ -1645,12 +1645,12 @@
                       "weight": "400"
                     },
                     "dimensions": {
-                      "width": "auto",
+                      "width": "100%",
                       "height": "auto",
                       "minHeight": "auto",
                       "maxHeight": "auto",
                       "minWidth": "0px",
-                      "maxWidth": "auto"
+                      "maxWidth": "100%"
                     },
                     "shadow": {
                       "offsetX": 0,
@@ -1709,12 +1709,12 @@
                       "weight": "400"
                     },
                     "dimensions": {
-                      "width": "auto",
+                      "width": "100%",
                       "height": "auto",
                       "minHeight": "auto",
                       "maxHeight": "auto",
                       "minWidth": "0px",
-                      "maxWidth": "auto"
+                      "maxWidth": "100%"
                     },
                     "shadow": {
                       "offsetX": 0,
@@ -1773,12 +1773,12 @@
                       "weight": "400"
                     },
                     "dimensions": {
-                      "width": "auto",
+                      "width": "100%",
                       "height": "auto",
                       "minHeight": "auto",
                       "maxHeight": "auto",
                       "minWidth": "0px",
-                      "maxWidth": "auto"
+                      "maxWidth": "100%"
                     },
                     "shadow": {
                       "offsetX": 0,
@@ -1789,10 +1789,14 @@
                     },
                     "enableStyleOnReadonly": false
                   },
-                  "enableStyleOnReadonly": false
+                  "enableStyleOnReadonly": false,
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "alignItems": "center",
+                  "style": "return { width: '100%' };"
                 }
               ],
-              "justifyContent": "space-between",
+              "justifyContent": "flex-end",
               "items": [],
               "direction": "horizontal",
               "className": "sha-index-toolbar",
@@ -2000,7 +2004,11 @@
               "enableStyleOnReadonly": false,
               "border": {
                 "radiusType": "all"
-              }
+              },
+              "style": "return { width: '100%' };",
+              "display": "flex",
+              "flexDirection": "row",
+              "alignItems": "center"
             },
             {
               "id": "9eGVR-Cs4jO-JpOz1VDp0",
