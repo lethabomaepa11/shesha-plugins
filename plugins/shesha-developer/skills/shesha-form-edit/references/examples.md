@@ -84,6 +84,23 @@ The captured `employee-table` Add button has `handleSuccess: false`, so creating
 
 `actionOwner` must be the table's `dataContext` **component id** (the same owner the toolbar Refresh button uses). Keep `handleFail: true` + `onFail: Close Dialog`.
 
+## 0.43 variants (`assets/examples/043/` — GENERATED, never hand-edit)
+
+`assets/examples/043/` holds every seed above transpiled to **BoxStack 0.43** markup by
+`scripts/adapt-seed-to-043.js` (`node scripts/adapt-seed-to-043.js --all` regenerates all;
+rerun it after editing any 0.45 seed — never hand-edit the 043/ files). The mapping,
+grounded in `assets/components-kb/` (source-derived from shesha-reactjs releases/0.43):
+
+- `dataContext` used as a table/list data wrapper → **`datatableContext` v7** (`dataContext` v2 is the separate app-context component on 0.43); legacy `uniqueStateId`/`dataSourceType`/`dataSourceEntity` mapped or dropped.
+- Every component `version` restamped from the KB `_index.json`; components with no 0.43 migrator get the `version` key removed.
+- `desktop`/`tablet`/`mobile` breakpoint style blocks (inert on 0.43) flattened to the FLAT 0.43 props the component's catalog lists (`width`, `backgroundColor`, `borderSize`/`borderWidth`, `fontSize`, …); desktop wins; unmappable values dropped.
+- `autocomplete` `entityType`/`valueFormat` → 0.43 `entityTypeShortAlias`/`useRawValues`.
+- Props outside a full-parse component's 0.43 settings catalog are pruned.
+
+Each `043/<seed>.json.report.json` records every rename/downstamp/flatten/drop plus warnings
+(e.g. `{module,name}` entity refs converted to full type names by convention — verify those
+against the target backend). All 043 seeds pass `scripts/validate-guardrails.js`.
+
 ## Non-obvious specifics the examples encode
 
 - **Data context type is `dataContext`** (canonical here) with `sourceType: "Entity"`, `entityType: "<full.Class.Name>"`, `dataFetchingMode: "paging"`, `defaultPageSize: 10`, `uniqueStateId`, `componentName`, `propertyName`, `sortMode: "standard"`, `allowReordering: "no"`. (`dataContext` is an accepted alias but match the example and use `dataContext`.)

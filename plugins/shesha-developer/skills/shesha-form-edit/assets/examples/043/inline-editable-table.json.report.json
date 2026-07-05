@@ -1,0 +1,317 @@
+{
+  "seed": "inline-editable-table.json",
+  "generatedBy": "scripts/adapt-seed-to-043.js — GENERATED, do not hand-edit; rerun after editing the 0.45 seed",
+  "counts": {
+    "renames": 3,
+    "downstamps": 20,
+    "flattenedStyles": 0,
+    "droppedProps": 24,
+    "warnings": 2
+  },
+  "renames": [
+    {
+      "seed": "inline-editable-table.json",
+      "component": "inventoryCtx",
+      "from": "dataContext v8",
+      "to": "datatableContext v7",
+      "notes": [
+        "uniqueStateId=\"inventoryCtx\" dropped (legacy; 0.43 migrator maps it to name, already carried by componentName)"
+      ]
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "autocomplete:(unnamed)",
+      "from": "entityType",
+      "to": "entityTypeShortAlias",
+      "value": "Shesha.Domain.Person"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "autocomplete:(unnamed)",
+      "from": "entityType",
+      "to": "entityTypeShortAlias",
+      "value": "Shesha.Domain.Person"
+    }
+  ],
+  "downstamps": [
+    {
+      "seed": "inline-editable-table.json",
+      "component": "container:inventoryTablePage",
+      "from": 7,
+      "to": 6
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "container:inventoryToolbar",
+      "from": 7,
+      "to": 6
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "datatable.quickSearch:quickSearch",
+      "from": 3,
+      "to": 2
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "datatable.pager:pager",
+      "from": 4,
+      "to": 3
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "container:inventoryContent",
+      "from": 7,
+      "to": 6
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "datatable:inventoryTable",
+      "from": 29,
+      "to": 11
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "from": 6,
+      "to": 5
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "from": 6,
+      "to": 5
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "from": 6,
+      "to": 5
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "from": 6,
+      "to": 5
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "numberField:(unnamed)",
+      "from": 3,
+      "to": 4
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "numberField:(unnamed)",
+      "from": 3,
+      "to": 4
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "from": 6,
+      "to": 5
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "from": 6,
+      "to": 5
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "autocomplete:(unnamed)",
+      "from": 8,
+      "to": 6
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "autocomplete:(unnamed)",
+      "from": 8,
+      "to": 6
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dateField:(unnamed)",
+      "from": 7,
+      "to": 5
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dateField:(unnamed)",
+      "from": 7,
+      "to": 5
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "from": 6,
+      "to": 5
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "from": 6,
+      "to": 5
+    }
+  ],
+  "flattenedStyles": [],
+  "droppedProps": [
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dropdown:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dropdown:(unnamed)",
+      "prop": "useRawValues",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dropdown:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dropdown:(unnamed)",
+      "prop": "useRawValues",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "numberField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "numberField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dropdown:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dropdown:(unnamed)",
+      "prop": "useRawValues",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dropdown:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dropdown:(unnamed)",
+      "prop": "useRawValues",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "autocomplete:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "autocomplete:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dateField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dateField:(unnamed)",
+      "prop": "readOnly",
+      "value": "true"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dateField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "dateField:(unnamed)",
+      "prop": "readOnly",
+      "value": "true"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "textField:(unnamed)",
+      "prop": "isDynamic",
+      "value": "false"
+    }
+  ],
+  "warnings": [
+    {
+      "seed": "inline-editable-table.json",
+      "component": "autocomplete:(unnamed)",
+      "issue": "entityType was a 0.45 {module,name} object — converted to \"Shesha.Domain.Person\" by convention; verify the full type name on the target backend"
+    },
+    {
+      "seed": "inline-editable-table.json",
+      "component": "autocomplete:(unnamed)",
+      "issue": "entityType was a 0.45 {module,name} object — converted to \"Shesha.Domain.Person\" by convention; verify the full type name on the target backend"
+    }
+  ]
+}

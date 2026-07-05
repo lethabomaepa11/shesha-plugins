@@ -1,0 +1,295 @@
+{
+  "seed": "entity-card.json",
+  "generatedBy": "scripts/adapt-seed-to-043.js — GENERATED, do not hand-edit; rerun after editing the 0.45 seed",
+  "counts": {
+    "renames": 0,
+    "downstamps": 13,
+    "flattenedStyles": 7,
+    "droppedProps": 19,
+    "warnings": 0
+  },
+  "renames": [],
+  "downstamps": [
+    {
+      "seed": "entity-card.json",
+      "component": "container:cardBody",
+      "from": 7,
+      "to": 6
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "container:quoteWrap",
+      "from": 7,
+      "to": 6
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:quote",
+      "from": 5,
+      "to": 2
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "container:cardFooter",
+      "from": 7,
+      "to": 6
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:customerName",
+      "from": 5,
+      "to": 2
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:jobTitle",
+      "from": 5,
+      "to": 2
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:company",
+      "from": 5,
+      "to": 2
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "container:ratingInner",
+      "from": 7,
+      "to": 6
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:star",
+      "from": 5,
+      "to": 2
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:rating",
+      "from": 5,
+      "to": 2
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:slash",
+      "from": 5,
+      "to": 2
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "container:statusRow",
+      "from": 7,
+      "to": 6
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "refListStatus:status",
+      "from": 3,
+      "to": 4
+    }
+  ],
+  "flattenedStyles": [
+    {
+      "seed": "entity-card.json",
+      "component": "text:quote",
+      "applied": [
+        "font.align -> textAlign=\"left\""
+      ],
+      "dropped": [
+        "font.weight=400 (no 0.43 font target on this component)",
+        "font.color=#374151 (no 0.43 font target on this component)",
+        "font.type=Segoe UI (font-family not a 0.43 per-component prop)"
+      ]
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:customerName",
+      "applied": [
+        "font.align -> textAlign=\"left\""
+      ],
+      "dropped": [
+        "font.weight=600 (no 0.43 font target on this component)",
+        "font.color=#111827 (no 0.43 font target on this component)",
+        "font.type=Segoe UI (font-family not a 0.43 per-component prop)"
+      ]
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:jobTitle",
+      "applied": [
+        "font.align -> textAlign=\"left\""
+      ],
+      "dropped": [
+        "font.weight=400 (no 0.43 font target on this component)",
+        "font.color=#6b7280 (no 0.43 font target on this component)",
+        "font.type=Segoe UI (font-family not a 0.43 per-component prop)"
+      ]
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:company",
+      "applied": [
+        "font.align -> textAlign=\"left\""
+      ],
+      "dropped": [
+        "font.weight=400 (no 0.43 font target on this component)",
+        "font.color=#6b7280 (no 0.43 font target on this component)",
+        "font.type=Segoe UI (font-family not a 0.43 per-component prop)"
+      ]
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:star",
+      "applied": [
+        "font.align -> textAlign=\"left\""
+      ],
+      "dropped": [
+        "font.weight=600 (no 0.43 font target on this component)",
+        "font.color=#fa8c16 (no 0.43 font target on this component)",
+        "font.type=Segoe UI (font-family not a 0.43 per-component prop)"
+      ]
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:rating",
+      "applied": [
+        "font.align -> textAlign=\"left\""
+      ],
+      "dropped": [
+        "font.weight=600 (no 0.43 font target on this component)",
+        "font.color=#fa8c16 (no 0.43 font target on this component)",
+        "font.type=Segoe UI (font-family not a 0.43 per-component prop)"
+      ]
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:slash",
+      "applied": [
+        "font.align -> textAlign=\"left\""
+      ],
+      "dropped": [
+        "font.weight=400 (no 0.43 font target on this component)",
+        "font.color=#9ca3af (no 0.43 font target on this component)",
+        "font.type=Segoe UI (font-family not a 0.43 per-component prop)"
+      ]
+    }
+  ],
+  "droppedProps": [
+    {
+      "seed": "entity-card.json",
+      "component": "container:cardBody",
+      "prop": "dimensions",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "container:cardBody",
+      "prop": "border",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "container:cardBody",
+      "prop": "background",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "container:cardBody",
+      "prop": "shadow",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:quote",
+      "prop": "fontWeight",
+      "value": "\"400\""
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:quote",
+      "prop": "dimensions",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:customerName",
+      "prop": "fontWeight",
+      "value": "\"600\""
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:customerName",
+      "prop": "dimensions",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:jobTitle",
+      "prop": "fontWeight",
+      "value": "\"400\""
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:jobTitle",
+      "prop": "dimensions",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:company",
+      "prop": "fontWeight",
+      "value": "\"400\""
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:company",
+      "prop": "dimensions",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:star",
+      "prop": "fontWeight",
+      "value": "\"600\""
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:star",
+      "prop": "dimensions",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:rating",
+      "prop": "fontWeight",
+      "value": "\"600\""
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:rating",
+      "prop": "dimensions",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:slash",
+      "prop": "fontWeight",
+      "value": "\"400\""
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "text:slash",
+      "prop": "dimensions",
+      "value": "(object)"
+    },
+    {
+      "seed": "entity-card.json",
+      "component": "refListStatus:status",
+      "prop": "dimensions",
+      "value": "(object)"
+    }
+  ],
+  "warnings": []
+}
