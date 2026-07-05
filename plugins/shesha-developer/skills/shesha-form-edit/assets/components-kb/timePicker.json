@@ -1,0 +1,284 @@
+{
+  "type": "timePicker",
+  "name": "Time Picker",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": true,
+  "icon": "ClockCircleOutlined",
+  "version": 4,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model) => {\r\n    const customModel: ITimePickerProps = {\r\n      ...model,\r\n      format: DATE_TIME_FORMAT,\r\n    };\r\n    return customModel;\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "ITimePickerProps",
+    "interfaceFile": "designer-components/timeField/models.ts",
+    "ownProps": [
+      "className",
+      "defaultValue",
+      "format",
+      "value",
+      "placeholder",
+      "popupClassName",
+      "hourStep",
+      "minuteStep",
+      "secondStep",
+      "disabled",
+      "range",
+      "allowClear",
+      "autoFocus",
+      "inputReadOnly",
+      "showNow",
+      "hideDisabledOptions",
+      "use12Hours",
+      "hideBorder",
+      "onChange"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "allowClear",
+      "autoFocus",
+      "className",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "disabled",
+      "editMode",
+      "format",
+      "hidden",
+      "hideBorder",
+      "hideDisabledOptions",
+      "hideLabel",
+      "hourStep",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "inputReadOnly",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "minuteStep",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChange",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "placeholder",
+      "popupClassName",
+      "propertyName",
+      "range",
+      "readOnly",
+      "secondStep",
+      "settingsValidationErrors",
+      "showNow",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "use12Hours",
+      "validate",
+      "value"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "timeField/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "hideBorder",
+    "style",
+    "size"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "inputReadOnly",
+      "label": "Input Read-Only?",
+      "editorType": "checkbox",
+      "defaultValue": false,
+      "group": "Display",
+      "description": "Set the readonly attribute of the input tag (avoids virtual keyboard on touch devices)"
+    },
+    {
+      "path": "range",
+      "label": "Range?",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "use12Hours",
+      "label": "Use 12 Hours",
+      "editorType": "checkbox",
+      "defaultValue": false,
+      "group": "Display"
+    },
+    {
+      "path": "labelAlign",
+      "label": "Label align",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "allowClear",
+      "label": "Allow Clear",
+      "editorType": "checkbox",
+      "defaultValue": true,
+      "group": "Display"
+    },
+    {
+      "path": "showNow",
+      "label": "Show Now",
+      "editorType": "checkbox",
+      "defaultValue": true,
+      "group": "Display"
+    },
+    {
+      "path": "autoFocus",
+      "label": "Auto Focus",
+      "editorType": "checkbox",
+      "defaultValue": false,
+      "group": "Display"
+    },
+    {
+      "path": "hideDisabledOptions",
+      "label": "Hide disabled options",
+      "editorType": "checkbox",
+      "group": "Display",
+      "description": "Whether hide the options that can not be selected"
+    },
+    {
+      "path": "placeholder",
+      "label": "Placeholder",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "editorType": "textArea",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "format",
+      "label": "Time Format",
+      "editorType": "textField",
+      "defaultValue": "HH:mm",
+      "group": "Display"
+    },
+    {
+      "path": "onChangeCustom",
+      "label": "On Change",
+      "editorType": "codeEditor",
+      "group": "Events",
+      "description": "Enter custom event handler on changing of event. Multiple variables are exposed"
+    },
+    {
+      "path": "validate.required",
+      "label": "Required",
+      "editorType": "checkbox",
+      "group": "Validation"
+    },
+    {
+      "path": "hourStep",
+      "label": "Hour Step",
+      "editorType": "numberField",
+      "group": "Steps"
+    },
+    {
+      "path": "minuteStep",
+      "label": "Minute Step",
+      "editorType": "numberField",
+      "group": "Steps"
+    },
+    {
+      "path": "secondStep",
+      "label": "Second Step",
+      "editorType": "numberField",
+      "group": "Steps"
+    },
+    {
+      "path": "hideBorder",
+      "label": "Hide border",
+      "editorType": "checkbox",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "group": "Style",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "shared": true
+    },
+    {
+      "path": "size",
+      "label": "Size",
+      "editorType": "dropdown",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "timeField/index.tsx",
+    "timeField/models.ts"
+  ]
+}

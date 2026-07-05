@@ -1,0 +1,126 @@
+{
+  "type": "buttonGroup",
+  "name": "Button Group",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "GroupOutlined",
+  "version": 10,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IButtonGroupComponentProps",
+    "interfaceFile": "designer-components/button/buttonGroup/models.ts",
+    "ownProps": [],
+    "extends": [
+      "IConfigurableFormComponent",
+      "IBaseButtonGroupProps"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "isInline",
+      "items",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "noStyles",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "spaceSize",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "button/buttonGroup/settings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "size"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "group": "UX"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "group": "UX"
+    },
+    {
+      "path": "size",
+      "label": "Size",
+      "group": "UX",
+      "description": "This will set the size for all buttons",
+      "shared": true
+    },
+    {
+      "path": "spaceSize",
+      "label": "Space size",
+      "group": "UX",
+      "description": "This will be the gap size between the buttons"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "group": "UX"
+    },
+    {
+      "path": "isInline",
+      "label": "Is Button Inline",
+      "group": "UX"
+    },
+    {
+      "path": "items",
+      "group": "Customization"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "button/buttonGroup/buttonGroupComponent.tsx",
+    "button/buttonGroup/models.ts"
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "type": "datatable.pager",
+  "name": "Table Pager",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "ControlOutlined",
+  "version": 3,
+  "initModel": {
+    "defaults": {
+      "showSizeChanger": true,
+      "showTotalItems": true
+    },
+    "raw": "(model: IPagerComponentProps) => {\r\n    return {\r\n      ...model,\r\n      showSizeChanger: true,\r\n      showTotalItems: true,\r\n      items: [],\r\n    };\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "IPagerComponentProps",
+    "interfaceFile": "designer-components/dataTable/pager/pagerComponent.tsx",
+    "ownProps": [],
+    "extends": [
+      "ITablePagerProps",
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "showSizeChanger",
+      "showTotalItems",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dataTable/pager/settingsForm.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "showSizeChanger",
+      "label": "Show Size Changer",
+      "editorType": "checkbox",
+      "defaultValue": true,
+      "group": "Page Sizes"
+    },
+    {
+      "path": "showTotalItems",
+      "label": "Show Total Items",
+      "editorType": "checkbox",
+      "defaultValue": true,
+      "group": "Page Sizes"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Page Sizes"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dataTable/pager/pagerComponent.tsx"
+  ]
+}

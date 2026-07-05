@@ -1,0 +1,101 @@
+{
+  "type": "dynamicItemsConfigurator",
+  "name": "Dynamic Items Configurator",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "ThunderboltOutlined",
+  "version": null,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IDynamicActionsConfiguratorComponentProps",
+    "interfaceFile": "designer-components/dynamicActionsConfigurator/interfaces.ts",
+    "ownProps": [],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dynamicActionsConfigurator/settings.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField"
+    },
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "textField"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "editorType": "textArea"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dynamicActionsConfigurator/index.tsx",
+    "dynamicActionsConfigurator/interfaces.ts"
+  ]
+}

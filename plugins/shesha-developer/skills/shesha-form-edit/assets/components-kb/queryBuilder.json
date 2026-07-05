@@ -1,0 +1,135 @@
+{
+  "type": "queryBuilder",
+  "name": "Query Builder",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": true,
+  "icon": "FilterOutlined",
+  "version": 2,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IQueryBuilderComponentProps",
+    "interfaceFile": "designer-components/queryBuilder/interfaces.ts",
+    "ownProps": [
+      "jsonExpanded",
+      "modelType",
+      "fieldsUnavailableHint"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "fieldsUnavailableHint",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "jsonExpanded",
+      "label",
+      "labelAlign",
+      "modelType",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "queryBuilder/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "modelType",
+      "label": "Entity",
+      "editorType": "autocomplete",
+      "defaultValue": "",
+      "group": "Display",
+      "description": "Type of model that can be fetched using MetadataProvider. Leave empty to use closest metadata provider. Note: you can use mustache syntax to access form fields."
+    },
+    {
+      "path": "fieldsUnavailableHint",
+      "label": "Fields unavailable hint",
+      "editorType": "textArea",
+      "group": "Display",
+      "description": "A hint to be displayed when fields are not available. Can be used in pair with `Entity` for cascading components."
+    },
+    {
+      "path": "jsonExpanded",
+      "label": "Json expanded",
+      "editorType": "checkbox",
+      "group": "Display",
+      "description": "If true, the JSON content block is expanded by default"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "validate.required",
+      "label": "Required",
+      "editorType": "checkbox",
+      "group": "Validation"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "queryBuilder/queryBuilderComponent.tsx",
+    "queryBuilder/interfaces.ts"
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "type": "address",
+  "name": "Address",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "HomeOutlined",
+  "version": 4,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IAddressCompomentProps",
+    "interfaceFile": "designer-components/address/models.ts",
+    "ownProps": [
+      "countryRestriction",
+      "debounce",
+      "googleMapsApiKey",
+      "latPriority",
+      "lngPriority",
+      "minCharactersSearch",
+      "openCageApiKey",
+      "placeholder",
+      "prefix",
+      "radiusPriority",
+      "showPriorityBounds",
+      "onSelectCustom"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "countryRestriction",
+      "customEnabled",
+      "customVisibility",
+      "debounce",
+      "defaultValue",
+      "description",
+      "editMode",
+      "googleMapsApiKey",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "latPriority",
+      "lngPriority",
+      "minCharactersSearch",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "onSelectCustom",
+      "openCageApiKey",
+      "parentId",
+      "permissions",
+      "placeholder",
+      "prefix",
+      "propertyName",
+      "radiusPriority",
+      "readOnly",
+      "settingsValidationErrors",
+      "showPriorityBounds",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "address/settings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "label",
+      "label": "Label",
+      "group": "Display"
+    },
+    {
+      "path": "labelAlign",
+      "label": "Label align",
+      "group": "Display"
+    },
+    {
+      "path": "placeholder",
+      "label": "Placeholder",
+      "group": "Display"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "group": "Display"
+    },
+    {
+      "path": "minCharactersSearch",
+      "label": "Min Characters Before Search",
+      "group": "Configuration",
+      "description": "The minimum characters required before an api call can be made."
+    },
+    {
+      "path": "debounce",
+      "label": "Debounce (MS)",
+      "group": "Configuration",
+      "description": "Debouncing prevents extra activations/inputs from triggering too often. This is the time in milliseconds the call will be delayed by."
+    },
+    {
+      "path": "googleMapsApiKey",
+      "label": "Google Maps Key",
+      "group": "Configuration",
+      "description": "API key for authorization. Google Maps key which is required to make successful calls to Google services."
+    },
+    {
+      "path": "openCageApiKey",
+      "label": "OpenCage Key",
+      "group": "Configuration",
+      "description": "API key for authorization. Go to (https://opencagedata.com/api) to learn about OpenCage. OpenCage key which is required to make successful calls to OpenCage services."
+    },
+    {
+      "path": "countryRestriction",
+      "label": "Country Restriction",
+      "group": "Configuration",
+      "description": "A filter which is based on the country/countries, multiple countries can be selected."
+    },
+    {
+      "path": "prefix",
+      "label": "Prefix (Area Restriction)",
+      "group": "Configuration",
+      "description": "A simple prefix which is appended in the search but not the input search field, often used to create a biased search in address."
+    },
+    {
+      "path": "showPriorityBounds",
+      "label": "Priority Bounds (Advanced)",
+      "group": "Configuration",
+      "description": "Advanced search options, not required if a search priority is not needed. Note this will be discarded unless all values are provided."
+    },
+    {
+      "path": "latPriority",
+      "label": "Latitude (Priority Bound)",
+      "group": "Configuration",
+      "description": "Latitude value which the search will be prioritized from."
+    },
+    {
+      "path": "lngPriority",
+      "label": "Longitude (Priority Bound)",
+      "group": "Configuration",
+      "description": "Longitude value which the search will be prioritized from."
+    },
+    {
+      "path": "radiusPriority",
+      "label": "Radius (Priority Bound)",
+      "group": "Configuration",
+      "description": "The radius in which the latitude and longitude will be priorities from."
+    },
+    {
+      "path": "onChangeCustom",
+      "label": "On Change",
+      "group": "Events",
+      "description": "Enter custom visibility code.  You must return true to show the component. The global variable data is provided, and allows you to access the data of any form component, by using its API key."
+    },
+    {
+      "path": "onSelectCustom",
+      "label": "On Select",
+      "group": "Events",
+      "description": "Enter custom visibility code.  You must return true to show the component. The global variable data is provided, and allows you to access the data of any form component, by using its API key."
+    },
+    {
+      "path": "validate.required",
+      "label": "Required",
+      "group": "Validation"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "address/index.tsx",
+    "address/models.ts"
+  ]
+}

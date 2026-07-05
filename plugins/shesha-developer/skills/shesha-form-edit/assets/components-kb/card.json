@@ -1,0 +1,159 @@
+{
+  "type": "card",
+  "name": "Card",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "CodeSandboxSquareFilled",
+  "version": 2,
+  "initModel": {
+    "defaults": {
+      "stylingBox": "{\\\"marginBottom\\\":\\\"5\\\"}"
+    },
+    "raw": "(model) => ({\r\n    ...model,\r\n    header: { id: nanoid(), components: [] },\r\n    content: { id: nanoid(), components: [] },\r\n    stylingBox: \"{\\\"marginBottom\\\":\\\"5\\\"}\"\r\n  })"
+  },
+  "settingsProps": {
+    "interfaceName": "ICardComponentProps",
+    "interfaceFile": "designer-components/card/interfaces.ts",
+    "ownProps": [
+      "className",
+      "content",
+      "header",
+      "hideHeading",
+      "hideWhenEmpty"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "className",
+      "componentName",
+      "content",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "header",
+      "hidden",
+      "hideHeading",
+      "hideLabel",
+      "hideWhenEmpty",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "card/settingsForm.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style",
+    "stylingBox"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "propertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Heading",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hideHeading",
+      "label": "Hide Heading",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "className",
+      "label": "Custom CSS Class",
+      "editorType": "textField",
+      "description": "Custom CSS Class to add to this component",
+      "group": "Style"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "stylingBox",
+      "editorType": "styleBox",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "hideWhenEmpty",
+      "label": "Hide when empty",
+      "editorType": "checkbox",
+      "description": "Allows to hide the panel when all components are hidden due to some conditions",
+      "group": "Visibility"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": [
+      "header",
+      "content"
+    ],
+    "detectedSlotKeys": [
+      "header",
+      "content"
+    ],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "card/index.tsx",
+    "card/interfaces.ts"
+  ]
+}

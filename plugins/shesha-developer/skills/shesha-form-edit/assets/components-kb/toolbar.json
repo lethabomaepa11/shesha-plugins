@@ -1,0 +1,86 @@
+{
+  "type": "toolbar",
+  "name": "Toolbar",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "DashOutlined",
+  "version": 4,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "ToolbarButtonGroupProps",
+    "interfaceFile": "designer-components/_legacyComponents/toolbar/migrations/migrate-to-buttonGroup.ts",
+    "ownProps": [
+      "items",
+      "size",
+      "permissions",
+      "spaceSize",
+      "isInline",
+      "noStyles"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "isInline",
+      "items",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "noStyles",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "spaceSize",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "_legacyComponents/toolbar/toolbarComponent.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "none"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "_legacyComponents/toolbar/toolbarComponent.tsx",
+    "_legacyComponents/toolbar/migrations/migrate-to-buttonGroup.ts"
+  ]
+}

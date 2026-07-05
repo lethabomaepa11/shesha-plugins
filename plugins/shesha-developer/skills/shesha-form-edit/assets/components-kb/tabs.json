@@ -1,0 +1,154 @@
+{
+  "type": "tabs",
+  "name": "Tabs",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "FolderOutlined",
+  "version": 3,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model) => {\r\n    const tabsModel: ITabsComponentProps = {\r\n      ...model,\r\n      propertyName: 'custom Name',\r\n      stylingBox: \"{\\\"marginBottom\\\":\\\"5\\\"}\",\r\n      tabs: [{ id: nanoid(), label: 'Tab 1', title: 'Tab 1', key: 'tab1', components: [] }],\r\n    };\r\n    return tabsModel;\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "ITabsComponentProps",
+    "interfaceFile": "designer-components/tabs/models.ts",
+    "ownProps": [
+      "tabs",
+      "size",
+      "defaultActiveKey",
+      "tabType",
+      "hidden",
+      "customVisibility",
+      "position"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultActiveKey",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "position",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "tabType",
+      "tabs",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "tabs/settings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "size",
+    "style",
+    "stylingBox"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "group": "Display"
+    },
+    {
+      "path": "defaultActiveKey",
+      "label": "Default Active Key",
+      "group": "Display"
+    },
+    {
+      "path": "tabType",
+      "label": "Tab Type",
+      "group": "Display"
+    },
+    {
+      "path": "size",
+      "label": "Size",
+      "group": "Display",
+      "description": "This will set the size for all buttons",
+      "shared": true
+    },
+    {
+      "path": "position",
+      "label": "Position",
+      "group": "Display",
+      "description": "This will set the size for all buttons"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "group": "Display"
+    },
+    {
+      "path": "tabs",
+      "group": "Configure Tab Panes"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "group": "Style",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "shared": true
+    },
+    {
+      "path": "stylingBox",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": [
+      "tabs"
+    ],
+    "detectedSlotKeys": [
+      "tabs"
+    ],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "tabs/index.tsx",
+    "tabs/models.ts"
+  ]
+}

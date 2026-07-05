@@ -1,0 +1,116 @@
+{
+  "type": "processMonitor",
+  "name": "Process Monitor",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "MonitorOutlined",
+  "version": null,
+  "initModel": {
+    "defaults": {
+      "hideLabel": true,
+      "label": "Process Monitor"
+    },
+    "raw": "model => {\r\n    return {\r\n      ...model,\r\n      hideLabel: true,\r\n      label: \"Process Monitor\"\r\n    };\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "IProcessMonitorProps",
+    "interfaceFile": "designer-components/processMonitor/interfaces.ts",
+    "ownProps": [
+      "processType",
+      "processId",
+      "components"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "components",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "processId",
+      "processType",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "processMonitor/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "editorType": "checkbox"
+    },
+    {
+      "path": "processType",
+      "label": "Process Type",
+      "editorType": "textField"
+    },
+    {
+      "path": "processId",
+      "label": "Process Id",
+      "editorType": "textField"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": null,
+    "detectedSlotKeys": [
+      "components"
+    ],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "processMonitor/processMonitorComponent.tsx",
+    "processMonitor/interfaces.ts"
+  ]
+}

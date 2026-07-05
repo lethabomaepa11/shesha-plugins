@@ -1,0 +1,161 @@
+{
+  "type": "radio",
+  "name": "Radio",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": true,
+  "icon": "CheckCircleOutlined",
+  "version": 6,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IEnhancedRadioProps",
+    "interfaceFile": "designer-components/radio/radio.tsx",
+    "ownProps": [
+      "style"
+    ],
+    "extends": [
+      "Omit<IRadioProps",
+      "'style'>"
+    ],
+    "resolvedProps": [
+      "style"
+    ],
+    "unresolvedExtends": [
+      "'style'>",
+      "Omit<IRadioProps"
+    ]
+  },
+  "settingsForm": {
+    "source": "radio/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "labelAlign",
+      "label": "Label align",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "editorType": "textArea",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "defaultValue",
+      "label": "Default Value",
+      "editorType": "textField",
+      "group": "Data"
+    },
+    {
+      "path": "dataSourceType",
+      "label": "Data Source Type",
+      "editorType": "dropdown",
+      "group": "Data"
+    },
+    {
+      "path": "dataSourceUrl",
+      "label": "Data Source Url",
+      "editorType": "codeEditor",
+      "group": "Data",
+      "description": "Write a code that returns the URL to be used to fetch Data for the Radio."
+    },
+    {
+      "path": "reducerFunc",
+      "label": "Reducer function",
+      "editorType": "codeEditor",
+      "group": "Data",
+      "description": "A reducer function for the data returned from the server. The function is responsible for value and label props. The function should return an array of object of this format: { value, label }"
+    },
+    {
+      "path": "referenceListId",
+      "label": "Reference List",
+      "editorType": "referenceListAutocomplete",
+      "group": "Data"
+    },
+    {
+      "path": "items",
+      "label": "Items",
+      "editorType": "labelValueEditor",
+      "group": "Data"
+    },
+    {
+      "path": "direction",
+      "label": "Direction",
+      "editorType": "dropdown",
+      "group": "Data"
+    },
+    {
+      "path": "validate.required",
+      "label": "Required",
+      "editorType": "checkbox",
+      "group": "Validation"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "group": "Style",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "shared": true
+    },
+    {
+      "path": "onChangeCustom",
+      "label": "On Change",
+      "editorType": "codeEditor",
+      "group": "Events",
+      "description": "Enter custom eventhandler on changing of event. (form, value, ...) are exposed"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "radio/radio.tsx"
+  ]
+}

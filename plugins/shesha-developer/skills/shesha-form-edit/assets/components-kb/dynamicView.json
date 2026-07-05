@@ -1,0 +1,95 @@
+{
+  "type": "dynamicView",
+  "name": "Dynamic View",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "AppstoreOutlined",
+  "version": null,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "DynamicViewComponentProps",
+    "interfaceFile": "designer-components/dynamicView/index.tsx",
+    "ownProps": [],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dynamicView/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": null,
+    "detectedSlotKeys": [
+      "components"
+    ],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dynamicView/index.tsx"
+  ]
+}

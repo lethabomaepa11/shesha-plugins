@@ -1,0 +1,223 @@
+{
+  "type": "sectionSeparator",
+  "name": "Section Separator",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "LineOutlined",
+  "version": 3,
+  "initModel": {
+    "defaults": {
+      "label": "Section",
+      "lineThickness": 2,
+      "labelAlign": "left",
+      "orientation": "horizontal"
+    },
+    "raw": "(model) => {\r\n    return {\r\n      ...model,\r\n      label: 'Section',\r\n      lineThickness: 2,\r\n      labelAlign: \"left\",\r\n      orientation: \"horizontal\",\r\n    };\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "ISectionSeparatorComponentProps",
+    "interfaceFile": "designer-components/sectionSeprator/interfaces.ts",
+    "ownProps": [
+      "containerStyle",
+      "titleStyle"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "containerStyle",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "titleStyle",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "sectionSeprator/settings.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "fontColor",
+    "fontSize",
+    "stylingBox"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "labelAlign",
+      "label": "Label align",
+      "editorType": "dropdown",
+      "defaultValue": "left",
+      "group": "Display"
+    },
+    {
+      "path": "fontColor",
+      "label": "Font Color",
+      "editorType": "colorPicker",
+      "group": "Display",
+      "shared": true
+    },
+    {
+      "path": "fontSize",
+      "label": "Font Size",
+      "editorType": "numberField",
+      "defaultValue": 14,
+      "group": "Display",
+      "shared": true
+    },
+    {
+      "path": "titleMargin",
+      "label": "Title Margin",
+      "editorType": "numberField",
+      "description": "Distance between text and edge, which should be a number between 0 and 100",
+      "group": "Display"
+    },
+    {
+      "path": "inline",
+      "label": "Inline",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "editorType": "textArea",
+      "group": "Display"
+    },
+    {
+      "path": "orientation",
+      "label": "Orientation",
+      "editorType": "dropdown",
+      "defaultValue": "horizontal",
+      "group": "Display"
+    },
+    {
+      "path": "dashed",
+      "label": "Dashed",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "lineColor",
+      "label": "Line Color",
+      "editorType": "colorPicker",
+      "group": "Display"
+    },
+    {
+      "path": "lineThickness",
+      "label": "Line Thickness",
+      "editorType": "numberField",
+      "description": "Line Thickness in pixels (px)",
+      "group": "Display"
+    },
+    {
+      "path": "lineWidth",
+      "label": "Line Width",
+      "editorType": "textField",
+      "defaultValue": "100%",
+      "group": "Display"
+    },
+    {
+      "path": "lineHeight",
+      "label": "Line Height",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "containerStyle",
+      "label": "Container Style",
+      "editorType": "codeEditor",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "group": "Style"
+    },
+    {
+      "path": "stylingBox",
+      "editorType": "styleBox",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "titleStyle",
+      "label": "Title Style",
+      "editorType": "codeEditor",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "group": "Style"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "sectionSeprator/index.tsx",
+    "sectionSeprator/interfaces.ts"
+  ]
+}

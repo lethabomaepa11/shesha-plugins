@@ -1,0 +1,144 @@
+{
+  "type": "slider",
+  "name": "Slider",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": true,
+  "icon": "SlidersFilled",
+  "version": null,
+  "initModel": {
+    "defaults": {
+      "label": "Slider"
+    },
+    "raw": "(model) => {\r\n    return {\r\n      ...model,\r\n      label: 'Slider',\r\n    };\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "ISliderComponentProps",
+    "interfaceFile": "designer-components/slider/interfaces.ts",
+    "ownProps": [
+      "defaultValue",
+      "min",
+      "max"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "max",
+      "min",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "slider/settings.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "defaultValue",
+      "label": "Default Value",
+      "editorType": "numberField",
+      "group": "Data"
+    },
+    {
+      "path": "min",
+      "label": "Minimum",
+      "editorType": "numberField",
+      "group": "Data"
+    },
+    {
+      "path": "max",
+      "label": "Maximum",
+      "editorType": "numberField",
+      "group": "Data"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "group": "Style",
+      "shared": true
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "slider/index.tsx",
+    "slider/interfaces.ts"
+  ]
+}

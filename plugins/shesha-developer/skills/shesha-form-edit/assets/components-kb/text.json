@@ -1,0 +1,308 @@
+{
+  "type": "text",
+  "name": "Text",
+  "isInput": false,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "LineHeightOutlined",
+  "version": 2,
+  "initModel": {
+    "defaults": {
+      "code": false,
+      "copyable": false,
+      "delete": false,
+      "ellipsis": false,
+      "mark": false,
+      "italic": false,
+      "underline": false,
+      "level": 1,
+      "textType": "span"
+    },
+    "raw": "model => ({\r\n    code: false,\r\n    copyable: false,\r\n    delete: false,\r\n    ellipsis: false,\r\n    mark: false,\r\n    italic: false,\r\n    underline: false,\r\n    level: 1,\r\n    textType: 'span',\r\n    ...model,\r\n  })"
+  },
+  "settingsProps": {
+    "interfaceName": "ITextTypographyProps",
+    "interfaceFile": "designer-components/text/models.ts",
+    "ownProps": [
+      "textType",
+      "content",
+      "contentType",
+      "contentDisplay",
+      "color",
+      "backgroundColor",
+      "level",
+      "fontSize",
+      "padding",
+      "dataType",
+      "dateFormat",
+      "numberFormat",
+      "code",
+      "italic",
+      "copyable",
+      "delete",
+      "ellipsis",
+      "mark",
+      "underline",
+      "keyboard",
+      "strong",
+      "value",
+      "textAlign"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "backgroundColor",
+      "code",
+      "color",
+      "componentName",
+      "content",
+      "contentDisplay",
+      "contentType",
+      "context",
+      "copyable",
+      "customEnabled",
+      "customVisibility",
+      "dataType",
+      "dateFormat",
+      "defaultValue",
+      "delete",
+      "description",
+      "editMode",
+      "ellipsis",
+      "fontSize",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "italic",
+      "jsSetting",
+      "keyboard",
+      "label",
+      "labelAlign",
+      "level",
+      "mark",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "numberFormat",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "padding",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "strong",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "textAlign",
+      "textType",
+      "type",
+      "underline",
+      "validate",
+      "value"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "text/settings.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "backgroundColor",
+    "fontSize",
+    "style"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "textType",
+      "label": "Type",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "contentDisplay",
+      "label": "Content Display",
+      "editorType": "dropdown",
+      "defaultValue": "content",
+      "group": "Display"
+    },
+    {
+      "path": "textAlign",
+      "label": "Text Align",
+      "editorType": "dropdown",
+      "defaultValue": "start",
+      "group": "Display"
+    },
+    {
+      "path": "content",
+      "label": "Content",
+      "editorType": "textArea",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden?",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "dataType",
+      "label": "Data Type",
+      "editorType": "dropdown",
+      "defaultValue": "string",
+      "group": "Data type and format"
+    },
+    {
+      "path": "dateFormat",
+      "label": "Format",
+      "editorType": "textField",
+      "group": "Data type and format"
+    },
+    {
+      "path": "numberFormat",
+      "label": "Number format",
+      "editorType": "dropdown",
+      "defaultValue": "round",
+      "group": "Data type and format"
+    },
+    {
+      "path": "contentType",
+      "label": "Color",
+      "editorType": "dropdown",
+      "defaultValue": "",
+      "group": "Color"
+    },
+    {
+      "path": "color",
+      "label": "Custom Color",
+      "editorType": "colorPicker",
+      "group": "Color"
+    },
+    {
+      "path": "backgroundColor",
+      "label": "Background Color",
+      "editorType": "colorPicker",
+      "group": "Color",
+      "shared": true
+    },
+    {
+      "path": "level",
+      "label": "Font Size",
+      "editorType": "dropdown",
+      "group": "Font"
+    },
+    {
+      "path": "fontSize",
+      "label": "Font Size",
+      "editorType": "dropdown",
+      "group": "Font",
+      "shared": true
+    },
+    {
+      "path": "padding",
+      "label": "Padding",
+      "editorType": "dropdown",
+      "defaultValue": "none",
+      "group": "Font"
+    },
+    {
+      "path": "code",
+      "label": "Code style?",
+      "editorType": "checkbox",
+      "group": "Font"
+    },
+    {
+      "path": "italic",
+      "label": "Italic",
+      "editorType": "checkbox",
+      "group": "Font"
+    },
+    {
+      "path": "copyable",
+      "label": "Copyable?",
+      "editorType": "checkbox",
+      "group": "Font"
+    },
+    {
+      "path": "keyboard",
+      "label": "Keyboard style?",
+      "editorType": "checkbox",
+      "group": "Font"
+    },
+    {
+      "path": "delete",
+      "label": "Delete?",
+      "editorType": "checkbox",
+      "group": "Font"
+    },
+    {
+      "path": "ellipsis",
+      "label": "Ellipsis?",
+      "editorType": "checkbox",
+      "group": "Font"
+    },
+    {
+      "path": "mark",
+      "label": "Marked style?",
+      "editorType": "checkbox",
+      "group": "Font"
+    },
+    {
+      "path": "strong",
+      "label": "Strong?",
+      "editorType": "checkbox",
+      "group": "Font"
+    },
+    {
+      "path": "underline",
+      "label": "Underline?",
+      "editorType": "checkbox",
+      "group": "Font"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [
+      "content"
+    ],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "text/index.tsx",
+    "text/models.ts"
+  ]
+}

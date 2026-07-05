@@ -1,0 +1,139 @@
+{
+  "type": "space",
+  "name": "Space",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "ArrowsAltOutlined",
+  "version": 1,
+  "initModel": {
+    "defaults": {
+      "direction": "horizontal",
+      "size": "small",
+      "wrap": false
+    },
+    "raw": "model => ({\r\n    direction: 'horizontal',\r\n    size: 'small',\r\n    wrap: false,\r\n    ...model,\r\n  })"
+  },
+  "settingsProps": {
+    "interfaceName": "ISpaceProps",
+    "interfaceFile": "designer-components/space/index.tsx",
+    "ownProps": [
+      "align",
+      "direction",
+      "size",
+      "wrap",
+      "sizeNumber",
+      "marginLeft",
+      "marginRight"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "align",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "direction",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "marginLeft",
+      "marginRight",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "sizeNumber",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate",
+      "wrap"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "space/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "size"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField"
+    },
+    {
+      "path": "align",
+      "label": "Align",
+      "editorType": "dropdown"
+    },
+    {
+      "path": "size",
+      "label": "The space size",
+      "editorType": "dropdown",
+      "shared": true
+    },
+    {
+      "path": "sizeNumber",
+      "label": "Size Number",
+      "editorType": "numberField"
+    },
+    {
+      "path": "marginLeft",
+      "label": "Margin Left",
+      "editorType": "numberField"
+    },
+    {
+      "path": "marginRight",
+      "label": "Margin Right",
+      "editorType": "numberField"
+    },
+    {
+      "path": "direction",
+      "label": "Space",
+      "editorType": "dropdown"
+    },
+    {
+      "path": "wrap",
+      "label": "Wrap",
+      "editorType": "checkbox"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "space/index.tsx"
+  ]
+}

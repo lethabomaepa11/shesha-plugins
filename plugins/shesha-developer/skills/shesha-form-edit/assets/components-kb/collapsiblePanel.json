@@ -1,0 +1,254 @@
+{
+  "type": "collapsiblePanel",
+  "name": "Panel",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "GroupOutlined",
+  "version": 8,
+  "initModel": {
+    "defaults": {
+      "stylingBox": "{\\\"marginBottom\\\":\\\"5\\\"}"
+    },
+    "raw": "(model) => ({\r\n    ...model,\r\n    stylingBox: \"{\\\"marginBottom\\\":\\\"5\\\"}\"\r\n  })"
+  },
+  "settingsProps": {
+    "interfaceName": "ICollapsiblePanelComponentProps",
+    "interfaceFile": "designer-components/collapsiblePanel/interfaces.ts",
+    "ownProps": [
+      "collapsedByDefault",
+      "expandIconPosition",
+      "header",
+      "content",
+      "collapsible",
+      "ghost",
+      "hideWhenEmpty",
+      "className",
+      "marginBottom",
+      "marginTop",
+      "headerColor",
+      "bodyColor",
+      "isSimpleDesign",
+      "hideCollapseContent",
+      "borderRadius",
+      "hasCustomHeader",
+      "customHeader",
+      "panelHeadType",
+      "accent"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "accent",
+      "bodyColor",
+      "borderRadius",
+      "className",
+      "collapsedByDefault",
+      "collapsible",
+      "componentName",
+      "content",
+      "context",
+      "customEnabled",
+      "customHeader",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "expandIconPosition",
+      "ghost",
+      "hasCustomHeader",
+      "header",
+      "headerColor",
+      "hidden",
+      "hideCollapseContent",
+      "hideLabel",
+      "hideWhenEmpty",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "isSimpleDesign",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "marginBottom",
+      "marginTop",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "panelHeadType",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "collapsiblePanel/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "borderRadius",
+    "style",
+    "stylingBox"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hasCustomHeader",
+      "label": "Custom Header",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "expandIconPosition",
+      "label": "Icon position",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "collapsible",
+      "label": "Collapsible",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "collapsedByDefault",
+      "label": "Collapsed by default",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "ghost",
+      "label": "Ghost",
+      "editorType": "checkbox",
+      "group": "Display",
+      "description": "Make the collapse borderless and its background transparent"
+    },
+    {
+      "path": "hideCollapseContent",
+      "label": "Hide Top Bar",
+      "editorType": "checkbox",
+      "group": "Display",
+      "description": "Hides the collapsible panel"
+    },
+    {
+      "path": "isSimpleDesign",
+      "label": "Simple Design",
+      "editorType": "checkbox",
+      "group": "Display",
+      "description": "Make the collapse borderless, background transparent and simple design"
+    },
+    {
+      "path": "accent",
+      "label": "Accent",
+      "editorType": "checkbox",
+      "group": "Display",
+      "description": "Make the primary colored border visible"
+    },
+    {
+      "path": "borderRadius",
+      "label": "Border Radius",
+      "editorType": "numberField",
+      "defaultValue": 8,
+      "group": "Display",
+      "shared": true
+    },
+    {
+      "path": "headerColor",
+      "label": "Header Background Color",
+      "editorType": "colorPicker",
+      "group": "Display"
+    },
+    {
+      "path": "bodyColor",
+      "label": "Body Background Color",
+      "editorType": "colorPicker",
+      "group": "Display"
+    },
+    {
+      "path": "className",
+      "label": "Custom CSS Class",
+      "editorType": "textField",
+      "group": "Style",
+      "description": "Custom CSS Class to add to this component"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "stylingBox",
+      "editorType": "styleBox",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "hideWhenEmpty",
+      "label": "Hide when empty",
+      "editorType": "checkbox",
+      "group": "Visibility",
+      "description": "Allows to hide the panel when all components are hidden due to some conditions"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": [
+      "header",
+      "content",
+      "customHeader"
+    ],
+    "detectedSlotKeys": [
+      "header",
+      "content"
+    ],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "collapsiblePanel/collapsiblePanelComponent.tsx",
+    "collapsiblePanel/interfaces.ts"
+  ]
+}

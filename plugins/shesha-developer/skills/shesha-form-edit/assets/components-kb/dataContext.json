@@ -1,0 +1,117 @@
+{
+  "type": "dataContext",
+  "name": "DataContext ",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "CodeOutlined",
+  "version": 2,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IDataContextComponentProps",
+    "interfaceFile": "designer-components/dataContextComponent/index.tsx",
+    "ownProps": [
+      "items",
+      "initialDataCode",
+      "onChangeAction"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "initialDataCode",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "items",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeAction",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dataContextComponent/settings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "group": "Data context",
+      "description": "This name will be used as identifier and in the code editor"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "group": "Data context"
+    },
+    {
+      "path": "items",
+      "label": "Context metadata",
+      "group": "Data context"
+    },
+    {
+      "path": "initialDataCode",
+      "label": "Initial Data",
+      "group": "Data context"
+    },
+    {
+      "path": "onInitAction",
+      "group": "Data context"
+    },
+    {
+      "path": "onChangeAction",
+      "group": "Data context"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "dataContextComponent/index.tsx"
+  ]
+}

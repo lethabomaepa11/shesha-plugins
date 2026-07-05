@@ -1,0 +1,214 @@
+[
+  {
+    "file": "_legacyComponents/paragraph/index.tsx",
+    "type": "paragraph",
+    "reason": "Settings catalog: no fields extracted (mechanism: none)"
+  },
+  {
+    "file": "_legacyComponents/title/index.tsx",
+    "type": "title",
+    "reason": "Settings catalog: no fields extracted (mechanism: none)"
+  },
+  {
+    "file": "_legacyComponents/toolbar/toolbarComponent.tsx",
+    "type": "toolbar",
+    "reason": "Settings catalog: no fields extracted (mechanism: react-factory)"
+  },
+  {
+    "file": "button/button.tsx",
+    "type": "button",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "button/buttonGroup/buttonsComponent/index.tsx",
+    "type": "buttons",
+    "reason": "Props interface 'IButtonsComponentProps' declaration not found in indexed sources"
+  },
+  {
+    "file": "checkboxGroup/checkboxGroup.tsx",
+    "type": "checkboxGroup",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "codeEditor/index.tsx",
+    "type": "codeEditor",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "columns/columns.tsx",
+    "type": "columns",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "dataContextSelector/index.tsx",
+    "type": "dataContextSelector",
+    "reason": "Settings catalog: no fields extracted (mechanism: none)"
+  },
+  {
+    "file": "dataTable/childTable/index.tsx",
+    "type": "childTable",
+    "reason": "Settings catalog: no fields extracted (mechanism: react-factory)"
+  },
+  {
+    "file": "dataTable/quickSearch/quickSearchComponent.tsx",
+    "type": "datatable.quickSearch",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "dataTable/selectColumnsButton/selectColumnsButtonComponent.tsx",
+    "type": "datatable.selectColumnsButton",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "dataTable/table/columnsEditor/index.tsx",
+    "type": "columnsEditorComponent",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "dataTable/table/columnsEditor/index.tsx",
+    "type": "columnsEditorComponent",
+    "reason": "Settings catalog: no fields extracted (mechanism: none)"
+  },
+  {
+    "file": "dataTable/table/tableComponent.tsx",
+    "type": "datatable",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "dataTable/table/tableTemplateComponent.tsx",
+    "type": "datatable_template",
+    "reason": "IToolboxComponent has no generic props interface parameter"
+  },
+  {
+    "file": "dataTable/table/tableTemplateComponent.tsx",
+    "type": "datatable_template",
+    "reason": "Settings catalog: no fields extracted (mechanism: none)"
+  },
+  {
+    "file": "dateField/dateField.tsx",
+    "type": "dateField",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "drawer/index.tsx",
+    "type": "drawer",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "editModeToggler/index.tsx",
+    "type": "headerAppControl",
+    "reason": "IToolboxComponent has no generic props interface parameter"
+  },
+  {
+    "file": "fileUpload/index.tsx",
+    "type": "fileUpload",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "formAutocomplete/index.tsx",
+    "type": "formAutocomplete",
+    "reason": "Settings catalog: no fields extracted (mechanism: none)"
+  },
+  {
+    "file": "image/index.tsx",
+    "type": "image",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "imageAnnotation/index.tsx",
+    "type": "imageAnnotation",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "keyInformationBar/index.tsx",
+    "type": "KeyInformationBar",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "link/index.tsx",
+    "type": "link",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "notes/notesComponent.tsx",
+    "type": "notes",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "notificationAutocomplete/index.tsx",
+    "type": "notificationAutocomplete",
+    "reason": "Settings catalog: no fields extracted (mechanism: none)"
+  },
+  {
+    "file": "permissions/permissionedObjectsTree/permissionedObjectsTree.tsx",
+    "type": "permissionedObjectsTree",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "permissions/permissionsTree/permissionsTree.tsx",
+    "type": "permissionsTree",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "phoneNumber/phoneNumber.tsx",
+    "type": "phoneNumberInput",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "referenceListAutocomplete/index.tsx",
+    "type": "referenceListAutocomplete",
+    "reason": "Settings catalog: no fields extracted (mechanism: none)"
+  },
+  {
+    "file": "refListStatus/index.tsx",
+    "type": "refListStatus",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "scheduledJobExecutionLog/scheduledJobExecutionLog.tsx",
+    "type": "scheduledJobExecutionLog",
+    "reason": "Settings catalog: no fields extracted (mechanism: none)"
+  },
+  {
+    "file": "settingsEditor/themeEditor.tsx",
+    "type": "themeEditor",
+    "reason": "IToolboxComponent has no generic props interface parameter"
+  },
+  {
+    "file": "sizableColumns/sizableColumns.tsx",
+    "type": "sizableColumns",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "subForm/index.tsx",
+    "type": "subForm",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "tabs/index.tsx",
+    "type": "tabs",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "textArea/textArea.tsx",
+    "type": "textArea",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "timeField/index.tsx",
+    "type": "timePicker",
+    "reason": "initModel present but no statically-readable literal defaults parsed (raw snippet recorded)"
+  },
+  {
+    "file": "htmlContent/",
+    "reason": "No IToolboxComponent definition found in this component folder"
+  },
+  {
+    "file": "htmlEditor/",
+    "reason": "No IToolboxComponent definition found in this component folder"
+  },
+  {
+    "file": "itemListConfigurator/",
+    "reason": "No IToolboxComponent definition found in this component folder"
+  }
+]

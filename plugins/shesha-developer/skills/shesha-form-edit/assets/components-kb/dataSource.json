@@ -1,0 +1,119 @@
+{
+  "type": "dataSource",
+  "name": "DataSource",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "LayoutOutlined",
+  "version": 3,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IDataSourceComponentProps",
+    "interfaceFile": "designer-components/dataSource/models.tsx",
+    "ownProps": [
+      "sourceType",
+      "entityType",
+      "endpoint",
+      "filters",
+      "maxResultCount"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "endpoint",
+      "entityType",
+      "filters",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "maxResultCount",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "sourceType",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dataSource/dataSourceSettings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name"
+    },
+    {
+      "path": "sourceType",
+      "label": "Source Type"
+    },
+    {
+      "path": "entityType",
+      "label": "Entity Type"
+    },
+    {
+      "path": "endpoint",
+      "label": "Endpoint"
+    },
+    {
+      "path": "maxResultCount",
+      "label": "Max result count",
+      "group": "Filters",
+      "description": "Leave empty to get all records"
+    },
+    {
+      "path": "filters",
+      "group": "Filters"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dataSource/dataSourceComponent.tsx",
+    "dataSource/models.tsx"
+  ]
+}

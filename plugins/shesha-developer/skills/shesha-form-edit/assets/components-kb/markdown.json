@@ -1,0 +1,122 @@
+{
+  "type": "markdown",
+  "name": "Markdown",
+  "isInput": false,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "EditOutlined",
+  "version": 2,
+  "initModel": {
+    "defaults": null,
+    "raw": "model => ({\r\n    ...model,\r\n  })"
+  },
+  "settingsProps": {
+    "interfaceName": "IMarkdownProps",
+    "interfaceFile": "designer-components/markdown/interfaces.ts",
+    "ownProps": [
+      "content",
+      "textColor",
+      "remarkPlugins"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "content",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "remarkPlugins",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "textColor",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "markdown/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "content",
+      "label": "Content",
+      "editorType": "codeEditor",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "group": "Style",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [
+      "content"
+    ],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "markdown/index.tsx",
+    "markdown/interfaces.ts"
+  ]
+}

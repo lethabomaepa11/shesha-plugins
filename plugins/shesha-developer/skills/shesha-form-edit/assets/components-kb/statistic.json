@@ -1,0 +1,135 @@
+{
+  "type": "statistic",
+  "name": "Statistic",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "BarChartOutlined",
+  "version": 2,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IStatisticComponentProps",
+    "interfaceFile": "designer-components/statistic/index.tsx",
+    "ownProps": [
+      "valueStyle"
+    ],
+    "extends": [
+      "Omit<IShaStatisticProps",
+      "'style' | 'valueStyle'>",
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate",
+      "valueStyle"
+    ],
+    "unresolvedExtends": [
+      "'style' | 'valueStyle'>",
+      "IHasVersion",
+      "Omit<IShaStatisticProps"
+    ]
+  },
+  "settingsForm": {
+    "source": "statistic/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "title",
+      "label": "Title",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "prefix",
+      "label": "Prefix Icon",
+      "editorType": "iconPicker",
+      "group": "Display"
+    },
+    {
+      "path": "suffix",
+      "label": "Suffix Icon",
+      "editorType": "iconPicker",
+      "group": "Display"
+    },
+    {
+      "path": "style",
+      "label": "Title Style",
+      "editorType": "codeEditor",
+      "group": "Style",
+      "description": "A script that returns the style of the title as an object. This should conform to CSSProperties",
+      "shared": true
+    },
+    {
+      "path": "valueStyle",
+      "label": "Value Style",
+      "editorType": "codeEditor",
+      "group": "Style",
+      "description": "A script that returns the style of the value as an object. This should conform to CSSProperties"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "statistic/index.tsx"
+  ]
+}

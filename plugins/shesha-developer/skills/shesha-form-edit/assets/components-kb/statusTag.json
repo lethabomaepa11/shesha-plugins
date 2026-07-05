@@ -1,0 +1,158 @@
+{
+  "type": "statusTag",
+  "name": "Status Tag",
+  "isInput": false,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "ArrowsAltOutlined",
+  "version": 2,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model) => ({\r\n    mappings: JSON.stringify(DEFAULT_STATUS_TAG_MAPPINGS, null, 2) as any,\r\n    ...model,\r\n  })"
+  },
+  "settingsProps": {
+    "interfaceName": "IStatusTagProps",
+    "interfaceFile": "designer-components/statusTag/index.tsx",
+    "ownProps": [
+      "mappings",
+      "valueSource"
+    ],
+    "extends": [
+      "Omit<ITagProps",
+      "'mappings' | 'style'>",
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "mappings",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate",
+      "valueSource"
+    ],
+    "unresolvedExtends": [
+      "'mappings' | 'style'>",
+      "IHasVersion",
+      "Omit<ITagProps"
+    ]
+  },
+  "settingsForm": {
+    "source": "statusTag/settings.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "valueSource",
+      "label": "Value source",
+      "editorType": "dropdown",
+      "defaultValue": "manual",
+      "group": "Display"
+    },
+    {
+      "path": "override",
+      "label": "Override",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "value",
+      "label": "Value",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "color",
+      "label": "Color",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "mappings",
+      "label": "Default Mappings",
+      "editorType": "codeEditor",
+      "description": "Enter the JSON object that should match the structure of the default one provided",
+      "group": "Display"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "group": "Display",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "statusTag/index.tsx"
+  ]
+}

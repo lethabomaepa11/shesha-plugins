@@ -1,0 +1,208 @@
+{
+  "type": "drawer",
+  "name": "Drawer",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "SwapOutlined",
+  "version": 2,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model) => {\r\n    const customProps: IDrawerProps = {\r\n      ...model,\r\n    };\r\n    return customProps;\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "IDrawerProps",
+    "interfaceFile": "designer-components/drawer/models.ts",
+    "ownProps": [
+      "showFooter",
+      "showOkayBtn",
+      "onOkAction",
+      "okText",
+      "okButtonCustomEnabled",
+      "showCancelBtn",
+      "onCancelAction",
+      "cancelText",
+      "cancelButtonCustomEnabled",
+      "placement",
+      "height",
+      "width",
+      "components"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "cancelButtonCustomEnabled",
+      "cancelText",
+      "componentName",
+      "components",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "height",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "okButtonCustomEnabled",
+      "okText",
+      "onBlurCustom",
+      "onCancelAction",
+      "onChangeCustom",
+      "onFocusCustom",
+      "onOkAction",
+      "parentId",
+      "permissions",
+      "placement",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "showCancelBtn",
+      "showFooter",
+      "showOkayBtn",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate",
+      "width"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "drawer/settings.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "width",
+    "height",
+    "style",
+    "stylingBox"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "placement",
+      "label": "Placement",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "width",
+      "label": "Width",
+      "editorType": "textField",
+      "description": "Width of the Drawer dialog in % or px",
+      "group": "Display",
+      "shared": true
+    },
+    {
+      "path": "height",
+      "label": "Height",
+      "editorType": "textField",
+      "description": "Placement is top or bottom, height of the Drawer dialog",
+      "group": "Display",
+      "shared": true
+    },
+    {
+      "path": "showFooter",
+      "label": "Show Footer",
+      "editorType": "checkbox",
+      "description": "Whether Ok and Cancel buttons are shown",
+      "group": "Footer"
+    },
+    {
+      "path": "onOkAction",
+      "label": "Ok Action",
+      "editorType": "configurableActionConfigurator",
+      "group": "Footer"
+    },
+    {
+      "path": "okText",
+      "label": "Ok Text",
+      "editorType": "textField",
+      "description": "The text that will be displayed on the Ok button",
+      "group": "Footer"
+    },
+    {
+      "path": "okButtonCustomEnabled",
+      "label": "Custom Enabled",
+      "editorType": "codeEditor",
+      "description": "Enter custom enabled of the Ok button",
+      "group": "Footer"
+    },
+    {
+      "path": "onCancelAction",
+      "label": "Ok Cancel",
+      "editorType": "configurableActionConfigurator",
+      "group": "Footer"
+    },
+    {
+      "path": "cancelText",
+      "label": "Cancel Text",
+      "editorType": "textField",
+      "description": "The text that will be displayed on the Cancel button",
+      "group": "Footer"
+    },
+    {
+      "path": "cancelButtonCustomEnabled",
+      "label": "Custom Enabled",
+      "editorType": "codeEditor",
+      "description": "Enter custom enabled of the Cancel button",
+      "group": "Footer"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "stylingBox",
+      "editorType": "styleBox",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": null,
+    "detectedSlotKeys": [
+      "components"
+    ],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "drawer/index.tsx",
+    "drawer/models.ts"
+  ]
+}

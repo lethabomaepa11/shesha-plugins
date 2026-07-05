@@ -1,0 +1,173 @@
+{
+  "type": "wizard",
+  "name": "Wizard",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "DoubleRightOutlined",
+  "version": 10,
+  "initModel": {
+    "defaults": {
+      "stylingBox": "{\\\"marginBottom\\\":\\\"5\\\"}",
+      "showBackButton": true,
+      "showDoneButton": true,
+      "persistStep": true
+    },
+    "raw": "(model) => ({\r\n    ...model,\r\n    stylingBox: \"{\\\"marginBottom\\\":\\\"5\\\"}\",\r\n    showBackButton: true,\r\n    showDoneButton: true,\r\n    persistStep: true,\r\n  })"
+  },
+  "settingsProps": {
+    "interfaceName": "IWizardComponentProps",
+    "interfaceFile": "designer-components/wizard/models.ts",
+    "ownProps": [
+      "steps",
+      "wizardType",
+      "form",
+      "hidden",
+      "customVisibility",
+      "defaultActiveStep",
+      "defaultActiveValue",
+      "direction",
+      "labelPlacement",
+      "size",
+      "buttonsLayout",
+      "showStepStatus",
+      "sequence",
+      "showBackButton",
+      "showDoneButton",
+      "persistStep"
+    ],
+    "extends": [
+      "Omit<IConfigurableFormComponent",
+      "'size'>",
+      "Pick<StepProps",
+      "'status'>"
+    ],
+    "resolvedProps": [
+      "buttonsLayout",
+      "customVisibility",
+      "defaultActiveStep",
+      "defaultActiveValue",
+      "direction",
+      "form",
+      "hidden",
+      "labelPlacement",
+      "persistStep",
+      "sequence",
+      "showBackButton",
+      "showDoneButton",
+      "showStepStatus",
+      "size",
+      "steps",
+      "wizardType"
+    ],
+    "unresolvedExtends": [
+      "'size'>",
+      "'status'>",
+      "Omit<IConfigurableFormComponent",
+      "Pick<StepProps"
+    ]
+  },
+  "settingsForm": {
+    "source": "wizard/settings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "size",
+    "style",
+    "stylingBox"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "group": "Display"
+    },
+    {
+      "path": "wizardType",
+      "label": "Wizard Type",
+      "group": "Display"
+    },
+    {
+      "path": "size",
+      "label": "Size",
+      "group": "Display",
+      "description": "This will set the size for all buttons",
+      "shared": true
+    },
+    {
+      "path": "direction",
+      "label": "Direction",
+      "group": "Display",
+      "description": "To specify the direction of the step bar"
+    },
+    {
+      "path": "labelPlacement",
+      "label": "Label Placement",
+      "group": "Display",
+      "description": "To specify the label placement"
+    },
+    {
+      "path": "persistStep",
+      "label": "Persist Current Step",
+      "group": "Display",
+      "description": "When enabled, the wizard will remember the current step even after page refresh."
+    },
+    {
+      "path": "defaultActiveStep",
+      "label": "Default Active Step",
+      "group": "Display",
+      "description": "This will be the default step that is active on initial load"
+    },
+    {
+      "path": "buttonsLayout",
+      "label": "Buttons Layout",
+      "group": "Display",
+      "description": "How you want the steps buttons to be aligned"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "group": "Display"
+    },
+    {
+      "path": "steps",
+      "group": "Configure Wizard Steps"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "group": "Style",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "shared": true
+    },
+    {
+      "path": "stylingBox",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": [
+      "steps"
+    ],
+    "detectedSlotKeys": [
+      "components",
+      "tabs",
+      "steps"
+    ],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "wizard/index.tsx",
+    "wizard/models.ts"
+  ]
+}

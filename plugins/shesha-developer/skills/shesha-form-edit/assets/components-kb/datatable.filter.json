@@ -1,0 +1,168 @@
+{
+  "type": "datatable.filter",
+  "name": "Table Filter",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "FilterOutlined",
+  "version": null,
+  "initModel": {
+    "defaults": {
+      "buttonType": "link",
+      "label": ""
+    },
+    "raw": "(model) => {\r\n    return {\r\n      ...model,\r\n      buttonType: 'link',\r\n      label: '',\r\n    };\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "IButtonComponentProps",
+    "interfaceFile": "designer-components/button/interfaces.ts",
+    "ownProps": [],
+    "extends": [
+      "IButtonItem",
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IButtonItem",
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dataTable/advancedFilterButton/settingsForm.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style",
+    "size"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "tooltip",
+      "label": "Tooltip",
+      "editorType": "textArea",
+      "group": "Display"
+    },
+    {
+      "path": "icon",
+      "label": "Icon",
+      "editorType": "iconPicker",
+      "group": "Display"
+    },
+    {
+      "path": "buttonType",
+      "label": "Button Type",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "danger",
+      "label": "Danger",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "block",
+      "label": "Block",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "actionConfiguration",
+      "label": "Action configuration",
+      "editorType": "configurableActionConfigurator",
+      "group": "Display"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "size",
+      "label": "Size",
+      "editorType": "dropdown",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dataTable/advancedFilterButton/advancedFilterButtonComponent.tsx",
+    "button/interfaces.ts"
+  ]
+}

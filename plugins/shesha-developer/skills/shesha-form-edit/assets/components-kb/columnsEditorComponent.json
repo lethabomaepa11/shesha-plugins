@@ -1,0 +1,106 @@
+{
+  "type": "columnsEditorComponent",
+  "name": "Columns Editor Component",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": true,
+  "icon": "ColumnWidthOutlined",
+  "version": null,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model: IColumnsEditorComponentProps) => {\r\n    return {\r\n      ...model,\r\n      items: [],\r\n    };\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "IColumnsEditorComponentProps",
+    "interfaceFile": "designer-components/dataTable/table/columnsEditor/interfaces.ts",
+    "ownProps": [
+      "modelType"
+    ],
+    "extends": [
+      "ITableComponentBaseProps",
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "canAddInline",
+      "canAddInlineExpression",
+      "canDeleteInline",
+      "canDeleteInlineExpression",
+      "canEditInline",
+      "canEditInlineExpression",
+      "componentName",
+      "containerStyle",
+      "context",
+      "customCreateUrl",
+      "customDeleteUrl",
+      "customEnabled",
+      "customUpdateUrl",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "freezeHeaders",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "inlineEditMode",
+      "inlineSaveMode",
+      "isDynamic",
+      "items",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "maxHeight",
+      "minHeight",
+      "modelType",
+      "newRowCapturePosition",
+      "newRowInsertPosition",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "onNewRowInitialize",
+      "onRowDeleteSuccessAction",
+      "onRowSave",
+      "onRowSaveSuccessAction",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "tableStyle",
+      "type",
+      "useMultiselect",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": null,
+    "mechanism": "none",
+    "parseQuality": "none"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dataTable/table/columnsEditor/index.tsx",
+    "dataTable/table/columnsEditor/interfaces.ts"
+  ]
+}

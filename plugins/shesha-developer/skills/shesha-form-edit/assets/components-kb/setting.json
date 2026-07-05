@@ -1,0 +1,122 @@
+{
+  "type": "setting",
+  "name": "Setting",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "SettingOutlined",
+  "version": 0,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "ISettingsComponentProps",
+    "interfaceFile": "designer-components/_settings/settingsComponent.tsx",
+    "ownProps": [
+      "components",
+      "availableConstantsExpression",
+      "resultTypeExpression",
+      "useAsyncEvaluation"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "availableConstantsExpression",
+      "componentName",
+      "components",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "resultTypeExpression",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "useAsyncEvaluation",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "_settings/settings.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "useAsyncEvaluation",
+      "label": "Async evaluation",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "availableConstantsExpression",
+      "label": "Available constants",
+      "editorType": "codeEditor",
+      "group": "Display"
+    },
+    {
+      "path": "resultTypeExpression",
+      "label": "Result type",
+      "editorType": "codeEditor",
+      "group": "Display"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": null,
+    "detectedSlotKeys": [
+      "components"
+    ],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "_settings/settingsComponent.tsx"
+  ]
+}

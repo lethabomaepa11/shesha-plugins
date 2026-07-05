@@ -1,0 +1,77 @@
+{
+  "type": "datatable.selectColumnsButton",
+  "name": "Table Select Columns Button",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "SlidersOutlined",
+  "version": 2,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model: ISelectColumnsButtonComponentProps) => {\r\n    return {\r\n      ...model,\r\n      items: [],\r\n    };\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "ISelectColumnsButtonComponentProps",
+    "interfaceFile": "designer-components/dataTable/selectColumnsButton/selectColumnsButtonComponent.tsx",
+    "ownProps": [],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dataTable/selectColumnsButton/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dataTable/selectColumnsButton/selectColumnsButtonComponent.tsx"
+  ]
+}

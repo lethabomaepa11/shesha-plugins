@@ -1,0 +1,105 @@
+{
+  "type": "configurableActionConfigurator",
+  "name": "Configurable Action Configurator",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "ThunderboltOutlined",
+  "version": 1,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IConfigurableActionConfiguratorComponentProps",
+    "interfaceFile": "designer-components/configurableActionsConfigurator/interfaces.ts",
+    "ownProps": [
+      "allowedActions"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "allowedActions",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "configurableActionsConfigurator/settings.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "textField"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "editorType": "textArea"
+    },
+    {
+      "path": "customVisibility",
+      "label": "Custom Visibility",
+      "editorType": "codeEditor",
+      "description": "Enter custom visibility code.  You must return true to show the component. The global variable data is provided, and allows you to access the data of any form component, by using its API key."
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "configurableActionsConfigurator/index.tsx",
+    "configurableActionsConfigurator/interfaces.ts"
+  ]
+}

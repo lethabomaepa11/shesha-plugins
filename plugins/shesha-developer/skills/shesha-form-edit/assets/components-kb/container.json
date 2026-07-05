@@ -1,0 +1,362 @@
+{
+  "type": "container",
+  "name": "Container",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "GroupOutlined",
+  "version": 6,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IContainerComponentProps",
+    "interfaceFile": "designer-components/container/interfaces.ts",
+    "ownProps": [
+      "backgroundCover",
+      "backgroundRepeat",
+      "className",
+      "wrapperStyle",
+      "components",
+      "backgroundType",
+      "backgroundColor",
+      "backgroundDataSource",
+      "backgroundUrl",
+      "backgroundBase64",
+      "backgroundStoredFileId"
+    ],
+    "extends": [
+      "IConfigurableFormComponent",
+      "ICommonContainerProps"
+    ],
+    "resolvedProps": [
+      "alignItems",
+      "alignSelf",
+      "backgroundBase64",
+      "backgroundColor",
+      "backgroundCover",
+      "backgroundDataSource",
+      "backgroundRepeat",
+      "backgroundStoredFileId",
+      "backgroundType",
+      "backgroundUrl",
+      "borderColor",
+      "borderRadius",
+      "borderStyle",
+      "borderWidth",
+      "className",
+      "componentName",
+      "components",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "direction",
+      "display",
+      "editMode",
+      "flexDirection",
+      "flexWrap",
+      "gap",
+      "gridColumnsCount",
+      "height",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "justifyContent",
+      "justifyItems",
+      "justifySelf",
+      "label",
+      "labelAlign",
+      "maxHeight",
+      "maxRadius",
+      "maxWidth",
+      "minHeight",
+      "minWidth",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "noDefaultStyling",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "overflow",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "shadowStyle",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "textJustify",
+      "type",
+      "validate",
+      "width",
+      "wrapperStyle"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "container/settingsForm.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": true,
+  "appearanceFieldPaths": [
+    "borderColor",
+    "borderRadius",
+    "backgroundColor",
+    "width",
+    "height",
+    "style",
+    "stylingBox"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "noDefaultStyling",
+      "label": "No Default Styling",
+      "editorType": "checkbox",
+      "description": "If checked, the default styles and classes of the container will not be applied.",
+      "group": "Display"
+    },
+    {
+      "path": "display",
+      "label": "Display",
+      "editorType": "dropdown",
+      "description": "The display CSS property sets whether an element is treated as a block or inline element and the layout used for its children, such as flow layout, grid or flex.",
+      "group": "Display"
+    },
+    {
+      "path": "flexDirection",
+      "label": "Flex Direction",
+      "editorType": "dropdown",
+      "description": "The flex-direction CSS property sets how flex items are placed in the flex container defining the main axis and the direction (normal or reversed).",
+      "group": "Display"
+    },
+    {
+      "path": "flexWrap",
+      "label": "Flex Wrap",
+      "editorType": "dropdown",
+      "description": "The flex-wrap CSS property sets whether flex items are forced onto one line or can wrap onto multiple lines. If wrapping is allowed, it sets the direction that lines are stacked.",
+      "group": "Display"
+    },
+    {
+      "path": "gap",
+      "label": "Gap",
+      "editorType": "textField",
+      "description": "Examples of a valid gap include: `10` | `10px` | `20px 20px`",
+      "group": "Display"
+    },
+    {
+      "path": "gridColumnsCount",
+      "label": "Grid Columns Count",
+      "editorType": "numberField",
+      "description": "Number of columns each grid should have",
+      "group": "Display"
+    },
+    {
+      "path": "direction",
+      "label": "Direction",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "alignItems",
+      "label": "Align Items",
+      "editorType": "dropdown",
+      "description": "The CSS align-items property sets the align-self value on all direct children as a group. In Flexbox, it controls the alignment of items on the Cross Axis. In Grid Layout, it controls the alignment of items on the Block Axis within their grid area.",
+      "group": "Display"
+    },
+    {
+      "path": "alignSelf",
+      "label": "Align Self",
+      "editorType": "dropdown",
+      "description": "The align-self CSS property overrides a grid or flex item's align-items value. In Grid, it aligns the item inside the grid area. In Flexbox, it aligns the item on the cross axis.",
+      "group": "Display"
+    },
+    {
+      "path": "justifyContent",
+      "label": "Justify Content",
+      "editorType": "dropdown",
+      "description": "The CSS justify-content property defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container.",
+      "group": "Display"
+    },
+    {
+      "path": "justifySelf",
+      "label": "Justify Self",
+      "editorType": "dropdown",
+      "description": "The CSS justify-self property sets the way a box is justified inside its alignment container along the appropriate axis.",
+      "group": "Display"
+    },
+    {
+      "path": "textJustify",
+      "label": "Text Justify",
+      "editorType": "dropdown",
+      "description": "The text-justify CSS property sets what type of justification should be applied to text when text-align: justify; is set on an element.",
+      "group": "Display"
+    },
+    {
+      "path": "justifyItems",
+      "label": "Justify Items",
+      "editorType": "dropdown",
+      "description": "The CSS justify-items property defines the default justify-self for all items of the box, giving them all a default way of justifying each box along the appropriate axis.",
+      "group": "Display"
+    },
+    {
+      "path": "overflow",
+      "label": "Overflow",
+      "editorType": "dropdown",
+      "description": "The CSS justify-items property defines the default justify-self for all items of the box, giving them all a default way of justifying each box along the appropriate axis.",
+      "group": "Display"
+    },
+    {
+      "path": "shadowStyle",
+      "label": "Shadow Style",
+      "editorType": "dropdown",
+      "description": "Determines visibility and position of the box shadow.",
+      "group": "Display"
+    },
+    {
+      "path": "borderWidth",
+      "label": "Border Width",
+      "editorType": "textField",
+      "description": "Container border width (can px)",
+      "group": "Border"
+    },
+    {
+      "path": "borderStyle",
+      "label": "Border Type",
+      "editorType": "dropdown",
+      "group": "Border"
+    },
+    {
+      "path": "backgroundType",
+      "label": "Background Type",
+      "editorType": "dropdown",
+      "group": "Background"
+    },
+    {
+      "path": "backgroundDataSource",
+      "label": "Image Source Type",
+      "editorType": "dropdown",
+      "group": "Background"
+    },
+    {
+      "path": "backgroundCover",
+      "label": "Background Size",
+      "editorType": "dropdown",
+      "group": "Background"
+    },
+    {
+      "path": "backgroundRepeat",
+      "label": "Background Repeat",
+      "editorType": "dropdown",
+      "group": "Background"
+    },
+    {
+      "path": "backgroundUrl",
+      "label": "Background Image URL",
+      "editorType": "textField",
+      "description": "Add a background image URL",
+      "group": "Background"
+    },
+    {
+      "path": "backgroundBase64",
+      "label": "Upload Image",
+      "editorType": "imagePicker",
+      "group": "Background"
+    },
+    {
+      "path": "backgroundStoredFileId",
+      "label": "StoredFile ID",
+      "editorType": "textField",
+      "group": "Background"
+    },
+    {
+      "path": "minWidth",
+      "label": "Min Width",
+      "editorType": "textField",
+      "description": "Container minimum width (can be %, px, or vw)",
+      "group": "Style"
+    },
+    {
+      "path": "maxWidth",
+      "label": "Max Width",
+      "editorType": "textField",
+      "description": "Container maximum width (can be %, px, or vw)",
+      "group": "Style"
+    },
+    {
+      "path": "minHeight",
+      "label": "Min Height",
+      "editorType": "textField",
+      "description": "Container minimum height (can be %, px, or vw)",
+      "group": "Style"
+    },
+    {
+      "path": "maxHeight",
+      "label": "Max Height",
+      "editorType": "textField",
+      "description": "Container maximum height (can be %, px, or vw)",
+      "group": "Style"
+    },
+    {
+      "path": "className",
+      "label": "Custom CSS Class",
+      "editorType": "textField",
+      "description": "Custom CSS Class to add to this component",
+      "group": "Style"
+    },
+    {
+      "path": "wrapperStyle",
+      "label": "Wrapper Style",
+      "editorType": "codeEditor",
+      "description": "The style that will be applied to the container wrapper",
+      "group": "Style"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": null,
+    "detectedSlotKeys": [
+      "components"
+    ],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "container/containerComponent.tsx",
+    "container/interfaces.ts"
+  ]
+}

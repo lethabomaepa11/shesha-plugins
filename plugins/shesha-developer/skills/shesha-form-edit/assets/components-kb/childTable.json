@@ -1,0 +1,95 @@
+{
+  "type": "childTable",
+  "name": "Child Table",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "TableOutlined",
+  "version": 6,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IPanelComponentProps",
+    "interfaceFile": "designer-components/dataTable/childTable/migrations/migrateToTable.ts",
+    "ownProps": [
+      "collapsedByDefault",
+      "expandIconPosition",
+      "header",
+      "content",
+      "collapsible",
+      "ghost",
+      "hideWhenEmpty",
+      "className"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "className",
+      "collapsedByDefault",
+      "collapsible",
+      "componentName",
+      "content",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "expandIconPosition",
+      "ghost",
+      "header",
+      "hidden",
+      "hideLabel",
+      "hideWhenEmpty",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dataTable/childTable/index.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "none"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [
+      "header",
+      "content"
+    ],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dataTable/childTable/index.tsx",
+    "dataTable/childTable/migrations/migrateToTable.ts"
+  ]
+}

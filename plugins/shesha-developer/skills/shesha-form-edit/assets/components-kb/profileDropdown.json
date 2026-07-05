@@ -1,0 +1,129 @@
+{
+  "type": "profileDropdown",
+  "name": "Profile Dropdown",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": false,
+  "icon": "UserOutlined",
+  "version": null,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IProfileDropdown",
+    "interfaceFile": "designer-components/profileDropdown/index.tsx",
+    "ownProps": [
+      "items",
+      "subText",
+      "subTextColor",
+      "subTextFontSize",
+      "subTextStyle"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "items",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subText",
+      "subTextColor",
+      "subTextFontSize",
+      "subTextStyle",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "profileDropdown/settingsForm.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "subText",
+      "label": "Sub Text",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "subTextStyle",
+      "label": "Sub Text Style",
+      "editorType": "codeEditor",
+      "group": "Style"
+    },
+    {
+      "path": "subTextColor",
+      "label": "Sub Text Color",
+      "editorType": "colorPicker",
+      "group": "Style"
+    },
+    {
+      "path": "subTextFontSize",
+      "label": "Sub Text Size",
+      "editorType": "slider",
+      "defaultValue": "12",
+      "group": "Style"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "profileDropdown/index.tsx"
+  ]
+}

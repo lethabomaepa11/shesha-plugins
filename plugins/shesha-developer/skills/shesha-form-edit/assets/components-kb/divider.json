@@ -1,0 +1,121 @@
+{
+  "type": "divider",
+  "name": "Divider",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "LineOutlined",
+  "version": 3,
+  "initModel": {
+    "defaults": {
+      "dividerType": "horizontal",
+      "dashed": false
+    },
+    "raw": "(model) => ({\r\n    dividerType: 'horizontal',\r\n    dashed: false,\r\n    ...model,\r\n  })"
+  },
+  "settingsProps": {
+    "interfaceName": "IDividerProps",
+    "interfaceFile": "designer-components/_legacyComponents/divider/index.tsx",
+    "ownProps": [
+      "dividerType",
+      "dashed"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "dashed",
+      "defaultValue",
+      "description",
+      "dividerType",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "_legacyComponents/divider/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style",
+    "stylingBox"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "ComponentName",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "dividerType",
+      "label": "Divider Type",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "dashed",
+      "label": "Dashed",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "group": "Style",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "shared": true
+    },
+    {
+      "path": "stylingBox",
+      "editorType": "styleBox",
+      "group": "Style",
+      "shared": true
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "_legacyComponents/divider/index.tsx"
+  ]
+}

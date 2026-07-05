@@ -1,0 +1,54 @@
+{
+  "type": "buttons",
+  "name": "Buttons",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "GroupOutlined",
+  "version": null,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IButtonsComponentProps",
+    "interfaceFile": null,
+    "ownProps": [],
+    "extends": [],
+    "resolvedProps": [],
+    "unresolvedExtends": [
+      "IButtonsComponentProps"
+    ]
+  },
+  "settingsForm": {
+    "source": "button/buttonGroup/buttonsComponent/settings.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "propertyAutocomplete"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField"
+    },
+    {
+      "path": "customVisibility",
+      "label": "Custom Visibility",
+      "editorType": "codeEditor",
+      "description": "Enter custom visibility code.  You must return true to show the component. The global variable data is provided, and allows you to access the data of any form component, by using its API key."
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "button/buttonGroup/buttonsComponent/index.tsx"
+  ]
+}

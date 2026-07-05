@@ -1,0 +1,119 @@
+{
+  "type": "sizableColumns",
+  "name": "SizableColumns",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "BorderHorizontalOutlined",
+  "version": 2,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model) => {\r\n    const tabsModel: ISizableColumnComponentProps = {\r\n      ...model,\r\n      columns: [\r\n        { id: nanoid(), size: 50, components: [] },\r\n        { id: nanoid(), size: 50, components: [] },\r\n      ],\r\n      stylingBox: \"{\\\"marginBottom\\\":\\\"5\\\"}\"\r\n    };\r\n\r\n    return tabsModel;\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "ISizableColumnComponentProps",
+    "interfaceFile": "designer-components/sizableColumns/interfaces.ts",
+    "ownProps": [
+      "columns"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "columns",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "sizableColumns/sizableColumnsSettings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style",
+    "stylingBox"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden"
+    },
+    {
+      "path": "columns",
+      "label": "Columns"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "stylingBox",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": [
+      "columns"
+    ],
+    "detectedSlotKeys": [
+      "components",
+      "columns"
+    ],
+    "usesComponentsContainer": true
+  },
+  "sourceFiles": [
+    "sizableColumns/sizableColumns.tsx",
+    "sizableColumns/interfaces.ts"
+  ]
+}

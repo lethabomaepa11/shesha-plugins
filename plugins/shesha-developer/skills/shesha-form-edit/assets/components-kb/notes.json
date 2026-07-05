@@ -1,0 +1,222 @@
+{
+  "type": "notes",
+  "name": "Notes",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "FormOutlined",
+  "version": 4,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model) => {\r\n    const customModel: INotesProps = {\r\n      ...model,\r\n      ownerId: '{data.id}',\r\n      ownerType: '',\r\n      hideLabel: true,\r\n    };\r\n    return customModel;\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "INotesProps",
+    "interfaceFile": "designer-components/notes/notesComponent.tsx",
+    "ownProps": [
+      "ownerId",
+      "ownerType",
+      "savePlacement",
+      "autoSize",
+      "allowDelete",
+      "onCreated",
+      "category",
+      "showCharCount",
+      "minLength",
+      "maxLength",
+      "onDeleteAction",
+      "onCreateAction",
+      "allowEdit",
+      "onUpdateAction"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "allowDelete",
+      "allowEdit",
+      "autoSize",
+      "category",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "maxLength",
+      "minLength",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onCreateAction",
+      "onCreated",
+      "onDeleteAction",
+      "onFocusCustom",
+      "onUpdateAction",
+      "ownerId",
+      "ownerType",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "savePlacement",
+      "settingsValidationErrors",
+      "showCharCount",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "notes/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "category",
+      "label": "Notes Category",
+      "editorType": "textField",
+      "group": "Display",
+      "description": "This is used to group notes into categories"
+    },
+    {
+      "path": "showCharCount",
+      "label": "Show Chars Count",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "defaultValue": "inherited",
+      "group": "Display"
+    },
+    {
+      "path": "allowEdit",
+      "label": "Allow Edit",
+      "editorType": "checkbox",
+      "defaultValue": false,
+      "group": "Display"
+    },
+    {
+      "path": "allowDelete",
+      "label": "Allow Delete",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "savePlacement",
+      "label": "Save Placement",
+      "editorType": "dropdown",
+      "defaultValue": "left",
+      "group": "Style",
+      "description": "This is used to place the save button (Left, Right)."
+    },
+    {
+      "path": "autoSize",
+      "label": "Auto Size",
+      "editorType": "checkbox",
+      "group": "Style"
+    },
+    {
+      "path": "ownerId",
+      "label": "Owner Id",
+      "editorType": "textField",
+      "defaultValue": "{data.id}",
+      "group": "Data",
+      "description": "The unique identifier of the entity that owns these notes"
+    },
+    {
+      "path": "ownerType",
+      "label": "Owner Type",
+      "editorType": "autocomplete",
+      "group": "Data",
+      "description": "The type of entity that owns these notes"
+    },
+    {
+      "path": "onCreated",
+      "label": "On Create",
+      "editorType": "codeEditor",
+      "group": "Events",
+      "description": "Triggered after successfully creating a new note. The createdNotes array is available in the execution context."
+    },
+    {
+      "path": "onUpdateAction",
+      "label": "On Update",
+      "editorType": "codeEditor",
+      "group": "Events",
+      "description": "Triggered after successfully updating a note"
+    },
+    {
+      "path": "onDeleteAction",
+      "label": "On Delete",
+      "editorType": "codeEditor",
+      "group": "Events",
+      "description": "Triggered after successfully deleting a note"
+    },
+    {
+      "path": "minLength",
+      "label": "Min Length",
+      "editorType": "numberField",
+      "group": "Validation",
+      "description": "Minimum number of characters required for a note"
+    },
+    {
+      "path": "maxLength",
+      "label": "Max Length",
+      "editorType": "numberField",
+      "group": "Validation",
+      "description": "Maximum number of characters allowed for a note"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "notes/notesComponent.tsx"
+  ]
+}

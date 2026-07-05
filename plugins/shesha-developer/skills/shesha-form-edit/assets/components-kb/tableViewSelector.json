@@ -1,0 +1,93 @@
+{
+  "type": "tableViewSelector",
+  "name": "Table view selector",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "SelectOutlined",
+  "version": 2,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "ITableViewSelectorComponentProps",
+    "interfaceFile": "designer-components/dataTable/tableViewSelector/models.ts",
+    "ownProps": [
+      "filters",
+      "persistSelectedFilters"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "filters",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "persistSelectedFilters",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dataTable/tableViewSelector/tableViewSelectorSettings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "filters"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dataTable/tableViewSelector/tableViewSelectorComponent.tsx",
+    "dataTable/tableViewSelector/models.ts"
+  ]
+}

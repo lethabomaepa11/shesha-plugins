@@ -1,0 +1,229 @@
+{
+  "type": "progress",
+  "name": "Progress",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "LineOutlined",
+  "version": 1,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IProgressProps",
+    "interfaceFile": "designer-components/progress/index.tsx",
+    "ownProps": [
+      "format",
+      "progressType",
+      "success",
+      "strokeColor",
+      "lineStrokeColor",
+      "circleStrokeColor"
+    ],
+    "extends": [
+      "Omit<ProgressProps",
+      "'style' | 'type' | 'size' | 'format' | 'success' | 'strokeColor'>",
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "circleStrokeColor",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "format",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "lineStrokeColor",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "progressType",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "strokeColor",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "success",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "'style' | 'type' | 'size' | 'format' | 'success' | 'strokeColor'>",
+      "IHasVersion",
+      "Omit<ProgressProps"
+    ]
+  },
+  "settingsForm": {
+    "source": "progress/settings.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "width"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide label",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "format",
+      "label": "Format",
+      "editorType": "codeEditor",
+      "description": "Progress percentage",
+      "group": "Display"
+    },
+    {
+      "path": "percent",
+      "label": "Percent",
+      "editorType": "numberField",
+      "description": "To set the completion percentage",
+      "group": "Display"
+    },
+    {
+      "path": "showInfo",
+      "label": "Show Info",
+      "editorType": "checkbox",
+      "defaultValue": true,
+      "group": "Display"
+    },
+    {
+      "path": "status",
+      "label": "Status",
+      "editorType": "dropdown",
+      "description": "To set the status of the Progress.",
+      "group": "Display"
+    },
+    {
+      "path": "strokeColor",
+      "label": "Stroke Color",
+      "editorType": "textField",
+      "description": "The color of progress bar. This will be 'overridden' by the the 'strokeColor' property of 'line' and 'circle' types",
+      "group": "Display"
+    },
+    {
+      "path": "strokeLinecap",
+      "label": "Stroke Linecap",
+      "editorType": "dropdown",
+      "defaultValue": "round",
+      "group": "Display"
+    },
+    {
+      "path": "success",
+      "label": "Success",
+      "editorType": "codeEditor",
+      "description": "Configs of successfully progress bar. Returns an object of this format: { percent: number, strokeColor: string }",
+      "group": "Display"
+    },
+    {
+      "path": "trailColor",
+      "label": "trailColor",
+      "editorType": "textField",
+      "description": "The color of unfilled part",
+      "group": "Display"
+    },
+    {
+      "path": "progressType",
+      "label": "Type",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "steps",
+      "label": "Steps",
+      "editorType": "numberField",
+      "description": "The total step count",
+      "group": "Display"
+    },
+    {
+      "path": "lineStrokeColor",
+      "label": "Stroke Width",
+      "editorType": "codeEditor",
+      "description": "The color of progress bar, render linear-gradient when passing an object, could accept string[] when has steps. ",
+      "group": "Display"
+    },
+    {
+      "path": "circleStrokeColor",
+      "label": "Stroke Color",
+      "editorType": "codeEditor",
+      "description": "The color of circular progress, render linear-gradient when passing an object. Write the code that returns: `string | object`",
+      "group": "Display"
+    },
+    {
+      "path": "gapDegree",
+      "label": "Gap Degree",
+      "editorType": "numberField",
+      "group": "Display"
+    },
+    {
+      "path": "gapPosition",
+      "label": "Gap Position",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "strokeWidth",
+      "label": "Stroke Width",
+      "editorType": "numberField",
+      "defaultValue": 6,
+      "description": "To set the width of the circular progress, unit: percentage of the canvas width in px",
+      "group": "Display"
+    },
+    {
+      "path": "width",
+      "label": "Width",
+      "editorType": "numberField",
+      "description": "To set the canvas width of the circular progress, unit: px",
+      "group": "Display",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "progress/index.tsx"
+  ]
+}

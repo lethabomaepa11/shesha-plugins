@@ -1,0 +1,308 @@
+{
+  "type": "entityPicker",
+  "name": "Entity Picker",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "EllipsisOutlined",
+  "version": 9,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IEntityPickerComponentProps",
+    "interfaceFile": "designer-components/entityPicker/index.tsx",
+    "ownProps": [
+      "placeholder",
+      "items",
+      "hideBorder",
+      "valueFormat",
+      "incomeCustomJs",
+      "outcomeCustomJs",
+      "mode",
+      "entityType",
+      "filters",
+      "title",
+      "displayEntityKey",
+      "allowNewRecord",
+      "modalFormId",
+      "modalTitle",
+      "showModalFooter",
+      "modalWidth",
+      "customWidth",
+      "widthUnits",
+      "buttons",
+      "footerButtons"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "allowNewRecord",
+      "buttons",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "customWidth",
+      "defaultValue",
+      "description",
+      "displayEntityKey",
+      "editMode",
+      "entityType",
+      "filters",
+      "footerButtons",
+      "hidden",
+      "hideBorder",
+      "hideLabel",
+      "id",
+      "incomeCustomJs",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "items",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "modalFormId",
+      "modalTitle",
+      "modalWidth",
+      "mode",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "outcomeCustomJs",
+      "parentId",
+      "permissions",
+      "placeholder",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "showModalFooter",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "title",
+      "type",
+      "validate",
+      "valueFormat",
+      "widthUnits"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "entityPicker/settingsForm.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style",
+    "size"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "labelAlign",
+      "label": "Label align",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "editorType": "textArea",
+      "group": "Display"
+    },
+    {
+      "path": "placeholder",
+      "label": "Placeholder",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "mode",
+      "label": "Mode",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "entityType",
+      "label": "Entity Type",
+      "editorType": "autocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "displayEntityKey",
+      "label": "Display Property",
+      "editorType": "propertyAutocomplete",
+      "description": "Name of the property that should be displayed in the field. Live empty to use default display property defined on the back-end.",
+      "group": "Display"
+    },
+    {
+      "path": "filters",
+      "label": "Entity Filter",
+      "editorType": "queryBuilder",
+      "group": "Display"
+    },
+    {
+      "path": "valueFormat",
+      "label": "Value format",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "incomeCustomJs",
+      "label": "Id value",
+      "editorType": "codeEditor",
+      "description": "Return string value of Id",
+      "group": "Display"
+    },
+    {
+      "path": "outcomeCustomJs",
+      "label": "Custom value",
+      "editorType": "codeEditor",
+      "description": "Return value that will be stored as field value",
+      "group": "Display"
+    },
+    {
+      "path": "items",
+      "label": "Columns",
+      "editorType": "columnsEditor",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "allowNewRecord",
+      "label": "Allow New Record",
+      "editorType": "checkbox",
+      "group": "Data"
+    },
+    {
+      "path": "modalTitle",
+      "label": "Title",
+      "editorType": "textField",
+      "group": "Dialogue settings"
+    },
+    {
+      "path": "modalFormId",
+      "label": "Modal form",
+      "editorType": "formAutocomplete",
+      "group": "Dialogue settings"
+    },
+    {
+      "path": "footerButtons",
+      "label": "Buttons type",
+      "editorType": "dropdown",
+      "defaultValue": "default",
+      "group": "Dialogue settings"
+    },
+    {
+      "path": "submitHttpVerb",
+      "label": "Submit Http Verb",
+      "editorType": "dropdown",
+      "defaultValue": "POST",
+      "group": "Dialogue settings"
+    },
+    {
+      "path": "onSuccessRedirectUrl",
+      "label": "Success Redirect URL",
+      "editorType": "textField",
+      "group": "Dialogue settings"
+    },
+    {
+      "path": "modalWidth",
+      "label": "Dialog Width (%)",
+      "editorType": "dropdown",
+      "group": "Dialogue settings"
+    },
+    {
+      "path": "widthUnits",
+      "label": "Units",
+      "editorType": "dropdown",
+      "group": "Dialogue settings"
+    },
+    {
+      "path": "customWidth",
+      "label": "Enter Custom Width",
+      "editorType": "numberField",
+      "group": "Dialogue settings"
+    },
+    {
+      "path": "validate.required",
+      "label": "Required",
+      "editorType": "checkbox",
+      "group": "Validation"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "size",
+      "label": "Size",
+      "editorType": "dropdown",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "onChangeCustom",
+      "label": "On Change",
+      "editorType": "codeEditor",
+      "description": "Enter custom eventhandler on changing of event. (data, form, event) are exposed",
+      "group": "Events"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "entityPicker/index.tsx"
+  ]
+}

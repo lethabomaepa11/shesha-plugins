@@ -1,0 +1,117 @@
+{
+  "type": "permissionedObjectsTree",
+  "name": "Permissioned objects tree",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "ApartmentOutlined",
+  "version": 0,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model: IPermissionedObjectsTreeComponentProps) => {\r\n    return {\r\n      ...model,\r\n    };\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "IPermissionedObjectsTreeComponentProps",
+    "interfaceFile": "designer-components/permissions/permissionedObjectsTree/permissionedObjectsTree.tsx",
+    "ownProps": [
+      "objectsType",
+      "height",
+      "onChange",
+      "onSelectAction",
+      "defaultAccess"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultAccess",
+      "defaultValue",
+      "description",
+      "editMode",
+      "height",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "objectsType",
+      "onBlurCustom",
+      "onChange",
+      "onChangeCustom",
+      "onFocusCustom",
+      "onSelectAction",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "permissions/permissionedObjectsTree/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "height"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name",
+      "editorType": "textField"
+    },
+    {
+      "path": "objectsType",
+      "label": "Type of permissioned objects",
+      "editorType": "textField"
+    },
+    {
+      "path": "defaultAccess",
+      "label": "Default access",
+      "editorType": "numberField"
+    },
+    {
+      "path": "onSelectAction",
+      "label": "On select action",
+      "editorType": "configurableActionConfigurator"
+    },
+    {
+      "path": "height",
+      "label": "Height",
+      "editorType": "textField",
+      "shared": true
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "permissions/permissionedObjectsTree/permissionedObjectsTree.tsx"
+  ]
+}

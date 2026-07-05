@@ -1,0 +1,248 @@
+{
+  "type": "datatable",
+  "name": "Data Table",
+  "isInput": true,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "TableOutlined",
+  "version": 11,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model: ITableComponentProps) => {\r\n    return {\r\n      ...model,\r\n      items: [],\r\n    };\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "ITableComponentProps",
+    "interfaceFile": "designer-components/dataTable/table/models.ts",
+    "ownProps": [],
+    "extends": [
+      "ITableComponentBaseProps",
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "canAddInline",
+      "canAddInlineExpression",
+      "canDeleteInline",
+      "canDeleteInlineExpression",
+      "canEditInline",
+      "canEditInlineExpression",
+      "componentName",
+      "containerStyle",
+      "context",
+      "customCreateUrl",
+      "customDeleteUrl",
+      "customEnabled",
+      "customUpdateUrl",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "freezeHeaders",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "inlineEditMode",
+      "inlineSaveMode",
+      "isDynamic",
+      "items",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "maxHeight",
+      "minHeight",
+      "newRowCapturePosition",
+      "newRowInsertPosition",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "onNewRowInitialize",
+      "onRowDeleteSuccessAction",
+      "onRowSave",
+      "onRowSaveSuccessAction",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "tableStyle",
+      "type",
+      "useMultiselect",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dataTable/table/tableComponent-settings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name"
+    },
+    {
+      "path": "items"
+    },
+    {
+      "path": "useMultiselect",
+      "label": "Use Multi-select"
+    },
+    {
+      "path": "freezeHeaders",
+      "label": "Freeze Headers"
+    },
+    {
+      "path": "canEditInline",
+      "label": "Can edit inline",
+      "group": "CRUD"
+    },
+    {
+      "path": "canEditInlineExpression",
+      "label": "Can edit inline expression",
+      "group": "CRUD"
+    },
+    {
+      "path": "inlineEditMode",
+      "label": "Row edit mode",
+      "group": "CRUD"
+    },
+    {
+      "path": "inlineSaveMode",
+      "label": "Save mode",
+      "group": "CRUD"
+    },
+    {
+      "path": "customUpdateUrl",
+      "label": "Custom update url",
+      "group": "CRUD"
+    },
+    {
+      "path": "canAddInline",
+      "label": "Can add inline",
+      "group": "CRUD"
+    },
+    {
+      "path": "canAddInlineExpression",
+      "label": "Can add inline expression",
+      "group": "CRUD"
+    },
+    {
+      "path": "newRowCapturePosition",
+      "label": "New row capture position",
+      "group": "CRUD"
+    },
+    {
+      "path": "newRowInsertPosition",
+      "label": "New row insert position",
+      "group": "CRUD"
+    },
+    {
+      "path": "customCreateUrl",
+      "label": "Custom create url",
+      "group": "CRUD"
+    },
+    {
+      "path": "onNewRowInitialize",
+      "label": "New row init",
+      "group": "CRUD",
+      "description": "Allows configurators to specify logic to initialise the object bound to a new row."
+    },
+    {
+      "path": "onRowSave",
+      "label": "On row save",
+      "group": "CRUD"
+    },
+    {
+      "path": "onRowSaveSuccessAction",
+      "group": "CRUD"
+    },
+    {
+      "path": "canDeleteInline",
+      "label": "Can delete inline",
+      "group": "CRUD"
+    },
+    {
+      "path": "customDeleteUrl",
+      "label": "Custom delete url",
+      "group": "CRUD"
+    },
+    {
+      "path": "onRowDeleteSuccessAction",
+      "group": "CRUD"
+    },
+    {
+      "path": "canDeleteInlineExpression",
+      "label": "Can delete inline expression",
+      "group": "CRUD"
+    },
+    {
+      "path": "minHeight",
+      "label": "Min Height",
+      "group": "Layout",
+      "description": "The minimum height of the table (e.g. even when 0 rows). If blank then minimum height is 0."
+    },
+    {
+      "path": "maxHeight",
+      "label": "Max Height",
+      "group": "Layout",
+      "description": "The maximum height of the table. If left blank should grow to display all rows, otherwise should allow for vertical scrolling."
+    },
+    {
+      "path": "containerStyle",
+      "label": "Table container style",
+      "group": "Layout"
+    },
+    {
+      "path": "tableStyle",
+      "label": "Table style",
+      "group": "Layout"
+    },
+    {
+      "path": "noDataText",
+      "label": "Primary Text",
+      "group": "Empty Table"
+    },
+    {
+      "path": "noDataSecondaryText",
+      "label": "Secondary Text",
+      "group": "Empty Table"
+    },
+    {
+      "path": "noDataIcon",
+      "label": "Icon",
+      "group": "Empty Table"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": null,
+    "detectedSlotKeys": [
+      "components"
+    ],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dataTable/table/tableComponent.tsx",
+    "dataTable/table/models.ts"
+  ]
+}

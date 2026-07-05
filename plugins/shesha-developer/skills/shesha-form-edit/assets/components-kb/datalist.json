@@ -1,0 +1,321 @@
+{
+  "type": "datalist",
+  "name": "DataList",
+  "isInput": true,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "UnorderedListOutlined",
+  "version": 8,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IDataListComponentProps",
+    "interfaceFile": "designer-components/dataList/model.tsx",
+    "ownProps": [],
+    "extends": [
+      "IDataListBaseProps",
+      "IDataListInlineEditableProps",
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "canAddInline",
+      "canDeleteInline",
+      "canEditInline",
+      "cardHeight",
+      "cardMaxWidth",
+      "cardMinWidth",
+      "cardSpacing",
+      "collapseByDefault",
+      "collapsible",
+      "componentName",
+      "context",
+      "createFormId",
+      "createFormType",
+      "customCreateUrl",
+      "customDeleteUrl",
+      "customEnabled",
+      "customListItemWidth",
+      "customUpdateUrl",
+      "customVisibility",
+      "customWidth",
+      "dataSource",
+      "dblClickActionConfiguration",
+      "defaultValue",
+      "description",
+      "editMode",
+      "entityType",
+      "formId",
+      "formIdExpression",
+      "formSelectionMode",
+      "formType",
+      "groupStyle",
+      "grouping",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "inlineEditMode",
+      "inlineSaveMode",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "listItemWidth",
+      "modalWidth",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "onListItemSave",
+      "onListItemSaveSuccessAction",
+      "onNewListItemInitialize",
+      "onRowDeleteSuccessAction",
+      "orientation",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "selectionMode",
+      "settingsValidationErrors",
+      "showBorder",
+      "showEditIcons",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate",
+      "widthUnits"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dataList/dataListSettings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component name"
+    },
+    {
+      "path": "dblClickActionConfiguration"
+    },
+    {
+      "path": "selectionMode",
+      "label": "Selection mode"
+    },
+    {
+      "path": "formSelectionMode",
+      "label": "Form selection mode",
+      "group": "Render"
+    },
+    {
+      "path": "formId",
+      "label": "Form",
+      "group": "Render"
+    },
+    {
+      "path": "formType",
+      "label": "Form type",
+      "group": "Render"
+    },
+    {
+      "path": "formIdExpression",
+      "label": "Form identifier expression",
+      "group": "Render"
+    },
+    {
+      "path": "orientation",
+      "label": "Orientation",
+      "group": "Render"
+    },
+    {
+      "path": "listItemWidth",
+      "label": "List Item Width",
+      "group": "Render"
+    },
+    {
+      "path": "customListItemWidth",
+      "label": "Custom List Item Width (px)",
+      "group": "Render"
+    },
+    {
+      "path": "cardMinWidth",
+      "label": "Card Minimum Width",
+      "group": "Render",
+      "description": "You can use any unit (%, px, em, etc)"
+    },
+    {
+      "path": "cardMaxWidth",
+      "label": "Card Maximum Width",
+      "group": "Render",
+      "description": "You can use any unit (%, px, em, etc)"
+    },
+    {
+      "path": "cardHeight",
+      "label": "Card Height",
+      "group": "Render",
+      "description": "You can use any unit (%, px, em, etc)"
+    },
+    {
+      "path": "cardSpacing",
+      "label": "Card Spacing",
+      "group": "Render",
+      "description": "You can use any unit (%, px, em, etc)"
+    },
+    {
+      "path": "showBorder",
+      "label": "Show Border",
+      "group": "Render"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "group": "Render"
+    },
+    {
+      "path": "canEditInline",
+      "label": "Can edit inline",
+      "group": "CRUD"
+    },
+    {
+      "path": "showEditIcons",
+      "label": "Show edit icon",
+      "group": "CRUD"
+    },
+    {
+      "path": "inlineEditMode",
+      "label": "List edit mode",
+      "group": "CRUD"
+    },
+    {
+      "path": "inlineSaveMode",
+      "label": "Save mode",
+      "group": "CRUD"
+    },
+    {
+      "path": "customUpdateUrl",
+      "label": "Custom update url",
+      "group": "CRUD"
+    },
+    {
+      "path": "canAddInline",
+      "label": "Can add inline",
+      "group": "CRUD"
+    },
+    {
+      "path": "createFormId",
+      "label": "Create form",
+      "group": "CRUD"
+    },
+    {
+      "path": "createFormType",
+      "label": "Create form type",
+      "group": "CRUD"
+    },
+    {
+      "path": "modalWidth",
+      "label": "Dialog Width (%)",
+      "group": "CRUD"
+    },
+    {
+      "path": "widthUnits",
+      "label": "Units",
+      "group": "CRUD"
+    },
+    {
+      "path": "customWidth",
+      "label": "Enter Custom Width",
+      "group": "CRUD"
+    },
+    {
+      "path": "customCreateUrl",
+      "label": "Custom create url",
+      "group": "CRUD"
+    },
+    {
+      "path": "onNewListItemInitialize",
+      "label": "New list item init",
+      "group": "CRUD",
+      "description": "Allows configurators to specify logic to initialise the object bound to a new list item."
+    },
+    {
+      "path": "onListItemSave",
+      "label": "On list item save",
+      "group": "CRUD"
+    },
+    {
+      "path": "onListItemSaveSuccessAction",
+      "group": "CRUD"
+    },
+    {
+      "path": "canDeleteInline",
+      "label": "Can delete inline",
+      "group": "CRUD"
+    },
+    {
+      "path": "customDeleteUrl",
+      "label": "Custom delete url",
+      "group": "CRUD"
+    },
+    {
+      "path": "onRowDeleteSuccessAction",
+      "group": "CRUD"
+    },
+    {
+      "path": "collapsible",
+      "label": "Collapsible",
+      "group": "Grouping"
+    },
+    {
+      "path": "collapseByDefault",
+      "label": "Collapse by default",
+      "group": "Grouping"
+    },
+    {
+      "path": "groupStyle",
+      "label": "Style of group headers",
+      "group": "Grouping"
+    },
+    {
+      "path": "noDataText",
+      "label": "Primary Text",
+      "group": "Empty List"
+    },
+    {
+      "path": "noDataSecondaryText",
+      "label": "Secondary Text",
+      "group": "Empty List"
+    },
+    {
+      "path": "noDataIcon",
+      "label": "Icon",
+      "group": "Empty List"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dataList/dataListComponent.tsx",
+    "dataList/model.tsx"
+  ]
+}

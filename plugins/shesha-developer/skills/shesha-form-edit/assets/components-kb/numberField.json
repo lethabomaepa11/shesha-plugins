@@ -1,0 +1,226 @@
+{
+  "type": "numberField",
+  "name": "Number field",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": true,
+  "icon": "NumberOutlined",
+  "version": 4,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model) => ({\r\n    ...model,\r\n  })"
+  },
+  "settingsProps": {
+    "interfaceName": "INumberFieldComponentProps",
+    "interfaceFile": "designer-components/numberField/interfaces.ts",
+    "ownProps": [
+      "hideBorder",
+      "min",
+      "max",
+      "highPrecision",
+      "stepNumeric",
+      "stepString",
+      "placeholder"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideBorder",
+      "hideLabel",
+      "highPrecision",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "max",
+      "min",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "placeholder",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "stepNumeric",
+      "stepString",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "numberField/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "hideBorder",
+    "style",
+    "size"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "labelAlign",
+      "label": "Label align",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "placeholder",
+      "label": "Placeholder",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "editorType": "textArea",
+      "group": "Display"
+    },
+    {
+      "path": "highPrecision",
+      "label": "High precision",
+      "editorType": "checkbox",
+      "group": "Display",
+      "description": "To support high precision decimals support"
+    },
+    {
+      "path": "stepNumeric",
+      "label": "Step",
+      "editorType": "numberField",
+      "defaultValue": 1,
+      "group": "Display"
+    },
+    {
+      "path": "stepString",
+      "label": "Step",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "hideBorder",
+      "label": "Hide border",
+      "editorType": "checkbox",
+      "group": "Display",
+      "shared": true
+    },
+    {
+      "path": "defaultValue",
+      "label": "Default Value",
+      "editorType": "numberField",
+      "group": "Data",
+      "description": "Enter default value of component. (formData, formMode, globalState) are exposed"
+    },
+    {
+      "path": "onChangeCustom",
+      "label": "On Change",
+      "editorType": "codeEditor",
+      "group": "Events",
+      "description": "Enter custom event handler on changing of event. (form, value) are exposed. The callback triggered when the value is changed"
+    },
+    {
+      "path": "validate.required",
+      "label": "Required",
+      "editorType": "checkbox",
+      "group": "Validation"
+    },
+    {
+      "path": "validate.minValue",
+      "label": "Min Value",
+      "editorType": "numberField",
+      "group": "Validation"
+    },
+    {
+      "path": "validate.maxValue",
+      "label": "Max Value",
+      "editorType": "numberField",
+      "group": "Validation"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "group": "Style",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "shared": true
+    },
+    {
+      "path": "size",
+      "label": "Size",
+      "editorType": "dropdown",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "numberField/numberField.tsx",
+    "numberField/interfaces.ts"
+  ]
+}

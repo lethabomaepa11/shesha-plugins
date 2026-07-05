@@ -1,0 +1,273 @@
+{
+  "type": "entityReference",
+  "name": "Entity Reference",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "LinkExternalOutlined",
+  "version": 6,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IEntityReferenceControlProps",
+    "interfaceFile": "designer-components/entityReference/entityReference.tsx",
+    "ownProps": [],
+    "extends": [
+      "IEntityReferenceProps",
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "additionalProperties",
+      "buttons",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "customWidth",
+      "defaultValue",
+      "description",
+      "disabled",
+      "displayProperty",
+      "displayType",
+      "editMode",
+      "entityReferenceType",
+      "entityType",
+      "footerButtons",
+      "formIdentifier",
+      "formSelectionMode",
+      "formType",
+      "getEntityUrl",
+      "handleFail",
+      "handleSuccess",
+      "hidden",
+      "hideLabel",
+      "iconName",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "modalTitle",
+      "modalWidth",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFail",
+      "onFocusCustom",
+      "onSuccess",
+      "parentId",
+      "permissions",
+      "placeholder",
+      "propertyName",
+      "quickviewWidth",
+      "readOnly",
+      "settingsValidationErrors",
+      "showModalFooter",
+      "size",
+      "skipFetchData",
+      "style",
+      "stylingBox",
+      "submitHttpVerb",
+      "subscribedEventNames",
+      "textTitle",
+      "type",
+      "validate",
+      "value",
+      "widthUnits"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "entityReference/settings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "style"
+  ],
+  "settingsFields": [
+    {
+      "path": "label",
+      "label": "Label",
+      "group": "Display"
+    },
+    {
+      "path": "labelAlign",
+      "label": "Label align",
+      "group": "Display"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "group": "Display"
+    },
+    {
+      "path": "placeholder",
+      "label": "Placeholder",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "getEntityUrl",
+      "label": "Get entity URL",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "entityType",
+      "label": "Entity type",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "displayType",
+      "label": "Display type",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "displayProperty",
+      "label": "Display property",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "icon",
+      "label": "Icon",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "textTitle",
+      "label": "Text title",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "entityReferenceType",
+      "label": "Entity Reference Type",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "formSelectionMode",
+      "label": "Form selection mode",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "formType",
+      "label": "Form type",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "formIdentifier",
+      "label": "Form",
+      "group": "Entity reference configuration"
+    },
+    {
+      "path": "quickviewWidth",
+      "label": "Quickview width",
+      "group": "Quickview settings"
+    },
+    {
+      "path": "modalTitle",
+      "label": "Title",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "footerButtons",
+      "label": "Buttons type",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "buttons",
+      "label": "Configure Modal Buttons",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "submitHttpVerb",
+      "label": "Submit Http Verb",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "additionalProperties",
+      "label": "Additional properties",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "modalWidth",
+      "label": "Dialog Width (%)",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "widthUnits",
+      "label": "Units",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "customWidth",
+      "label": "Enter Custom Width",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "handleSuccess",
+      "label": "Handle Success",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "onSuccess",
+      "label": "On Success",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "handleFail",
+      "label": "Handle Fail",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "onFail",
+      "label": "On Fail",
+      "group": "Dialog settings"
+    },
+    {
+      "path": "labelCol",
+      "label": "Label Col",
+      "group": "Layout"
+    },
+    {
+      "path": "wrapperCol",
+      "label": "Wrapper Col",
+      "group": "Layout"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "group": "Layout",
+      "shared": true
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "group": "Visibility"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "group": "Visibility"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "entityReference/entityReference.tsx"
+  ]
+}

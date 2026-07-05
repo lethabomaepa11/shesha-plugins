@@ -1,0 +1,182 @@
+{
+  "type": "chevron",
+  "name": "Chevron",
+  "isInput": true,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "FolderOpenOutlined",
+  "version": null,
+  "initModel": null,
+  "settingsProps": {
+    "interfaceName": "IChevronProps",
+    "interfaceFile": "components/chevron/models.ts",
+    "ownProps": [
+      "items",
+      "description",
+      "image",
+      "imageStyle",
+      "imageSize",
+      "referenceList",
+      "activeColor",
+      "fontColor",
+      "showIcons",
+      "colorSource",
+      "width",
+      "height",
+      "fontSize"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "activeColor",
+      "colorSource",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "fontColor",
+      "fontSize",
+      "height",
+      "hidden",
+      "hideLabel",
+      "id",
+      "image",
+      "imageSize",
+      "imageStyle",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "items",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "referenceList",
+      "settingsValidationErrors",
+      "showIcons",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate",
+      "width"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "chevron/settings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "fontColor",
+    "width",
+    "height",
+    "fontSize"
+  ],
+  "settingsFields": [
+    {
+      "path": "label",
+      "label": "Label",
+      "group": "Display"
+    },
+    {
+      "path": "labelAlign",
+      "label": "Label align",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "group": "Display"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "group": "Display"
+    },
+    {
+      "path": "referenceList",
+      "label": "Reference List",
+      "group": "Items",
+      "description": "Make sure to reselect the reference list if any changes are made to its items"
+    },
+    {
+      "path": "items",
+      "group": "Items"
+    },
+    {
+      "path": "colorSource",
+      "label": "Color Source",
+      "group": "Styles",
+      "description": "Hex and RGB colors are supported"
+    },
+    {
+      "path": "activeColor",
+      "label": "Active Color",
+      "group": "Styles"
+    },
+    {
+      "path": "fontColor",
+      "label": "Font Color",
+      "group": "Styles",
+      "shared": true
+    },
+    {
+      "path": "showIcons",
+      "label": "Show Icons?",
+      "group": "Styles"
+    },
+    {
+      "path": "width",
+      "label": "Width",
+      "group": "Styles",
+      "shared": true
+    },
+    {
+      "path": "height",
+      "label": "Height",
+      "group": "Styles",
+      "shared": true
+    },
+    {
+      "path": "fontSize",
+      "label": "Font Size",
+      "group": "Styles",
+      "shared": true
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "chevron/chevron.tsx",
+    "../components/chevron/models.ts"
+  ]
+}

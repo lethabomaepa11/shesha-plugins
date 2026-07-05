@@ -1,0 +1,343 @@
+{
+  "type": "dateField",
+  "name": "Date field",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": true,
+  "icon": "CalendarOutlined",
+  "version": 5,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model) => {\r\n    const customModel: IDateFieldProps = {\r\n      ...model,\r\n      picker: 'date',\r\n      showTime: false,\r\n      dateFormat: DATE_TIME_FORMATS?.date,\r\n      timeFormat: DATE_TIME_FORMATS.time,\r\n      defaultToMidnight: true,\r\n    };\r\n    return customModel;\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "IDateFieldProps",
+    "interfaceFile": "designer-components/dateField/interfaces.ts",
+    "ownProps": [
+      "dateFormat",
+      "value",
+      "hideBorder",
+      "showTime",
+      "showNow",
+      "defaultToMidnight",
+      "showToday",
+      "timeFormat",
+      "yearFormat",
+      "quarterFormat",
+      "monthFormat",
+      "weekFormat",
+      "range",
+      "resolveToUTC",
+      "picker",
+      "disablePastDates",
+      "onChange",
+      "disabledDateMode",
+      "disabledDateTemplate",
+      "disabledDateFunc",
+      "disabledTimeMode",
+      "disabledTimeTemplate",
+      "disabledTimeFunc"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "dateFormat",
+      "defaultToMidnight",
+      "defaultValue",
+      "description",
+      "disablePastDates",
+      "disabledDateFunc",
+      "disabledDateMode",
+      "disabledDateTemplate",
+      "disabledTimeFunc",
+      "disabledTimeMode",
+      "disabledTimeTemplate",
+      "editMode",
+      "hidden",
+      "hideBorder",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "monthFormat",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChange",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "picker",
+      "propertyName",
+      "quarterFormat",
+      "range",
+      "readOnly",
+      "resolveToUTC",
+      "settingsValidationErrors",
+      "showNow",
+      "showTime",
+      "showToday",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "timeFormat",
+      "type",
+      "validate",
+      "value",
+      "weekFormat",
+      "yearFormat"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dateField/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "hideBorder",
+    "style",
+    "size"
+  ],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "range",
+      "label": "Range?",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "resolveToUTC",
+      "label": "Resolve to UTC",
+      "editorType": "switch",
+      "group": "Display",
+      "description": "If switched on the selected time will be converted to UTC"
+    },
+    {
+      "path": "labelAlign",
+      "label": "Label align",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "picker",
+      "label": "Picker",
+      "editorType": "dropdown",
+      "defaultValue": "",
+      "group": "Display"
+    },
+    {
+      "path": "placeholder",
+      "label": "Placeholder",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "editorType": "textArea",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "dateFormat",
+      "label": "Date Format",
+      "editorType": "textField",
+      "defaultValue": "DD/MM/YYYY",
+      "group": "Formats"
+    },
+    {
+      "path": "timeFormat",
+      "label": "Time Format",
+      "editorType": "textField",
+      "defaultValue": "HH:mm:ss",
+      "group": "Formats"
+    },
+    {
+      "path": "yearFormat",
+      "label": "Year Format",
+      "editorType": "textField",
+      "defaultValue": "YYYY",
+      "group": "Formats"
+    },
+    {
+      "path": "quarterFormat",
+      "label": "Quarter Format",
+      "editorType": "textField",
+      "defaultValue": "YYYY-\\QQ",
+      "group": "Formats"
+    },
+    {
+      "path": "monthFormat",
+      "label": "Month Format",
+      "editorType": "textField",
+      "defaultValue": "YYYY-MM",
+      "group": "Formats"
+    },
+    {
+      "path": "weekFormat",
+      "label": "Week Format",
+      "editorType": "textField",
+      "defaultValue": "YYYY-wo",
+      "group": "Formats"
+    },
+    {
+      "path": "hideBorder",
+      "label": "Hide border",
+      "editorType": "checkbox",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "editorType": "codeEditor",
+      "group": "Style",
+      "description": "A script that returns the style of the element as an object. This should conform to CSSProperties",
+      "shared": true
+    },
+    {
+      "path": "size",
+      "label": "Size",
+      "editorType": "dropdown",
+      "group": "Style",
+      "shared": true
+    },
+    {
+      "path": "showTime",
+      "label": "Show Time",
+      "editorType": "checkbox",
+      "defaultValue": false,
+      "group": "Control Visibility"
+    },
+    {
+      "path": "defaultToMidnight",
+      "label": "Default time to midnight",
+      "editorType": "checkbox",
+      "defaultValue": true,
+      "group": "Control Visibility",
+      "description": "If checked the default time will be '00:00:00', else it will be the current time on the machine"
+    },
+    {
+      "path": "showNow",
+      "label": "Show Today/Now",
+      "editorType": "checkbox",
+      "defaultValue": false,
+      "group": "Control Visibility"
+    },
+    {
+      "path": "disabledDateMode",
+      "label": "Disabled date mode",
+      "editorType": "dropdown",
+      "defaultValue": "none",
+      "group": "Control Visibility"
+    },
+    {
+      "path": "disabledDateTemplate",
+      "label": "Disabled date templates",
+      "editorType": "dropdown",
+      "group": "Control Visibility"
+    },
+    {
+      "path": "disabledDateFunc",
+      "label": "Disabled Date Func",
+      "editorType": "codeEditor",
+      "group": "Control Visibility",
+      "description": "Enter disabled date code. You must return true to hide the date. Two objects are exposed to work with, namely 'current' and 'moment'. Use these variables to write the code that will hide the dates you want."
+    },
+    {
+      "path": "disabledTimeMode",
+      "label": "Disabled time mode",
+      "editorType": "dropdown",
+      "defaultValue": "none",
+      "group": "Control Visibility"
+    },
+    {
+      "path": "disabledTimeTemplate",
+      "label": "Disabled time templates",
+      "editorType": "dropdown",
+      "group": "Control Visibility"
+    },
+    {
+      "path": "disabledTimeFunc",
+      "label": "Disabled Time Func",
+      "editorType": "codeEditor",
+      "group": "Control Visibility",
+      "description": "Enter disabled time code. You must return a lamda function with object of DisabledTimes(disabledHours, disabledMinutes, disabledSeconds). Two objects is exposed to work with, namely 'range', 'moment'. Use these variables to write the code that will hide the dates you want."
+    },
+    {
+      "path": "onChangeCustom",
+      "label": "On Change",
+      "editorType": "codeEditor",
+      "group": "Events",
+      "description": "Enter custom eventhandler on changing of event. (form, value, dateString) are exposed"
+    },
+    {
+      "path": "validate.required",
+      "label": "Required",
+      "editorType": "checkbox",
+      "group": "Validation"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dateField/dateField.tsx",
+    "dateField/interfaces.ts"
+  ]
+}

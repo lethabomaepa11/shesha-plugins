@@ -1,0 +1,288 @@
+{
+  "type": "kanban",
+  "name": "Kanban",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "FormOutlined",
+  "version": null,
+  "initModel": {
+    "defaults": {
+      "hideLabel": true
+    },
+    "raw": "(model) => ({\r\n    ...model,\r\n    hideLabel: true,\r\n  })"
+  },
+  "settingsProps": {
+    "interfaceName": "IKanbanProps",
+    "interfaceFile": "components/kanban/model.ts",
+    "ownProps": [
+      "items",
+      "referenceList",
+      "fontColor",
+      "showIcons",
+      "width",
+      "height",
+      "minHeight",
+      "maxHeight",
+      "fontSize",
+      "entityType",
+      "allowNewRecord",
+      "readonly",
+      "collapsible",
+      "gap",
+      "headerStyles",
+      "columnStyle",
+      "groupingProperty",
+      "modalFormId",
+      "createFormId",
+      "headerBackgroundColor",
+      "actionConfiguration",
+      "kanbanReadonly",
+      "componentName",
+      "editFormId",
+      "allowEdit",
+      "allowDelete",
+      "maxResultCount",
+      "maxWidth",
+      "minWidth"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "actionConfiguration",
+      "allowDelete",
+      "allowEdit",
+      "allowNewRecord",
+      "collapsible",
+      "columnStyle",
+      "componentName",
+      "context",
+      "createFormId",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editFormId",
+      "editMode",
+      "entityType",
+      "fontColor",
+      "fontSize",
+      "gap",
+      "groupingProperty",
+      "headerBackgroundColor",
+      "headerStyles",
+      "height",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "items",
+      "jsSetting",
+      "kanbanReadonly",
+      "label",
+      "labelAlign",
+      "maxHeight",
+      "maxResultCount",
+      "maxWidth",
+      "minHeight",
+      "minWidth",
+      "modalFormId",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "readonly",
+      "referenceList",
+      "settingsValidationErrors",
+      "showIcons",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate",
+      "width"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "kanban/settings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "height",
+    "width",
+    "fontSize",
+    "fontColor"
+  ],
+  "settingsFields": [
+    {
+      "path": "entityType",
+      "label": "Entity Type",
+      "group": "Display"
+    },
+    {
+      "path": "componentName",
+      "label": "Component Name",
+      "group": "Display"
+    },
+    {
+      "path": "modalFormId",
+      "label": "Render Form",
+      "group": "Display"
+    },
+    {
+      "path": "groupingProperty",
+      "label": "Grouping property",
+      "group": "Display"
+    },
+    {
+      "path": "maxResultCount",
+      "label": "Max Result Count",
+      "group": "Display"
+    },
+    {
+      "path": "referenceList",
+      "label": "Reference List",
+      "group": "Columns",
+      "description": "Make sure to reselect the reference list if any changes are made to its items"
+    },
+    {
+      "path": "items",
+      "group": "Columns"
+    },
+    {
+      "path": "kanbanReadonly",
+      "label": "Readonly",
+      "group": "Columns"
+    },
+    {
+      "path": "collapsible",
+      "label": "Collapsible",
+      "group": "Columns"
+    },
+    {
+      "path": "allowNewRecord",
+      "label": "Allow New Record",
+      "group": "Columns"
+    },
+    {
+      "path": "createFormId",
+      "label": "Create Form",
+      "group": "Columns"
+    },
+    {
+      "path": "allowEdit",
+      "label": "Allow Edit",
+      "group": "Columns"
+    },
+    {
+      "path": "editFormId",
+      "label": "Edit Form",
+      "group": "Columns"
+    },
+    {
+      "path": "allowDelete",
+      "label": "Allow Delete",
+      "group": "Columns"
+    },
+    {
+      "path": "showIcons",
+      "label": "Show Icons",
+      "group": "Columns"
+    },
+    {
+      "path": "columnStyle",
+      "label": "Style",
+      "group": "Column Styles"
+    },
+    {
+      "path": "gap",
+      "label": "Gap",
+      "group": "Column Styles"
+    },
+    {
+      "path": "height",
+      "label": "Height",
+      "group": "Column Styles",
+      "shared": true
+    },
+    {
+      "path": "minHeight",
+      "label": "Min Height",
+      "group": "Column Styles"
+    },
+    {
+      "path": "maxHeight",
+      "label": "Max Height",
+      "group": "Column Styles"
+    },
+    {
+      "path": "width",
+      "label": "Width",
+      "group": "Column Styles",
+      "shared": true
+    },
+    {
+      "path": "minWidth",
+      "label": "Min Width",
+      "group": "Column Styles"
+    },
+    {
+      "path": "maxWidth",
+      "label": "Max Width",
+      "group": "Column Styles"
+    },
+    {
+      "path": "columnBackgroundColor",
+      "label": "Background Color",
+      "group": "Column Styles"
+    },
+    {
+      "path": "headerStyles",
+      "label": "Style",
+      "group": "Header Styles"
+    },
+    {
+      "path": "fontSize",
+      "label": "Font Size",
+      "group": "Header Styles",
+      "shared": true
+    },
+    {
+      "path": "headerBackgroundColor",
+      "label": "Background Color",
+      "group": "Header Styles"
+    },
+    {
+      "path": "fontColor",
+      "label": "Font Color",
+      "group": "Header Styles",
+      "shared": true
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "kanban/index.tsx",
+    "../components/kanban/model.ts"
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "type": "codeEditor",
+  "name": "Code Editor",
+  "isInput": true,
+  "isOutput": true,
+  "canBeJsSetting": null,
+  "icon": "CodeSandboxOutlined",
+  "version": 4,
+  "initModel": {
+    "defaults": null,
+    "raw": "model => {\r\n    const textAreaModel: ICodeEditorComponentProps = {\r\n      ...model,\r\n      label: 'Code Editor',\r\n      mode: 'dialog',\r\n    };\r\n\r\n    return textAreaModel;\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "ICodeEditorComponentProps",
+    "interfaceFile": "designer-components/codeEditor/interfaces.ts",
+    "ownProps": [
+      "mode",
+      "environment",
+      "language",
+      "availableConstantsExpression",
+      "availableConstants",
+      "resultTypeExpression"
+    ],
+    "extends": [
+      "IConfigurableFormComponent",
+      "IExecutableCodeEditor"
+    ],
+    "resolvedProps": [
+      "availableConstants",
+      "availableConstantsExpression",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "environment",
+      "exposedVariables",
+      "fileName",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "language",
+      "mode",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "resultTypeExpression",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "templateSettings",
+      "type",
+      "validate",
+      "wrapInTemplate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "codeEditor/settingsForm.json",
+    "mechanism": "json-markup",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "propertyName",
+      "label": "Property name",
+      "editorType": "contextPropertyAutocomplete",
+      "group": "Display"
+    },
+    {
+      "path": "label",
+      "label": "Label",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "labelAlign",
+      "label": "Label align",
+      "editorType": "dropdown",
+      "group": "Display"
+    },
+    {
+      "path": "placeholder",
+      "label": "Placeholder",
+      "editorType": "textField",
+      "group": "Display"
+    },
+    {
+      "path": "description",
+      "label": "Description",
+      "editorType": "textArea",
+      "group": "Display"
+    },
+    {
+      "path": "mode",
+      "label": "Mode",
+      "editorType": "dropdown",
+      "defaultValue": "",
+      "group": "Display"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "hideLabel",
+      "label": "Hide Label",
+      "editorType": "checkbox",
+      "group": "Display"
+    },
+    {
+      "path": "editMode",
+      "label": "Edit mode",
+      "editorType": "editModeSelector",
+      "group": "Display"
+    },
+    {
+      "path": "language",
+      "label": "Language",
+      "editorType": "dropdown",
+      "defaultValue": ""
+    },
+    {
+      "path": "wrapInTemplate",
+      "label": "Use function wrapper",
+      "editorType": "checkbox",
+      "group": "JavaScript/TypeScript",
+      "description": "If true, a code will be wrapped in a standard function wrapper template"
+    },
+    {
+      "path": "environment",
+      "label": "Environment",
+      "editorType": "dropdown",
+      "defaultValue": "",
+      "group": "JavaScript/TypeScript"
+    },
+    {
+      "path": "templateSettings.useAsyncDeclaration",
+      "label": "Async declaration",
+      "editorType": "checkbox",
+      "group": "JavaScript/TypeScript"
+    },
+    {
+      "path": "templateSettings.functionName",
+      "label": "Function name",
+      "editorType": "textField",
+      "group": "JavaScript/TypeScript"
+    },
+    {
+      "path": "availableConstantsExpression",
+      "label": "Available constants",
+      "editorType": "codeEditor",
+      "group": "JavaScript/TypeScript"
+    },
+    {
+      "path": "resultTypeExpression",
+      "label": "Result type",
+      "editorType": "codeEditor",
+      "group": "JavaScript/TypeScript"
+    },
+    {
+      "path": "validate.required",
+      "label": "Required",
+      "editorType": "checkbox",
+      "group": "Validation"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "codeEditor/index.tsx",
+    "codeEditor/interfaces.ts"
+  ]
+}

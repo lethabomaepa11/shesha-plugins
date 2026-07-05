@@ -1,0 +1,180 @@
+{
+  "type": "KeyInformationBar",
+  "name": "Key Information Bar",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "BorderLeftOutlined",
+  "version": 2,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model) => {\r\n    const tabsModel: IKeyInformationBarProps = {\r\n      ...model,\r\n      propertyName: 'column 1',\r\n      columns: [\r\n        {\r\n          id: nanoid(),\r\n          width: 200,\r\n          textAlign: 'center',\r\n          flexDirection: 'column',\r\n          components: [],\r\n          padding: '0px',\r\n        }\r\n      ],\r\n      orientation: 'horizontal',\r\n      stylingBox: \"{\\\"marginBottom\\\":\\\"5\\\"}\"\r\n    };\r\n\r\n    return tabsModel;\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "IKeyInformationBarProps",
+    "interfaceFile": "designer-components/keyInformationBar/interfaces.ts",
+    "ownProps": [
+      "width",
+      "height",
+      "dividerHeight",
+      "dividerWidth",
+      "dividerMargin",
+      "dividerColor",
+      "dividerThickness",
+      "gap",
+      "alignItems",
+      "orientation",
+      "columns",
+      "readOnly",
+      "style",
+      "stylingBox",
+      "backgroundColor"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "alignItems",
+      "backgroundColor",
+      "columns",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "dividerColor",
+      "dividerHeight",
+      "dividerMargin",
+      "dividerThickness",
+      "dividerWidth",
+      "editMode",
+      "gap",
+      "height",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "orientation",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate",
+      "width"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "keyInformationBar/settings.tsx",
+    "mechanism": "react-factory",
+    "parseQuality": "partial"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [
+    "backgroundColor",
+    "style",
+    "stylingBox"
+  ],
+  "settingsFields": [
+    {
+      "path": "componentName",
+      "label": "Component Name"
+    },
+    {
+      "path": "hidden",
+      "label": "Hidden"
+    },
+    {
+      "path": "orientation",
+      "label": "Orientation"
+    },
+    {
+      "path": "backgroundColor",
+      "label": "Background Color",
+      "shared": true
+    },
+    {
+      "path": "columns",
+      "label": "Columns"
+    },
+    {
+      "path": "alignItems",
+      "label": "Align Items"
+    },
+    {
+      "path": "dividerMargin",
+      "label": "Divider Margin"
+    },
+    {
+      "path": "dividerHeight",
+      "label": "Divider Height"
+    },
+    {
+      "path": "dividerWidth",
+      "label": "Divider Width"
+    },
+    {
+      "path": "dividerThickness",
+      "label": "Divider Thickness"
+    },
+    {
+      "path": "dividerColor",
+      "label": "Divider Color"
+    },
+    {
+      "path": "style",
+      "label": "Style",
+      "shared": true
+    },
+    {
+      "path": "gap",
+      "label": "Gap"
+    },
+    {
+      "path": "stylingBox",
+      "shared": true
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "group": "Security",
+      "description": "Enter a list of permissions that should be associated with this component"
+    }
+  ],
+  "slots": {
+    "hostsChildren": true,
+    "customContainerNames": [
+      "columns"
+    ],
+    "detectedSlotKeys": [
+      "components",
+      "columns"
+    ],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "keyInformationBar/index.tsx",
+    "keyInformationBar/interfaces.ts"
+  ]
+}

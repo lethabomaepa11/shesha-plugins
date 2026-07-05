@@ -1,0 +1,94 @@
+{
+  "type": "datatable.quickSearch",
+  "name": "Quick Search",
+  "isInput": false,
+  "isOutput": null,
+  "canBeJsSetting": null,
+  "icon": "SearchOutlined",
+  "version": 2,
+  "initModel": {
+    "defaults": null,
+    "raw": "(model: IQuickSearchComponentProps) => {\r\n    return {\r\n      ...model,\r\n      items: [],\r\n    };\r\n  }"
+  },
+  "settingsProps": {
+    "interfaceName": "IQuickSearchComponentProps",
+    "interfaceFile": "designer-components/dataTable/quickSearch/quickSearchComponent.tsx",
+    "ownProps": [
+      "block"
+    ],
+    "extends": [
+      "IConfigurableFormComponent"
+    ],
+    "resolvedProps": [
+      "block",
+      "componentName",
+      "context",
+      "customEnabled",
+      "customVisibility",
+      "defaultValue",
+      "description",
+      "editMode",
+      "hidden",
+      "hideLabel",
+      "id",
+      "initialContext",
+      "injectedDefaultValue",
+      "injectedTableRow",
+      "isDynamic",
+      "jsSetting",
+      "label",
+      "labelAlign",
+      "noDataIcon",
+      "noDataSecondaryText",
+      "noDataText",
+      "onBlurCustom",
+      "onChangeCustom",
+      "onFocusCustom",
+      "parentId",
+      "permissions",
+      "propertyName",
+      "readOnly",
+      "settingsValidationErrors",
+      "size",
+      "style",
+      "stylingBox",
+      "subscribedEventNames",
+      "type",
+      "validate"
+    ],
+    "unresolvedExtends": [
+      "IHasVersion"
+    ]
+  },
+  "settingsForm": {
+    "source": "dataTable/quickSearch/settingsForm.ts",
+    "mechanism": "fluent-builder",
+    "parseQuality": "full"
+  },
+  "hasStandardAppearance": false,
+  "appearanceFieldPaths": [],
+  "settingsFields": [
+    {
+      "path": "block",
+      "label": "Block",
+      "editorType": "checkbox",
+      "defaultValue": false,
+      "group": "Display"
+    },
+    {
+      "path": "permissions",
+      "label": "Permissions",
+      "editorType": "permissionAutocomplete",
+      "group": "Security"
+    }
+  ],
+  "slots": {
+    "hostsChildren": false,
+    "customContainerNames": null,
+    "detectedSlotKeys": [],
+    "usesComponentsContainer": false
+  },
+  "sourceFiles": [
+    "dataTable/quickSearch/quickSearchComponent.tsx"
+  ]
+}
