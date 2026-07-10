@@ -147,6 +147,8 @@ Copy `assets/examples/entity-card.json` (the verified card) and swap the entity 
 
 ## Inner components quick reference
 
+> **A `datatable`'s columns live in its `items[]` array — there is NO `columns` property.** An empty or missing `columns` is expected, not a defect; look in `items[]`. (Don't waste probes concluding a table is "broken" because `.columns` is empty.) Compact column-item shapes (`data` / `crud-operations`) are in [../component-cheatsheet.md](../component-cheatsheet.md).
+
 | Type | Purpose |
 |---|---|
 | `datatable` | Column-based grid view. Columns go in `items: []`. Sorting/filter/paging inherited from the wrapper. **Inline editing** (edit/add/delete directly in rows) has its own contract — see [inline-editable-tables.md](inline-editable-tables.md). |

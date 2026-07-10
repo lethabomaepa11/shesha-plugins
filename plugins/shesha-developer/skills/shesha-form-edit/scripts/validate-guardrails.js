@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * validate-guardrails.js <form.json>
+ * validate-guardrails.js <form.json> [entity-metadata.json]
  *
  * Mechanical guardrails for the render-killers that recur in harness grading:
  *  - V-A1: form has a Submit action but no primary button; >1 primary inside one buttonGroup
@@ -10,6 +10,11 @@
  *          dataContext missing entityType/sourceType (HTTP 500 / "Fetching data…" hang)
  *  - missing validationErrors when any field is required
  *  - FK columns bound to the raw `…Id` scalar (renders GUIDs instead of names) [warn]
+ *  - reflist-identity: a reference-list-bound component (dropdown/radio/checkboxGroup/refListStatus)
+ *      whose referenceListId does NOT match the property's metadata `referenceListName`/`referenceListModule`
+ *      (a guessed reflist name ⇒ the dropdown renders EMPTY at runtime, silently). FAIL when the
+ *      optional metadata dump (arg 2, a cached Metadata/GetProperties response) is supplied and the
+ *      identities disagree; WARN (unverified) when no metadata is supplied — pass it to enforce.
  *
  * Exit code 1 when any `fail` finding exists. No dependencies.
  */
@@ -17,7 +22,7 @@
 import fs from 'fs';
 
 const file = process.argv[2];
-if (!file) { console.error('usage: node validate-guardrails.js <form.json>'); process.exit(2); }
+if (!file) { console.error('usage: node validate-guardrails.js <form.json> [entity-metadata.json]'); process.exit(2); }
 
 let root = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^﻿/, ''));
 // Accept a full form object, a GetJson envelope, or a stringified markup wrapper.
@@ -25,6 +30,25 @@ if (typeof root.markup === 'string') root = JSON.parse(root.markup);
 if (root.result && (root.result.markup || root.result.components)) {
   root = typeof root.result.markup === 'string' ? JSON.parse(root.result.markup) : root.result;
 }
+
+// Optional entity metadata (arg 2): a cached Metadata/GetProperties response — a direct property
+// array, an ABP envelope (`result` / `result.properties`), or `{properties:[...]}`. When present it
+// turns the reflist-identity check from a WARN (unverified) into a hard FAIL on mismatch.
+let metaByProp = null;
+const metaFile = process.argv[3];
+if (metaFile) {
+  try {
+    let m = JSON.parse(fs.readFileSync(metaFile, 'utf8').replace(/^﻿/, ''));
+    let props = Array.isArray(m) ? m
+      : (m.result && Array.isArray(m.result) ? m.result
+      : (m.result && Array.isArray(m.result.properties) ? m.result.properties
+      : (Array.isArray(m.properties) ? m.properties : [])));
+    metaByProp = {};
+    for (const p of props) if (p && p.path) metaByProp[String(p.path).toLowerCase()] = p;
+  } catch (e) { metaByProp = null; }
+}
+// Strip a leading module prefix off a full dotted reflist name (e.g. "A.Test.BookingStatus" → "BookingStatus").
+const lastSeg = (dotted) => { const s = String(dotted || ''); const i = s.lastIndexOf('.'); return i >= 0 ? s.slice(i + 1) : s; };
 
 const findings = [];
 const add = (severity, check, target, issue) => findings.push({ severity, check, target, issue });
@@ -66,6 +90,38 @@ function label(node) {
 
 const INPUT_TYPES = new Set(['textField', 'textArea', 'numberField', 'dateField', 'timeField', 'dropdown',
   'autocomplete', 'checkbox', 'checkboxGroup', 'radio', 'switch', 'entityPicker', 'fileUpload', 'rate', 'slider']);
+
+const REFLIST_TYPES = new Set(['dropdown', 'radio', 'checkboxGroup', 'refListStatus']);
+
+// Cross-check a reference-list-bound component's authored identity against the property's metadata.
+function checkReflistIdentity(node) {
+  const t = node.type;
+  const boundToReflist = node.dataSourceType === 'referenceList' || !!node.referenceListId || t === 'refListStatus';
+  if (!REFLIST_TYPES.has(t) || !boundToReflist) return;
+  // Resolve the authored {module, name}
+  let authMod, authName;
+  if (node.referenceListId && typeof node.referenceListId === 'object') {
+    authMod = node.referenceListId.module; authName = node.referenceListId.name;
+  } else if (t === 'refListStatus') {
+    authMod = node.module || (node.referenceList && node.referenceList.module);
+    authName = node.referenceListName ? lastSeg(node.referenceListName) : (node.referenceList && node.referenceList.name);
+  }
+  if (!metaByProp) {
+    add('warn', 'reflist-identity', label(node), 'reference-list binding NOT verified against metadata — re-run with the entity metadata dump as arg 2, and confirm referenceListId came from the property\'s referenceListName/Module (never guessed from the property/entity name)');
+    return;
+  }
+  const p = node.propertyName && metaByProp[String(node.propertyName).toLowerCase()];
+  if (!p) { add('warn', 'reflist-identity', label(node), `property "${node.propertyName}" not found in metadata — cannot verify reflist identity`); return; }
+  if (!p.referenceListName) { add('warn', 'reflist-identity', label(node), `property "${node.propertyName}" has no referenceListName in metadata — is this really a reference-list property?`); return; }
+  const expMod = p.referenceListModule || null;
+  const expName = lastSeg(p.referenceListName);
+  const nameMismatch = authName && expName && authName !== expName;
+  const modMismatch = authMod && expMod && authMod !== expMod;
+  if (nameMismatch || modMismatch) {
+    add('fail', 'reflist-identity', label(node),
+      `authored referenceList {module:${authMod}, name:${authName}} does not match the property's metadata (${expMod}.${expName}) — the dropdown will render EMPTY at runtime. Copy referenceListName/referenceListModule from metadata verbatim; never guess.`);
+  }
+}
 
 function walkItems(items, groupCtx) {
   for (const it of items || []) {
@@ -123,6 +179,8 @@ function walkTree(nodes, parentType) {
     if (INPUT_TYPES.has(t) && node.propertyName && /^[A-Z]/.test(node.propertyName)) {
       add('fail', 'pascalcase-property', node.propertyName, 'Input propertyName starts uppercase — GQL field keys are camelCase; the binding silently fails');
     }
+
+    checkReflistIdentity(node);
 
     if (navigateTargetMissing(node)) add('fail', 'navigate-target', label(node), 'Navigate action has an empty/missing target — renders <Link href=undefined> and crashes the page');
 

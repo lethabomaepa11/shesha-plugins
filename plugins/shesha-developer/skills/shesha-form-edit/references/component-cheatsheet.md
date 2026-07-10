@@ -25,6 +25,8 @@ bottom) and trust that.
 | `checkbox` | 5 | `collapsiblePanel` | 7 |
 | `checkboxGroup` | 5 | `refListStatus` | 3 |
 
+**Stale-version guard:** an existing/old form may carry a *lower* version for a type (e.g. a `datatable` at v11, not v29) — that is the form's un-migrated state; **do not copy it.** Emit the current version above, and if the running app isn't 0.45.x, resolve once from the backend (below) and trust that — but never propagate a stale version off an old form you're using as a reference.
+
 ## Minimal shapes (omit styling — the renderer applies defaults)
 
 ```jsonc
@@ -56,7 +58,19 @@ bottom) and trust that.
   "items": [ { "id": "<uuid>", "itemType": "item", "itemSubType": "button", "label": "Add", "buttonType": "primary",
     "actionConfiguration": { "_type": "action-config", "actionName": "Show Dialog", "actionOwner": "shesha.common",
       "actionArguments": { "formId": { "name": "<create-form>", "module": "<mod>" }, "modalWidth": "60%" } } } ] }
+
+// datatable (v29) — COLUMNS LIVE IN `items[]`, NEVER a `columns` property.
+// An empty/absent `columns` is NORMAL, not "broken" — look in `items[]`. Wrap the table in a dataContext (above).
+{ "id": "<uuid>", "type": "datatable", "version": 29, "parentId": "<pid>",
+  "propertyName": "table1", "componentName": "table1",
+  "items": [
+    { "id": "<uuid>", "columnType": "data", "itemType": "item", "propertyName": "<camelCaseProp>",
+      "caption": "<Header>", "isVisible": true, "sortOrder": 0, "minWidth": 150, "maxWidth": 250,
+      "allowSorting": true, "displayComponent": { "type": "[default]" } },
+    { "id": "<uuid>", "columnType": "crud-operations", "itemType": "item", "caption": "", "isVisible": true, "sortOrder": -1 }
+  ] }
 ```
+Column variants: `columnType` is `"data"` (bound to a camelCase `propertyName`) or `"crud-operations"` (per-row Edit/Delete buttons). Per-column inline editors → [components/inline-editable-tables.md](components/inline-editable-tables.md).
 
 ## Resolve versions for THIS app in ONE probe (if not 0.45.x)
 

@@ -10,6 +10,7 @@ The conductor (`shesha-claude-designer`) coordinates three specialists. This is 
 | `shesha-design-comprehension` | per-screen measured layout blueprint + placement verification (the probe + the diff) | author form JSON, pick hexes, push |
 | `shesha-form-edit` | structure, CRUD wiring, validation, push, publish; **splits via flex `container` rows (never `columns`), sized via `desktop.dimensions.width`** | apply v7 appearance blocks itself; author `columns`; pick tokens/hexes |
 | `shesha-design-system` | **all appearance**: app theme + per-component v7 style blocks + the v7 mechanics/channels docs + the capability matrix; audit | author structure, wire CRUD, push, or author `columns` |
+| `form-author` (agent) | draft NEW structure markup from a seed on `shesha-form-edit`'s instruction; **return JSON only** | apply appearance / v7 style blocks, pick tokens/hexes, push — **and MUST NOT be dispatched to "style" / "apply a theme"** (that is `shesha-design-system` only; a `form-author` given a styling prompt is a contract violation) |
 
 ## Contracts
 
@@ -18,7 +19,7 @@ The conductor (`shesha-claude-designer`) coordinates three specialists. This is 
 - Comprehension returns: `<workdir>/blueprints/<screen>.blueprint.md` (archetype + `layout-tree` + `bindings` + `assertions`) and the saved probe `*.layout.json`.
 
 **Designer → shesha-form-edit (Step 4a, per screen) — "Contract A"**
-- Parent provides: the screen's **`blueprint.md` path**, the entity modelType (or "resolve from module"), the form identity (module + name), and the target backend context (if headless).
+- Parent provides: the screen's **`blueprint.md` path**, the entity modelType (or "resolve from module"), the form identity (module + name), the target backend context (if headless), **the pinned shell/tool (e.g. "PowerShell tool only" on Windows), and the `<workdir>` (which locates the cached `access-token`).** Every dispatched sub-agent MUST use that same pinned tool and the shared token (never re-pick a shell, never re-authenticate), write all scratch under `<workdir>`, and **return markup for the parent/`shesha-form-edit` to gate and push — a sub-agent never pushes or styles on its own.**
 - shesha-form-edit returns: form created/edited (module + name + id), the detected version-profile facts, the resolved modelType, pushed/published state, **and a structural-integrity confirmation** — plus enough to run the placement probe (it builds the form `shesha-design-comprehension` will re-measure).
 
 **Designer → shesha-design-system (Step 3 theme + Step 4b style)**

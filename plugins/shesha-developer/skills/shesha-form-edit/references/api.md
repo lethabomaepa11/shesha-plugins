@@ -2,7 +2,7 @@
 
 ## Conventions (read once, apply to every recipe below)
 
-- **Pin one shell for the whole session.** On Windows use **PowerShell** (`Get-Content`, `ConvertFrom-Json`, `$env:VAR`); on Linux/macOS/WSL use **bash**. Don't alternate — a PowerShell-ism run in bash (or vice-versa) fails and costs a wasted round trip. The recipes below are written in bash `$VAR` form; in PowerShell use `$env:VAR` and `(Get-Content …)` instead of `$(cat …)`.
+- **Pin one shell/tool for the whole session and dispatch every command to it.** This is a **tool-selection** rule, not just a syntax rule: on Windows run **every** command through the **PowerShell tool** (never the Bash tool); on Linux/macOS/WSL use bash. Shell state does not persist between calls, so re-affirm the pinned tool on each command. A PowerShell one-liner sent to the Bash tool fails with `=: command not found` / `New-Item: command not found` (exit 127) — the exact recurring failure this rule prevents. **On Windows, prefer the PowerShell forms below** (a PowerShell block is given for auth §2); the bash `$VAR` forms are the Linux fallback. Do not transpile a bash recipe into the Bash tool on Windows.
 - **No `jq`.** It is absent on a default Windows box (exit 127). Parse JSON with `node -e` (shown below) or PowerShell's `ConvertFrom-Json`.
 - **One session scratch dir.** Set `$WORKDIR` once — `$env:TEMP/shesha-form-edit` (PowerShell) or `${TMPDIR:-/tmp}/shesha-form-edit` (bash) — and create it. All temp request/response files below live under `$WORKDIR`. **Never hardcode `/tmp`** — it doesn't exist on Windows. When invoked by the `shesha-claude-designer` orchestrator, use the `<workdir>` it supplies so the token/metadata caches are shared across screens.
 - **`$BASE_URL` and the access token** are resolved once (Steps 1–2 of the skill). Read the token from its cache file on each call (see §2) — never paste the raw JWT literally.
@@ -24,6 +24,24 @@ Strip trailing slash.
 ## 2. Authenticate (once per session, then cache)
 
 **Authenticate a single time and cache the token to `$WORKDIR/access-token`; reuse it on every subsequent call.** Re-authenticate only on a `401` or after the 24 h TTL. Never re-POST `Authenticate` per API call, and never inline the raw ~600-char JWT into a command — it echoes back into context on every result.
+
+**PowerShell (Windows — preferred). Writes the token BOM-free; a BOM breaks downstream `Bearer` auth.**
+
+```powershell
+$tokenFile = "$WORKDIR/access-token"
+if (-not (Test-Path $tokenFile) -or -not (Get-Item $tokenFile).Length) {
+  $auth  = Invoke-RestMethod -Method Post -Uri "$BASE_URL/api/TokenAuth/Authenticate" `
+             -ContentType "application/json" `
+             -Body '{"userNameOrEmailAddress":"admin","password":"123qwe"}'
+  $token = if ($auth.result.accessToken) { $auth.result.accessToken } else { $auth.accessToken }
+  if (-not $token) { $auth | ConvertTo-Json -Depth 6; throw "auth failed" }
+  # A JWT is pure ASCII — write WITHOUT a BOM and without a trailing newline.
+  # ('Set-Content -Encoding utf8' / 'Out-File' add a BOM → 'Authorization: Bearer ﻿eyJ…' → "Current user did not login".)
+  [System.IO.File]::WriteAllText($tokenFile, $token, (New-Object System.Text.UTF8Encoding $false))
+}
+```
+
+**bash (Linux/macOS/WSL fallback).** Node's `fs.writeFileSync` is BOM-free on any shell:
 
 ```bash
 # Cache-first: only authenticate if we don't already have a token this session.
@@ -63,7 +81,9 @@ The `node` extractor above already handles both the ABP envelope (`result.access
 **Every recipe below** starts by loading the cached token into `$ACCESS_TOKEN` (shell state doesn't persist between calls, so re-load it per command) — this references the file, never the literal JWT:
 
 ```bash
-ACCESS_TOKEN=$(cat "$WORKDIR/access-token")   # PowerShell: $ACCESS_TOKEN = Get-Content "$env:TEMP/shesha-form-edit/access-token"
+# PowerShell: $ACCESS_TOKEN = (Get-Content "$WORKDIR/access-token" -Raw).Trim()
+# bash — strip any stray BOM + newline so it can never poison the header:
+ACCESS_TOKEN=$(cat "$WORKDIR/access-token" | sed 's/^\xEF\xBB\xBF//' | tr -d '\r\n')
 ```
 
 ---
@@ -314,6 +334,23 @@ node .claude/skills/shesha-form-edit/scripts/summarize.js \
 Validation pass: for every input component in the edit, confirm `propertyName` matches a `properties[].path` (top-level only — nested-path validation is out of scope). Mismatches must be surfaced to the user before push.
 
 **TTL**: 24 hours. Use `--refresh-cache` to force a re-fetch + re-distill. Invalidate manually after running new migrations or model-type changes.
+
+---
+
+## 10.5 Verify a reference list exists + has items
+
+For every reflist-bound component, confirm the list is real and populated **before** push — a dropdown bound to a missing or empty reflist renders blank at runtime and passes every structural check. Use the property's metadata `referenceListName` (full dotted) + `referenceListModule`:
+
+```bash
+curl -s -G "$BASE_URL/api/services/app/ReferenceList/GetByName" \
+  --data-urlencode "name=<referenceListName>" \
+  --data-urlencode "module=<referenceListModule>" \
+  -H "Authorization: Bearer $ACCESS_TOKEN"
+```
+
+- `404` / null `result` → the reflist does **not exist** (the `[ReferenceList]` attribute is missing, or the name was guessed). Do NOT ship the component — hand off to `shesha-developer:domain-model`.
+- `result.items` empty → the list exists but has **no items**; the dropdown will be empty. Same handoff.
+- The route is under `app`, not `Shesha`. There is **no** `ReferenceList/GetItems` endpoint — don't invent one.
 
 ---
 
