@@ -354,6 +354,26 @@ curl -s -G "$BASE_URL/api/services/app/ReferenceList/GetByName" \
 
 ---
 
+## 10.6 Combined one-shot backend probe
+
+A form build otherwise fires ~10 tiny round-trips — the module-id lookup (§7), the per-entity `EntityConfig` resolve (§10 / Step 4.5), each metadata route (§10, often with 404 retries), and one `ReferenceList/GetByName` per reflist-bound prop (§10.5). `scripts/backend-probe.mjs` **replaces all of them with a single run** (module id + entity resolve + metadata + reflist existence, per entity), so prefer it over issuing those calls separately.
+
+```bash
+# spec.json: { "module": "<Mod>", "entities": [ { "name": "ShortlistResult", "reflistProps": ["outcome","status"] } ] }
+node scripts/backend-probe.mjs "$BASE_URL" "$WORKDIR/access-token" "$WORKDIR/probe-spec.json"
+```
+
+It reuses the **cached** token file (§2) — strips a leading BOM + trims it, so the same BOM that would break `Bearer` auth can't leak in. One run does, per spec entity:
+
+- `GET app/Module/GetAll?MaxResultCount=200` → resolves `spec.module` → id.
+- `GET app/EntityConfig/GetMainDataList?maxResultCount=1000` **once** → each entity's `{ name, module, fullClassName }`.
+- Metadata routes tried **in order until a 200 property array**: `app/Metadata/GetProperties` → `app/Metadata/Get` (`result.properties[]`) → `Shesha/Metadata/Get`; records which route worked. A 404 on all three while EntityConfig *has* the class is wrong-route/namespace → reported as `metadataUnavailable`, **not** `entityMissing` (never triggers a bogus `domain-model` "create").
+- Each named `reflistProp` → reads its `referenceListName`/`referenceListModule` from the metadata, then `GET app/ReferenceList/GetByName` → `{ exists, itemCount }`.
+
+Emits ONE compact JSON summary to stdout (per entity: `modelType`, `fullClassName`, metadata route or `metadataUnavailable`, a distilled `properties[]` of `{ path, dataType, referenceListName }`, and per-reflistProp `{ name, module, exists, itemCount }`) and writes each entity's slice to `<tokenFile dir>/<Entity>.probe.json` for reuse. A single 404 (or any non-2xx / network error) never throws — the status is recorded and the run continues.
+
+---
+
 ## 11. Round-trip verify (post-push)
 
 Step 8 of the skill. Re-fetch the form just pushed and diff against the markup we sent:
@@ -396,13 +416,13 @@ Skill(skill="playwright", args="<directive>")
 > Then click the primary action button (if any) and capture again.
 > Report: a one-paragraph summary, the screenshot path, and any captured errors / 4xx-5xx network responses verbatim.
 
-### Frontend URL detection
+### Frontend URL detection — focus on the `adminportal`
 
-The PBF project has two front-end apps:
-- `adminportal/` — typical dev port `http://localhost:3000`
-- `publicportal/` — typical dev port `http://localhost:3001`
+**Render and verify against the `adminportal` — that is the app UI this skill targets.** It's the front-end app under `adminportal/` (typical dev port `http://localhost:3000`); read the actual port from `adminportal/.env*` (e.g. `PORT=3000`) or `adminportal/package.json` `scripts.dev`. Use it as `<FRONTEND_URL>` for every authenticated (`/dynamic/...`) form.
 
-Read the actual port from `<app>/.env*` (e.g. `PORT=3001`) or `<app>/package.json` `scripts.dev`. Anonymous forms (`access: 5`) usually live in `publicportal`; authenticated forms in `adminportal`. If neither is running, skip the smoke step and warn the user.
+`publicportal/` (typical `http://localhost:3001`) is the **exception, not the default** — use it ONLY for a genuinely anonymous/public form (`access: 5`, e.g. login/register/OTP). Don't reach for it for ordinary CRUD forms.
+
+If the adminportal isn't running, do NOT silently pass: report that the form **could not be visually verified (adminportal not running)** and offer `--no-browser`.
 
 ### Failure handling
 

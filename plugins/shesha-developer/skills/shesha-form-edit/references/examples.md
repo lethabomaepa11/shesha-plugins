@@ -50,7 +50,7 @@ Key points the seed already encodes — preserve them:
 - The `validationErrors` component (mandatory once any field is required).
 - Buttons live **inside the `buttonGroup`**, never as standalone `type: "button"` components —
   tooling reads form intent largely from `buttonGroup` items, so loose buttons can get the
-  form misread as read-only. Full reasoning: [form-quality.md](form-quality.md).
+  form misread as read-only. Full reasoning: [form-quality-rubric.md](form-quality-rubric.md).
 
 Beyond that floor, don't add what the request didn't ask for — no extra panels, no `modelType`
 debug text. Match the component count to the field list + validationErrors + the one buttonGroup

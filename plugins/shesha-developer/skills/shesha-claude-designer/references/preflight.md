@@ -34,7 +34,8 @@ A design build fans out into many sub-skill invocations (comprehend × N screens
 
 ## 6. Keep a cost ledger (so the next pass is measured, not inferred)
 
-- Append a one-line note per phase to `<workdir>/run-log.md`: the phase, elapsed time, and the session cost figure the harness reports at that point. Efficiency reviews of this skill currently have to *infer* cost from round-trip patterns because no run records it — this ledger is the only in-skill signal that makes the next pass measured.
+- Append one line per phase to `<workdir>/run-log.md` recording the **cost proxies you can actually observe** (you don't have a live token counter, so log the things that drive tokens): `phase | agents_dispatched | backend_calls | files_read (flag any big seed >50KB) | screenshots | elapsed`. Add the session $ / token figure only if the harness surfaces it. Efficiency reviews currently have to *infer* cost from round-trip patterns because no run records anything — this ledger turns the next pass from inferred to measured, and the proxies (agent count, big-seed reads, screenshot count) are exactly the levers that blow a run up.
+- **Watch the proxies as you go, not just in hindsight:** if `agents_dispatched` climbs past a handful for a few forms, or you're about to open a >50KB seed, or you've taken more than one screenshot — stop and take the cheaper path (build inline, read the cheatsheet, assert via a11y snapshot).
 
 ## Within-session dedup
 
