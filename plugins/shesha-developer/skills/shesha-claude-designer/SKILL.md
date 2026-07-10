@@ -11,13 +11,14 @@ description: Use as the ENTRY POINT when the user wants a Shesha app/page/form t
 
 ```dot
 digraph { rankdir=LR;
+  pre [label="0 pre-flight\n(auth once · shell · workdir)"];
   d [label="Claude design\n(source)"];
   ingest [label="1 ingest +\ntier detect"];
   comp [label="2 comprehend\n→ blueprints"];
   plan [label="3 plan screens"];
   build [label="4 build (form-edit)\n+ style (design-system)"];
   verify [label="5 verify:\nstructure · PLACEMENT · visual"];
-  d -> ingest -> comp -> plan -> build -> verify;
+  pre -> d -> ingest -> comp -> plan -> build -> verify;
   verify -> build [label="placement/visual\nmismatch → fix"];
 }
 ```
@@ -28,6 +29,9 @@ digraph { rankdir=LR;
 - **Not** for "add a field to this form" (use `shesha-form-edit`) or "just theme this working form" (use `shesha-design-system`).
 
 ## Steps
+
+### Step 0 — Pre-flight (once per session)  ← do this before anything else
+A design build fans out into many sub-skill calls; the cheap win is doing the shared setup **once**. Before ingesting: pin one shell (PowerShell on Windows, bash elsewhere) and define a single `<workdir>`; **authenticate once and cache the token** to `<workdir>/access-token` for every sub-skill to reuse (never re-auth per screen, never inline the raw JWT); resolve the plugin skill root once; plan to fetch each entity's metadata once (scoped `GetProperties`, distilled); consolidate to a single confirmation gate; and keep a per-phase cost ledger. Full checklist: [references/preflight.md](references/preflight.md). This is what stops auth, path-guessing, metadata, and skill-hunt costs from repeating on every screen.
 
 ### Step 1 — Ingest the design
 Identify and read the design source; detect its **fidelity tier** (readable source / runnable app / screenshots). Extract the **token set** (palette, type, spacing, radius, shadow, status lifecycle) and the **screen list**. Normalise mixed docs with markitdown for content only. Details: [references/design-ingestion.md](references/design-ingestion.md). Do NOT parse a compiled/offline single-file bundle — serve+run it instead.
@@ -61,6 +65,7 @@ Summarise per screen (form id, blueprint pass/fail, theme applied); cross-link s
 - **One push path.** All writes go through `shesha-form-edit`.
 - **Read the source, not the bundle.** Run/serve a compiled prototype and probe it (or read un-minified source); never parse a minified single-file bundle.
 - **Honesty about gaps.** If a design detail can't be expressed in Shesha, say so — don't claim a pixel match that isn't achievable.
+- **Set up once, reuse everywhere.** Auth once (cached token, reused by every sub-skill), one pinned shell, one `<workdir>`, one skill-root resolution, one scoped metadata fetch per entity, one confirmation gate. Repeating any of these per screen is the main avoidable cost of a design run — see [references/preflight.md](references/preflight.md).
 
 ## Relationship to the other skills
 

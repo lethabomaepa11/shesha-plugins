@@ -1,6 +1,11 @@
 # Shesha Form API — Recipes
 
-All curl recipes assume `$BASE_URL` and `$ACCESS_TOKEN` are set. On Windows, substitute `%BASE_URL%`/`%ACCESS_TOKEN%` for cmd or `$env:BASE_URL`/`$env:ACCESS_TOKEN` for PowerShell.
+## Conventions (read once, apply to every recipe below)
+
+- **Pin one shell for the whole session.** On Windows use **PowerShell** (`Get-Content`, `ConvertFrom-Json`, `$env:VAR`); on Linux/macOS/WSL use **bash**. Don't alternate — a PowerShell-ism run in bash (or vice-versa) fails and costs a wasted round trip. The recipes below are written in bash `$VAR` form; in PowerShell use `$env:VAR` and `(Get-Content …)` instead of `$(cat …)`.
+- **No `jq`.** It is absent on a default Windows box (exit 127). Parse JSON with `node -e` (shown below) or PowerShell's `ConvertFrom-Json`.
+- **One session scratch dir.** Set `$WORKDIR` once — `$env:TEMP/shesha-form-edit` (PowerShell) or `${TMPDIR:-/tmp}/shesha-form-edit` (bash) — and create it. All temp request/response files below live under `$WORKDIR`. **Never hardcode `/tmp`** — it doesn't exist on Windows. When invoked by the `shesha-claude-designer` orchestrator, use the `<workdir>` it supplies so the token/metadata caches are shared across screens.
+- **`$BASE_URL` and the access token** are resolved once (Steps 1–2 of the skill). Read the token from its cache file on each call (see §2) — never paste the raw JWT literally.
 
 ---
 
@@ -16,12 +21,20 @@ Strip trailing slash.
 
 ---
 
-## 2. Authenticate
+## 2. Authenticate (once per session, then cache)
+
+**Authenticate a single time and cache the token to `$WORKDIR/access-token`; reuse it on every subsequent call.** Re-authenticate only on a `401` or after the 24 h TTL. Never re-POST `Authenticate` per API call, and never inline the raw ~600-char JWT into a command — it echoes back into context on every result.
 
 ```bash
-curl -s -X POST "$BASE_URL/api/TokenAuth/Authenticate" \
-  -H "Content-Type: application/json" \
-  -d '{"userNameOrEmailAddress":"admin","password":"123qwe"}'
+# Cache-first: only authenticate if we don't already have a token this session.
+if [ ! -s "$WORKDIR/access-token" ]; then
+  curl -s -X POST "$BASE_URL/api/TokenAuth/Authenticate" \
+    -H "Content-Type: application/json" \
+    -d '{"userNameOrEmailAddress":"admin","password":"123qwe"}' \
+    -o "$WORKDIR/auth.json"
+  # Extract the token with node (no jq); handles both envelope and root shapes.
+  node -e "const r=require('$WORKDIR/auth.json');const t=(r.result&&r.result.accessToken)||r.accessToken;if(!t){console.error(JSON.stringify(r));process.exit(1)}require('fs').writeFileSync('$WORKDIR/access-token',t)"
+fi
 ```
 
 ABP wraps responses; expect:
@@ -45,13 +58,13 @@ ABP wraps responses; expect:
 }
 ```
 
-Some Shesha builds return the token at the **root** instead. Try both:
+The `node` extractor above already handles both the ABP envelope (`result.accessToken`) and the older root shape (`accessToken`). If it prints the raw response and exits non-zero, both were null — the credentials are wrong (or the user is locked); surface that response and stop.
+
+**Every recipe below** starts by loading the cached token into `$ACCESS_TOKEN` (shell state doesn't persist between calls, so re-load it per command) — this references the file, never the literal JWT:
 
 ```bash
-TOKEN=$(curl ... | jq -r '.result.accessToken // .accessToken')
+ACCESS_TOKEN=$(cat "$WORKDIR/access-token")   # PowerShell: $ACCESS_TOKEN = Get-Content "$env:TEMP/shesha-form-edit/access-token"
 ```
-
-If both are null, the credentials are wrong (or the user is locked) — surface the raw response.
 
 ---
 
@@ -94,7 +107,7 @@ If `result` is null, the form doesn't exist under that module/name. Stop and tel
 curl -s -G "$BASE_URL/api/services/Shesha/FormConfiguration/GetJson" \
   --data-urlencode "id=$FORM_ID" \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
-  -o /tmp/form-current.json
+  -o "$WORKDIR/form-current.json"
 ```
 
 This endpoint returns the **raw markup as a file download** (`application/json` with `Content-Disposition: attachment`). The file content **is** the form JSON (already parsed as an object — no string wrapping). Read it with `JSON.parse`.
@@ -123,18 +136,19 @@ Build the body via Node so the markup string is properly JSON-escaped. Don't try
 ```bash
 node -e "
 const fs = require('fs');
-const tree = JSON.parse(fs.readFileSync('/tmp/form-edited.json', 'utf8'));
+const dir = process.env.WORKDIR;
+const tree = JSON.parse(fs.readFileSync(dir + '/form-edited.json', 'utf8'));
 const body = JSON.stringify({
   id: process.env.FORM_ID,
   markup: JSON.stringify(tree)
 });
-fs.writeFileSync('/tmp/update-markup-body.json', body);
+fs.writeFileSync(dir + '/update-markup-body.json', body);
 " 
 
 curl -s -X PUT "$BASE_URL/api/services/Shesha/FormConfiguration/UpdateMarkup" \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
-  -d @/tmp/update-markup-body.json
+  -d @"$WORKDIR/update-markup-body.json"
 ```
 
 Successful response: HTTP 200 with `{ "result": null, "success": true, ... }`. The endpoint returns `void`.
@@ -168,14 +182,14 @@ DTO (`ImportFormJsonInput`):
 ```
 
 ```bash
-# /tmp/form-edited.json contains the stringified-or-tree form JSON.
+# $WORKDIR/form-edited.json contains the stringified-or-tree form JSON.
 # If your edits are an object (parsed tree), stringify first; the API expects the file content
 # to be a JSON document representing the form markup.
 
 curl -s -X POST "$BASE_URL/api/services/Shesha/FormConfiguration/ImportJson" \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
   -F "ItemId=$FORM_ID" \
-  -F "file=@/tmp/form-edited.json;type=application/json"
+  -F "file=@$WORKDIR/form-edited.json;type=application/json"
 ```
 
 Successful response: HTTP 200 with `{ "result": { ...FormConfigurationDto... }, "success": true }`. The DTO contains the updated form record.
@@ -248,23 +262,23 @@ Returns `result.items[]` with `{ id, name, label, module: {...} }`.
 
 ---
 
-## 10. Fetch entity metadata (`/Metadata/Get`)
+## 10. Fetch entity metadata (scoped — `GetProperties`)
 
-Used by Step 1.5 of the skill to validate `propertyName` references against the actual entity. Try the `app` namespace first; fall back to `Shesha` if it 404s:
+Used by Step 4.5 of the skill to validate `propertyName` references against the actual entity. **Prefer the scoped `GetProperties` endpoint** (returns a direct array of the entity's properties, no envelope) over any full-metadata / `GetAll` dump — fetch exactly the container you need, once per entity, and reuse the cached summary.
+
+**Never read the raw metadata response inline** — a full entity's properties can exceed the 25k-token `Read` limit and force a retry with offsets. Always pipe it straight to a file (`-o`), distill, and read only the `.summary.md`.
 
 ```bash
-# Primary
-curl -s -G "$BASE_URL/api/services/app/Metadata/Get" \
+# Scoped, primary — direct array of properties. Pipe to file; do not read inline.
+curl -s -G "$BASE_URL/api/services/app/Metadata/GetProperties" \
   --data-urlencode "container=PBF.MembershipManagement.Domain.Domain.Member" \
-  -H "Authorization: Bearer $ACCESS_TOKEN"
-
-# Fallback (older / different routing)
-curl -s -G "$BASE_URL/api/services/Shesha/Metadata/Get" \
-  --data-urlencode "container=PBF.MembershipManagement.Domain.Domain.Member" \
-  -H "Authorization: Bearer $ACCESS_TOKEN"
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -o ".claude/cache/shesha-form-edit/metadata/Member.raw.json"
 ```
 
-Expected response (ABP envelope; relevant fields):
+If `GetProperties` 404s on an older build, fall back to the fuller container fetch `GET /api/services/app/Metadata/Get` (ABP envelope, `result.properties[]`), then `Shesha/Metadata/Get` — same `-o`-to-file discipline; distill before reading.
+
+Property shape (relevant fields). `GetProperties` returns this as a **direct array**; the `Metadata/Get` fallback wraps it in the ABP envelope shown here (`result.properties[]`):
 
 ```json
 {
@@ -311,14 +325,14 @@ Step 8 of the skill. Re-fetch the form just pushed and diff against the markup w
 curl -s -G "$BASE_URL/api/services/Shesha/FormConfiguration/GetJson" \
   --data-urlencode "id=$FORM_ID" \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
-  > /tmp/form-after.json
+  > "$WORKDIR/form-after.json"
 ```
 
 Then in Node:
 
 ```js
-const sent = JSON.parse(fs.readFileSync('/tmp/form-sent.json', 'utf8'));
-const after = JSON.parse(JSON.parse(fs.readFileSync('/tmp/form-after.json', 'utf8')).result.markup);
+const sent = JSON.parse(fs.readFileSync(process.env.WORKDIR + '/form-sent.json', 'utf8'));
+const after = JSON.parse(JSON.parse(fs.readFileSync(process.env.WORKDIR + '/form-after.json', 'utf8')).result.markup);
 // Walk both trees in component-id order; surface any property whose value differs.
 ```
 
@@ -339,7 +353,7 @@ Skill(skill="playwright", args="<directive>")
 ### Directive template
 
 > Open `<FRONTEND_URL>/<no-auth|dynamic>/<MODULE>/<FORM_NAME>` in a fresh browser context.
-> If path is `/dynamic/...`: first POST `/api/TokenAuth/Authenticate` with `admin`/`123qwe` and set the resulting token in `localStorage.accessToken` before navigating.
+> If path is `/dynamic/...`: set the **cached** session token (contents of `$WORKDIR/access-token`) into `localStorage.accessToken` before navigating. Only POST `/api/TokenAuth/Authenticate` with `admin`/`123qwe` if no cached token exists.
 > Wait for the form to render (selector `.sha-form` or 5s timeout, whichever comes first).
 > Capture: full-page screenshot, all console messages with level `error` or `warning`, all network responses with `status >= 400`.
 > Then click the primary action button (if any) and capture again.

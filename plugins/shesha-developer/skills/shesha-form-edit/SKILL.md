@@ -62,6 +62,8 @@ Order: **task-supplied context block (always wins)** → `src/*.Web.Host/Propert
 
 Task-supplied credentials win; local-dev defaults otherwise: **`admin` / `123qwe`** — don't ask. POST `$BASE_URL/api/TokenAuth/Authenticate` with `{ userNameOrEmailAddress, password }`; extract `result.accessToken` (or `accessToken` on older builds). See [references/api.md §2](references/api.md). If no token, surface raw response and stop.
 
+**Authenticate once, then reuse — don't re-auth per call.** Cache the token to a session file (`$env:TEMP/shesha-form-edit/access-token`, or the `<workdir>/access-token` path supplied by the `shesha-claude-designer` orchestrator when invoked under it) and read it back on every subsequent call (`(Get-Content <tokenfile>)` / `$(cat <tokenfile>)`). **Never paste the raw JWT literally into a command** — it echoes back into context on every result. Re-authenticate only on a `401` or after the 24 h TTL. Under the orchestrator this means one auth for the whole multi-screen build, not one per screen.
+
 **Module ID lookup** (needed for `Create`): `GET $BASE_URL/api/services/app/Module/GetAll` (note: `app` namespace — `Shesha/Module/GetAll` returns 404). Find the entry where `name === "<module>"` and take its `id`. Cache it for the session. If a subsequent `Create` call returns `"There is no entity Module with id = …"`, the backend was restarted and the ID changed — re-fetch via this endpoint.
 
 ## Step 3 — Identify the form
@@ -76,7 +78,7 @@ If module + name only, resolve via `GetByName` ([api.md §3](references/api.md))
 
 ## Step 4 — Fetch the current markup
 
-`GET /api/services/Shesha/FormConfiguration/GetJson?id=$FORM_ID` ([api.md §4](references/api.md)). Save to `$env:TEMP\form-current.json`. The response body is a stringified form JSON; parse it. Resulting object has top-level `components` (nested tree) and `formSettings`.
+`GET /api/services/Shesha/FormConfiguration/GetJson?id=$FORM_ID` ([api.md §4](references/api.md)). Save to `$env:TEMP/shesha-form-edit/form-current.json` (all temp request/response files live under one session dir — never hardcode `/tmp`, which does not exist on Windows). The response body is a stringified form JSON; parse it. Resulting object has top-level `components` (nested tree) and `formSettings`.
 
 ## Step 4.5 — Entity introspection (mandatory for entity-bound forms)
 
