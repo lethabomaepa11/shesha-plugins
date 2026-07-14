@@ -94,6 +94,8 @@ shesha-claude-designer/
   references/
     design-ingestion.md . fidelity tiers, token extraction, "run don't parse"
     handoff-contract.md . the {archetype, blocks[], recipes[]} contract between skills
+    orchestration.md .... per-screen fan-out playbook (∥ comprehend + build, serial barriers)
+    preflight.md ........ one-time session setup (auth once, workdir, cost ledger)
   README.md ............. (this file)
 
 shesha-design-comprehension/
