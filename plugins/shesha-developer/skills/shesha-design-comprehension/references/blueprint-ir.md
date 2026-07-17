@@ -61,7 +61,7 @@ Grounded in the live probe of the design's *Grant Application Form* view-detail 
 ````markdown
 # Blueprint — view-detail
 Screen identity:  View Detail — the per-View record page (Views list → row → detail)
-Entity (modelType, resolve live):  ViewDefinition    ·    Form identity:  Shesha.RequirementsStudio / view-definition-details
+Entity (modelType, resolve live):  Employee    ·    Form identity:  MyApp.Hr / employee-details
 Archetype:  record-detail — Variant B (wide capture/attributes left + count-badged related-panel rail right)
 Fidelity tier:  B (runnable design, probed)    Confidence:  high
 Viewport captured:  1440x900    Source:  blueprints/_probe/view-detail-design.layout.json

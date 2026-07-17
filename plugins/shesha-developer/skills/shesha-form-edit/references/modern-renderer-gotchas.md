@@ -8,7 +8,7 @@ Mechanics reverse-engineered against a live 0.45-class renderer. Read before bui
 
 A component with **no integer `version`** falls back to a legacy render path that draws standalone create/edit fields as **read-only display spans, not inputs**. Symptom: *"fields show as labels/spans; only the checkbox is interactive"*. It is NOT an `editMode` problem — the same markup with versions stamped renders live inputs.
 
-**Fix:** every component carries its current `version`. Resolve it from [component-cheatsheet.md](component-cheatsheet.md) / the source-derived component KB (`assets/components-kb/`), or copy it from a **LIVE form on this backend that HAS versions** — e.g. an existing login form. **NEVER model a new form on a versionless legacy seed** — you inherit its missing versions and the whole form goes read-only.
+**Fix:** every component carries its current `version`. Resolve it from [components-kb.md](components-kb.md) / the source-derived component KB (`assets/components-kb/`), or copy it from a **LIVE form on this backend that HAS versions** — e.g. an existing login form. **NEVER model a new form on a versionless legacy seed** — you inherit its missing versions and the whole form goes read-only.
 
 **The frontend `@shesha-io/reactjs` package.json version can MISLEAD.** One backend's package.json reported `0.35.0` while the shipped renderer was 0.45-class (required per-component versions). Trust **live-form shapes and the component KB**, not the package.json string.
 

@@ -43,7 +43,7 @@ The whole point of the rework is a **clean responsibility split** — each skill
 4. **Build** — for each screen: **(a)** `shesha-form-edit` composes the blocks into native structure, wires CRUD, validates, pushes; **(b)** `shesha-design-system` resolves the token overlays and returns styled JSON — which `shesha-form-edit` pushes through its single push path.
 5. **Verify** — three gates in order: **structural** (native components, fully flexed, fields bound) → **placement diff** (`shesha-design-comprehension` re-measures the live form against the blueprint assertions) → **visual** (screenshot vs theme). Mismatches route back to the owning skill.
 
-The contract that wires the conductor to the sub-skills is [`references/handoff-contract.md`](references/handoff-contract.md).
+The contract that wires the conductor to the sub-skills lives in [`references/conducting.md`](references/conducting.md) (roles, Contract A, fan-out map) and the session rules in `shesha-form-edit/references/contracts.md`.
 
 ---
 
@@ -92,10 +92,8 @@ A block style-overlay says `"color": "$role:bodyText"`, not `"#1f1f1f"`. At stam
 shesha-claude-designer/
   SKILL.md ............... conductor; invokes the 3 sub-skills below
   references/
-    design-ingestion.md . fidelity tiers, token extraction, "run don't parse"
-    handoff-contract.md . the {archetype, blocks[], recipes[]} contract between skills
-    orchestration.md .... per-screen fan-out playbook (∥ comprehend + build, serial barriers)
-    preflight.md ........ one-time session setup (auth once, workdir, cost ledger)
+    conducting.md ....... session pre-flight, roles, Contract A, per-screen fan-out map
+                          (ingestion tiers are inlined in SKILL.md Step 1)
   README.md ............. (this file)
 
 shesha-design-comprehension/
@@ -119,7 +117,7 @@ shesha-design-system/              ── APPEARANCE ──
   references/component-recipes.md  per-archetype v7 style recipes
   references/token-to-prop-mapping.md  resolves $role: tokens → component props
   references/shesha-design-standards.md  appearance rules (relaxable recipes)
-  references/styling-v7-mechanics.md + style-channels.md  the v7 style channel mechanics
+  references/styling-mechanics.md ... the v7 style blocks + five-channel mechanics
 ```
 
 **The two pairings that hold it together:**

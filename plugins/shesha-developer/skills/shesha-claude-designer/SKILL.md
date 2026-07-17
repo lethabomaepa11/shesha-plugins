@@ -5,74 +5,64 @@ description: Use as the ENTRY POINT when the user wants a Shesha app/page/form t
 
 # Shesha Claude Designer
 
-## Overview
+**The conductor for design → on-brand Shesha app.** It does not author form JSON or pick colours — it ingests a design, turns each screen into a **measured layout blueprint**, plans the screens, and delegates: structure to `shesha-form-edit`, styling to `shesha-design-system`, comprehension + placement verification to `shesha-design-comprehension`. Roles, contracts, session pre-flight, and the fan-out map live in **[references/conducting.md](references/conducting.md)**.
 
-**The conductor for design → on-brand Shesha app.** It does not author form JSON or pick colours — it ingests a design, turns each screen into a **measured layout blueprint**, plans the screens, and delegates: structure to `shesha-form-edit`, styling to `shesha-design-system`, and the placement comprehension + verification to `shesha-design-comprehension`. Its job is to make sure the built app *matches the design* — in layout (measured, not eyeballed) and in brand.
-
-```dot
-digraph { rankdir=LR;
-  pre [label="0 pre-flight\n(auth once · shell · workdir)"];
-  d [label="Claude design\n(source)"];
-  ingest [label="1 ingest +\ntier detect"];
-  comp [label="2 comprehend\n(∥ per screen)\n→ blueprints"];
-  plan [label="3 plan screens"];
-  build [label="4 build (form-edit)\n(∥ per screen)\n+ style (design-system)"];
-  verify [label="5 verify:\nstructure · PLACEMENT · visual"];
-  pre -> d -> ingest -> comp -> plan -> build -> verify;
-  verify -> build [label="placement/visual\nmismatch → fix"];
-}
-```
-
-## When to use
-
-- A design source exists (prototype / kit / screenshots / runnable app) and the goal is to realise it in Shesha across one or more screens.
-- **Not** for "add a field to this form" (use `shesha-form-edit`) or "just theme this working form" (use `shesha-design-system`).
+Pipeline: `pre-flight → ingest + tier detect → comprehend (∥ per screen) → theme once + plan → build (∥ per screen) + style → verify (structure · PLACEMENT · visual)`, with placement/visual mismatches routed back to the builder (capped).
 
 ## Steps
 
-### Step 0 — Pre-flight (once per session)  ← do this before anything else
-A design build fans out into many sub-skill calls; the cheap win is doing the shared setup **once**. Before ingesting: pin one shell (PowerShell on Windows, bash elsewhere) and define a single `<workdir>`; **authenticate once and cache the token** to `<workdir>/access-token` for every sub-skill to reuse (never re-auth per screen, never inline the raw JWT); resolve the plugin skill root once; plan to fetch each entity's metadata once (scoped `GetProperties`, distilled); consolidate to a single confirmation gate; and keep a per-phase cost ledger. Full checklist: [references/preflight.md](references/preflight.md). This is what stops auth, path-guessing, metadata, and skill-hunt costs from repeating on every screen.
+### Step R — Route by weight (always first, before pre-flight)
+
+This skill is often invoked as a blanket entry point (harnesses, muscle memory) for tasks that don't need a conductor. **Route before paying for the pipeline:**
+
+- **Single screen + NO design source** (the "design" is prose adjectives — "modern", "clean", "professional" — with no prototype/kit/screenshot files): **hand the ENTIRE task to `Skill(shesha-developer:shesha-form-edit)` and stop conducting.** Its pipeline ends with the mandatory default-theme styling pass, so the result ships styled. No comprehension, no blueprint, no brand tokens, no three-gate verify — form-edit's own browser smoke is the verification. Conducting a one-screen prose build through the full pipeline is the measured #1 cause of 30+ minute runs form-edit finishes in ~8.
+- **Single trivial edit** ("add a checkbox/button/field to X"): same — straight to `shesha-form-edit` (it scales itself down further).
+- **Single screen + a REAL design source** (files to measure): run this pipeline, comprehension inline (no dispatch), placement gate on that one screen.
+- **2+ screens, or a design kit/prototype covering an app**: full pipeline with per-screen fan-out.
+
+When routing away, pass the full task context (backend URL, credentials, module, working dir) and let `shesha-form-edit` own the run end-to-end, including the result summary.
+
+### Step 0 — Pre-flight (once per session)
+Pin one shell, define one `<workdir>`, auth once (cached BOM-free token), resolve the skill root once, one scoped metadata fetch per entity, one consolidated confirmation gate, keep the per-phase cost ledger. Checklist: [conducting.md §Pre-flight](references/conducting.md); the underlying session rules: `shesha-form-edit/references/contracts.md`.
 
 ### Step 1 — Ingest the design
-Identify and read the design source; detect its **fidelity tier** (readable source / runnable app / screenshots). Extract the **token set** (palette, type, spacing, radius, shadow, status lifecycle) and the **screen list**. Normalise mixed docs with markitdown for content only. Details: [references/design-ingestion.md](references/design-ingestion.md). Do NOT parse a compiled/offline single-file bundle — serve+run it instead.
+Identify the source and its **fidelity tier**: readable source (un-minified HTML/JSX/kit — read tokens + components directly) · runnable prototype (**serve it over HTTP and probe it — never parse a minified/offline bundle statically**) · screenshots/PDF/Figma exports (read images; markitdown for content/label outlines ONLY — it flattens layout, never read its output as placement). Extract the **token set** (palette, type, spacing, radius, shadow, status lifecycle → a `shesha-design-system` theme file) and the **screen inventory** (name, type, entity, chrome notes) — not column-level layout; that is comprehension's job.
 
 ### Step 2 — Comprehend each screen into a layout blueprint  ← the placement spine
-**REQUIRED SUB-SKILL:** `shesha-developer:shesha-design-comprehension`. For each screen, it produces `<workdir>/blueprints/<screen>.blueprint.md` — a measured, annotated layout blueprint with explicit grid columns/spans, nesting, tab assignment, bindings, and a placement `assertions` block. This is what stops container placement from drifting; do not skip it and hand `shesha-form-edit` a prose brief. **Fan these out — one comprehension agent per screen, dispatched in parallel** (they are read-only and fully independent). For a 2+ screen build this is a MUST, not an option; orchestrate with `superpowers:dispatching-parallel-agents` and hand each agent its Contract — see [references/orchestration.md](references/orchestration.md).
-
-**Interpret with the canonical archetype vocabulary.** Read `shesha-design-system/references/default-layout-patterns.md` before comprehension — record bars, KIB strips, 44px-uppercase-header tables, ghost-Add toolbars, item-list cards, flat hairline cards with header strips, underline tabs, right-aligned modal footers. When a design region matches one of those shapes, name it as that pattern in the blueprint (and build it to the pattern's anatomy) instead of re-deriving it from pixels; measure from the design only where it genuinely deviates. Where the design is silent (a screen the mockups don't cover), default to these patterns — never to bare unstyled structure.
+**REQUIRED SUB-SKILL `shesha-developer:shesha-design-comprehension`**, one agent per screen dispatched in parallel (2+ screens = MUST; see the fan-out map + Contract A in [conducting.md](references/conducting.md)). Produces `<workdir>/blueprints/<screen>.blueprint.md` — measured grid/nesting/tabs/bindings + a placement `assertions` block. Never hand `shesha-form-edit` a prose brief instead. **Name regions with the canonical archetypes** from `shesha-design-system/references/default-layout-patterns.md` (read before comprehension) — build to the pattern's anatomy, measure only where the design genuinely deviates; where the design is silent, default to those patterns.
 
 ### Step 3 — Establish the theme (once) + plan the screens
-**First decide the brand.** If the user names a brand, hands over brand tokens, or an app-specific `<brand>.tokens.json` already exists → use that. If the design carries a distinct palette/type → author a new `<brand>.tokens.json` (copy the default, swap values). Otherwise → use the shipped **default `shesha`** brand. The selection rule + the folder to drop a custom brand file into live in `shesha-developer:shesha-design-system` (SKILL.md Step 1). Then hand the token set to `shesha-developer:shesha-design-system` to ensure the brand theme file exists and the app-level theme (primary, font, radius) is set **once**. Then map each design screen to a Shesha form type + archetype (read the archetype straight from each blueprint — don't re-derive it), **resolve each blueprint region to a block-library block** (`shesha-form-edit/assets/blocks` — e.g. `flex-split-main-rail`, `page-header-band`, `rail-panel`) **+ its paired style overlay/recipe** (`shesha-design-system`), so the per-screen plan is `{archetype, blocks[], recipes[]}`; and sequence the build order (list → detail → create is typical). Present the plan + blueprints + cost; gate on user confirmation (unless headless).
+Brand selection: user-named brand / handed tokens / existing `<brand>.tokens.json` → use it; distinct palette in the design → author a new token file (copy the default, swap values); otherwise the shipped **default `shesha`** brand (rules in `shesha-design-system` Step 1). Hand the token set to `shesha-design-system` to set the app-level theme **once**. Map each screen to `{archetype, blocks[], recipes[]}` (blocks from `shesha-form-edit/assets/blocks`, overlays from `shesha-design-system`); sequence the build (list → detail → create). Present plan + blueprints + cost; gate once (unless headless).
 
 ### Step 4 — Build each screen (delegate)
-**Fan out the structure authoring — one build agent per screen, dispatched in parallel** (each returns markup ONLY; it NEVER pushes and NEVER styles — see Non-negotiables + [references/orchestration.md](references/orchestration.md)); for a 2+ screen build this is a MUST. The **barriers stay serial**: the theme (Step 3) is established **once before** any screen is built, the single gated push and the central styling pass are not parallelised, and the browser verify (Step 5) is serialized. Cross-link ordering (list → detail → create) governs the push + verify sequence, not the authoring. Per screen, in order:
-- **(a) Structure — REQUIRED SUB-SKILL `shesha-developer:shesha-form-edit`:** pass the screen's `blueprint.md` as the requirements (archetype → seed/blocks, `layout-tree` spans → **flex `container` rows sized via `desktop.dimensions.width`** — never the `columns` component, `bindings` → component + propertyName). It builds native structure, wires CRUD, validates, pushes, publishes.
-- **(b) Styling — REQUIRED SUB-SKILL `shesha-developer:shesha-design-system`:** apply the theme's per-component v7 style blocks to the built form. It returns styled JSON; `shesha-form-edit` owns the single push path. **Styling is produced ONLY by `Skill(shesha-developer:shesha-design-system)` — NEVER by `shesha-form-edit` and NEVER by dispatching a `form-author` (or any authoring) agent with an "apply the theme / style it" prompt.** An authoring agent hand-editing v7 style blocks bypasses the design system's token discipline, version-gating, and the single push path — it is a contract violation.
+Fan out structure authoring — one agent per screen, in parallel, each under Contract A (returns markup ONLY). Serial barriers: theme before any styling, ONE gated push path, central styling, serialized browser verify. Per screen:
+- **(a) Structure — `shesha-developer:shesha-form-edit`:** the blueprint is the requirements; it builds native structure, wires CRUD, validates, pushes, publishes.
+- **(b) Styling — `shesha-developer:shesha-design-system` ONLY:** applies the theme's per-component v7 blocks; returns styled JSON; `shesha-form-edit` owns the push. **Never** have form-edit or a `form-author` agent style — a styling prompt to an authoring agent is a contract violation.
 
 ### Step 5 — Verify against the design (three gates, in order)
-- **5a — Structural integrity:** archetype built, native components only, layout fully flexed, fields bound. Failures route back to `shesha-form-edit`, not on to styling.
-- **5a.5 — PLACEMENT diff (REQUIRED `shesha-design-comprehension`):** re-probe the built, published, table→details-navigated form; diff measured column membership / row grouping / nesting depth / tab assignment against the blueprint `assertions`; route concrete mismatches back to `shesha-form-edit`. This is the gate that proves the build matches the design's *layout*, not just that it renders — its method lives in the `shesha-developer:shesha-design-comprehension` verification loop. **Record the saved probe `*.layout.json` path per screen as proof this gate actually ran — a screen with no recorded probe is not "done."**
-- **5b — Visual audit (BLOCKING, not a suggestion):** load each built form in the **`adminportal`** — the app UI this pipeline renders and verifies against (typical dev port `http://localhost:3000`; resolve from `adminportal/.env*` / `package.json`). Use `publicportal` only for a genuinely anonymous/public screen (`access: 5`). Drive it via `Skill(skill="playwright", …)` (or delegate to `shesha-form-edit` Step 9); capture a final screenshot + console/network errors per screen. If the adminportal isn't running, report "NOT visually verified — adminportal not running", never "done". `shesha-design-system` audit-mode then returns prop-level fixes. **A design build is NOT "done" until every screen has rendered in a browser with zero console errors and been eyeballed against the theme. If the frontend is not running, you MUST report "forms built but NOT visually verified — frontend not running" and never claim the design was matched.** (Structural API checks — component counts, hex-strings-present — are necessary but never sufficient for a "looks professional" claim.)
+- **5a — Structural integrity:** archetype built, native components only, fields bound. Failures → back to `shesha-form-edit`, not on to styling.
+- **5a.5 — PLACEMENT diff (REQUIRED `shesha-design-comprehension`):** re-probe the built, published, table→details-navigated form; diff measured placement against the blueprint `assertions`; route concrete fixes back. **Cap: 2 routed-fix iterations per screen, then a placement report** (the comprehension verification loop). Record the saved probe `*.layout.json` path per screen — no recorded probe = not "done".
+- **5b — Visual audit (BLOCKING):** render every screen in the **adminportal** (`publicportal` only for `access: 5`) via the playwright skill; capture ONE final screenshot + console/network errors per screen; `shesha-design-system` audit-mode returns prop-level fixes. **Cap: 2 fix cycles; every browser wait ≤ 20 s with a timeout branch** (`shesha-form-edit/references/verification.md`). If the frontend isn't running, report **"built but NOT visually verified"** — never "done". Structural API checks never substitute for looking at the rendered form.
 
 ### Step 6 — Confirm
-Summarise per screen (form id, blueprint pass/fail, theme applied); cross-link screens (list→detail→create navigation).
+Summarise per screen (form id, blueprint pass/fail, theme applied); cross-link screens (list→detail→create). Headless: ONE aggregate result envelope for the whole run.
 
 ## Non-negotiables — conduct, don't build
 
-- **Comprehend before building.** Every screen gets a measured blueprint (Step 2) before `shesha-form-edit` is invoked. A prose layout description is the thing that drifts — never hand one to the builder in place of a blueprint.
-- **Placement AND visual are BLOCKING gates, not suggestions.** Gate 5a.5 re-measures the built form against the blueprint (record the probe path as proof); gate 5b renders every screen in a browser. No screen is "done" until its placement assertions pass AND it has rendered with zero console errors. **A run that could not render the form (headless / no frontend) reports "built but NOT visually verified" — it NEVER reports "done" or "matches the design."** Structural API checks (component counts, hex-present) never substitute for looking at the rendered form.
-- **Delegate ownership — and never mis-route it.** Structure = `shesha-form-edit`; **styling = `shesha-design-system` ONLY** (never `shesha-form-edit`, never a `form-author`/authoring agent — dispatching one with an "apply the theme / style it" prompt is a contract violation); comprehension + placement verification = `shesha-design-comprehension`. This skill plans, sequences, and gates — it does not author JSON, pick hexes, or push.
-- **One push path, fully gated.** All writes go through `shesha-form-edit`, and every push runs its full pre-push gate — `clean-form-config` + `validate-guardrails.js` (both MUST, blocking). A dispatched agent NEVER pushes directly and NEVER styles — it returns markup for `shesha-form-edit` to gate and push. If a form reached the backend without going through that gate, the gate did not run.
-- **Read the source, not the bundle.** Run/serve a compiled prototype and probe it (or read un-minified source); never parse a minified single-file bundle.
-- **Honesty about gaps.** If a design detail can't be expressed in Shesha, say so — don't claim a pixel match that isn't achievable.
-- **Set up once, reuse everywhere — and propagate it.** Auth once (cached token, reused by every sub-skill), one pinned shell, one `<workdir>`, one skill-root resolution, one scoped metadata fetch per entity, one confirmation gate. **Pin the shell as a TOOL-selection rule: on Windows run every command through the PowerShell tool, never the Bash tool (a PowerShell one-liner in the Bash tool fails with `=: command not found`, exit 127).** These live only in this conductor — so every dispatched sub-agent must be handed the pinned shell/tool + the `<workdir>`/token path in its Contract (see [handoff-contract.md](references/handoff-contract.md)), or it re-picks a shell and re-authenticates. Repeating any of this per screen is the main avoidable cost of a design run — see [references/preflight.md](references/preflight.md).
-- **Fan out across screens — MUST for 2+ screens.** Comprehension (Step 2) and structure authoring (Step 4a) are per-screen, independent, and read-mostly — dispatch **one agent per screen in parallel**, orchestrated with `superpowers:dispatching-parallel-agents`; a multi-screen build run serially is a defect. The **barriers stay serial**: the theme is set **once before** any screen is styled, all writes go through the **one gated push path**, styling is applied **centrally** by `shesha-design-system`, and the browser-bound placement + visual verify is **serialized** (single session). Each dispatched agent carries its Contract (pinned shell/tool, `<workdir>` + token path, "return markup — never push, never style"). Dispatch playbook, fan-out map, and threshold: [references/orchestration.md](references/orchestration.md).
+- **Comprehend before building** — every screen gets a measured blueprint before `shesha-form-edit` is invoked; prose layout descriptions drift.
+- **Placement AND visual are BLOCKING gates — and both are CAPPED** (2 iterations / 2 cycles, waits ≤ 20 s). An honest partial-match report beats an unconverging loop — uncapped verify loops and hung waits are the measured top causes of 40–90 min runs.
+- **Delegate ownership, never mis-route it** — structure = `shesha-form-edit`; styling = `shesha-design-system` ONLY; comprehension/placement = `shesha-design-comprehension`. This skill plans, sequences, gates.
+- **One push path, fully gated; agents return markup only** — the dispatch contract and session rules are canonical in `shesha-form-edit/references/contracts.md`; every dispatch carries Contract A ([conducting.md](references/conducting.md)).
+- **Read the source, not the bundle** — serve/run compiled prototypes; never parse minified single-file bundles.
+- **Set up once, propagate everywhere** — pre-flight state (shell, workdir, token, skill root) is handed to every dispatch; repeating setup per screen is the main avoidable cost.
+- **Fan out across screens (MUST for 2+)** — one agent per screen for comprehension and authoring; barriers stay serial ([conducting.md](references/conducting.md)).
+- **Honesty about gaps** — if a design detail can't be expressed in Shesha, say so; never claim an unachievable pixel match.
 
 ## Relationship to the other skills
 
 | Concern | Skill |
 |---|---|
 | **Ingest design, plan screens, orchestrate, verify end-to-end** | **this skill** |
-| Comprehend a design → measured layout blueprint + placement verification | `shesha-developer:shesha-design-comprehension` |
-| Build correct structure, CRUD, validate, push | `shesha-developer:shesha-form-edit` |
+| Comprehend design → measured blueprint + placement verification | `shesha-developer:shesha-design-comprehension` |
+| Build structure, CRUD, validate, push | `shesha-developer:shesha-form-edit` |
 | Map tokens → app theme + per-component v7 style blocks | `shesha-developer:shesha-design-system` |

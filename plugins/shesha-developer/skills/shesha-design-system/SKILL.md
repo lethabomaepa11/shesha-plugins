@@ -41,7 +41,7 @@ General Shesha conventions every recipe respects (light-mode; scale-by-surface t
 
 ## Mechanics & capability (this skill owns the v7 style system)
 
-- **v7 style-block shapes** (border / background / font / dimensions / shadow / stylingBox, per `desktop`/`tablet`/`mobile`), the **5-channel precedence** (including the legacy `style` JS-string footgun that overrides everything), and where each channel lands in the DOM: [styling-v7-mechanics.md](references/styling-v7-mechanics.md) + [style-channels.md](references/style-channels.md). (These moved here from `shesha-form-edit` — appearance is this skill's job.)
+- **v7 style-block shapes** (border / background / font / dimensions / shadow / stylingBox, per `desktop`/`tablet`/`mobile`), the **5-channel precedence** (including the legacy `style` JS-string footgun that overrides everything), and where each channel lands in the DOM: [styling-mechanics.md](references/styling-mechanics.md). (These moved here from `shesha-form-edit` — appearance is this skill's job.)
 - **Capability matrix** — which channel actually RENDERS per component, measured live and version-stamped: [capability-matrix.md](references/capability-matrix.md). **Never author a style on a channel the matrix marks `no-op`.**
 - **Sizing flex-split children: use `desktop.dimensions.width`** (calc / % / px) — it reaches the container's OUTER div. Per-child `customStyle:{flex:…}` is **inert** for outer sizing (it lands on the inner div). A flex container MUST set `display:"flex"` or `flexDirection` is ignored. Splits are flex `container` rows, **never** the `columns` component (firm project rule).
 
@@ -50,7 +50,7 @@ General Shesha conventions every recipe respects (light-mode; scale-by-surface t
 - No custom CSS/React/HTML — everything is component props on Shesha JSON.
 - Tokens live in theme files, never inline hexes.
 - **Style, don't restructure** — if the structure is wrong, route back to `shesha-form-edit` (and the layout is owned by `shesha-design-comprehension`); never move containers here.
-- Mirror style blocks across breakpoints; verify against the running app (mechanics are version-dependent). **On 0.43-class backends there ARE no breakpoint blocks — style props are flat on the component model** (`height`, `borderColor`, `style`, `stylingBox`, per `shesha-form-edit/assets/components-kb/_shared-style-fields.json`); authoring `desktop.*` blocks there is inert. Resolve the target generation before styling.
+- Mirror style blocks across breakpoints; verify against the running app (mechanics are version-dependent). **On 0.43-class backends there ARE no breakpoint blocks — style props are flat on the component model** (`height`, `borderColor`, `style`, `stylingBox`, per `shesha-form-edit/assets/components-kb/_shared-style-fields.json`); authoring `desktop.*` blocks there is inert. Resolve the target generation before styling, and read **`shesha-form-edit/references/renderer-physics.md`** first — the two generations have OPPOSITE working levers (0.43: `style`/`wrapperStyle` fns, flat props, `dimensions.width` inert; 0.45: `desktop.*` blocks + `dimensions.width`), and styling through the wrong ones renders an unstyled form with zero errors.
 - This skill produces styled JSON/edits; it does **not** own auth/push/publish — `shesha-form-edit` does.
 
 ## Relationship to the other skills

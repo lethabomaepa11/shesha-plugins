@@ -1,6 +1,6 @@
 # dataContext, datatable, datalist
 
-> Versions + minimal shapes: [../component-cheatsheet.md](../component-cheatsheet.md). Read that before opening a large table seed.
+> Versions + minimal shapes: [../components-kb.md](../components-kb.md). Read that before opening a large table seed.
 
 ---
 
@@ -111,7 +111,7 @@ A `datalist` (v11) renders the wrapper's rows as repeating cards. Two ways to de
 
 **Multi-select list** — set `selectionMode: "multiple"` on the datalist for "select several at once" (gives per-card + header selection). `"single"` for one, `"none"` (default) for a read-only list. This is the list-shaped answer to "operator can select multiple items" — do NOT reach for a datatable just because the ask mentions multi-select.
 
-**Card styling (rounded corners, soft shadow, etc.)** lives on the datalist's card container style channels (`showBorder`, `gap`, `cardHeight`/`cardMinWidth`/`cardMaxWidth`, and the container style panels) — see `styling-v7-mechanics.md` (in `shesha-design-system`). A "polished cards" ask is styling on the `datalist`, not a reason to hand-build static containers. For the per-field rules that make card text actually render (name-mode binding, `dimensions: fit-content`, single-line `ellipsis`, chip-on-its-own-row, and style-based padding/overflow), see **Building the row-template card form** below.
+**Card styling (rounded corners, soft shadow, etc.)** lives on the datalist's card container style channels (`showBorder`, `gap`, `cardHeight`/`cardMinWidth`/`cardMaxWidth`, and the container style panels) — see `styling-mechanics.md` (in `shesha-design-system`). A "polished cards" ask is styling on the `datalist`, not a reason to hand-build static containers. For the per-field rules that make card text actually render (name-mode binding, `dimensions: fit-content`, single-line `ellipsis`, chip-on-its-own-row, and style-based padding/overflow), see **Building the row-template card form** below.
 
 **No entity yet? A datalist still needs a data source.** A `datalist` is bound through its `dataContext`, so it cannot display a card list for an entity that doesn't exist. If the target entity is missing (Step 4.5 metadata 404), **create it first** via `shesha-developer:domain-model` (then rebuild/restart per [backend-restart.md](../backend-restart.md) and bind). Only for a genuine static/demo list use hardcoded rows — but the component is still a `datalist`, **never** stacked static `container` cards.
 
@@ -147,7 +147,7 @@ Copy `assets/examples/entity-card.json` (the verified card) and swap the entity 
 
 ## Inner components quick reference
 
-> **A `datatable`'s columns live in its `items[]` array — there is NO `columns` property.** An empty or missing `columns` is expected, not a defect; look in `items[]`. (Don't waste probes concluding a table is "broken" because `.columns` is empty.) Compact column-item shapes (`data` / `crud-operations`) are in [../component-cheatsheet.md](../component-cheatsheet.md).
+> **A `datatable`'s columns live in its `items[]` array — there is NO `columns` property.** An empty or missing `columns` is expected, not a defect; look in `items[]`. (Don't waste probes concluding a table is "broken" because `.columns` is empty.) Compact column-item shapes (`data` / `crud-operations`) are in [../components-kb.md](../components-kb.md).
 
 | Type | Purpose |
 |---|---|

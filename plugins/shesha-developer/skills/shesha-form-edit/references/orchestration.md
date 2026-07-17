@@ -1,6 +1,6 @@
 # Multi-agent orchestration for form fleets
 
-When work spans many forms (or many full-stack pages), single-context editing degrades — context fills with markup, later forms get sloppier, and verification gets skipped. This file is the dispatch playbook. Mechanics of the transforms themselves: [bulk-operations.md](bulk-operations.md). Routing thresholds: [levels.md](levels.md).
+When work spans many forms (or many full-stack pages), single-context editing degrades — context fills with markup, later forms get sloppier, and verification gets skipped. This file is the dispatch playbook. Mechanics of the transforms themselves: [bulk-operations.md](bulk-operations.md). Routing thresholds: SKILL.md Step R (fleet mode past ~3 forms changed or a multi-page/app brief; below that stay inline).
 
 ---
 
@@ -87,4 +87,4 @@ Plugin agents do not inherit a `permissionMode`. The fleet-transformer's `curl` 
 
 ### Worked example (project-specific)
 
-The RequirementsStudio 2026-06 rollouts that shaped this playbook: a 16-form auditor fan-out (sonnet) verified subtable canon with a strict verdict schema (`{form, pass, formLoads, checkResults[], summary}` — per-tab fields like `addForm/labelOk/iconOk/actionOk/formArgsParentFkOk`); the KIB divider redesign ran as ONE transform script (`transform-kib-all.js`) piloted on `module-definition-details` then rolled to 16 forms with component-count-delta guards; the create-forms cleanup fixed 33 forms in one scripted pass with field-set assertions, audited to 0 issues pre- and post-push.
+Provenance: shaped by live 2026-06 fleet rollouts — a 16-form auditor fan-out with a strict verdict schema, a one-script KIB transform piloted then rolled to 16 forms with component-count-delta guards, and a 33-form scripted cleanup audited to 0 issues pre- and post-push.
