@@ -133,9 +133,13 @@ Never push a config that fails validation without user confirmation. >3 forms ch
 Skill(skill="shesha-developer:shesha-design-system", args="apply the default shesha theme quick pass per references/default-theme-quickpass.md to <path>")
 ```
 
+**This pass hands the styled markup back to you — it is not the end of the task.** `shesha-design-system` runs here as an in-context step, so its closing line ("returning the styled markup for the push step") is a *handback into Step 7*, not task completion — it is easy to mistake that phrasing for "done" and exit with a validated file that was never pushed (a real failure mode: a form that only ever existed on disk). A validated JSON file is scaffolding; the form does not exist until Step 7 pushes it. So: after styling, **control continues to Step 7 — always.**
+
 Merge the returned styled JSON so Step 7 stays ONE push; re-run Step 5.5 on the merged result. Never asks a question (headless-safe); only `--no-style` skips it. Exempt: small edits, and orchestrator runs (its styling step owns appearance). A named brand supersedes this with the explicit design-system handoff — same mechanism, different token file.
 
 ## Step 7 — Push
+
+**The deliverable is a form on the backend, not a file on disk.** A build run that ends with a validated local JSON and no successful push has failed — even when every gate above passed green. Concretely: finishing a build with **zero forms created/modified on the backend** means this step was skipped, so go push before you report anything. The one exception is an edit that genuinely changes nothing, and that still says so explicitly. (This is the exact signal the harness reads — it identifies your work from what actually lands on the backend, not from a local file path.)
 
 **Version-gated (check BEFORE any write):** on a versioned backend (Step 3 found `versionStatus`) the push follows the **[version lifecycle](references/version-lifecycle.md)** — Live(3) → `CreateNewVersion` once → `UpdateMarkup` the new Draft → publish `UpdateStatus` 1→2→3 → clear the FE cache; an in-flight Draft/Ready is reused (never a second Draft); Retired/Cancelled are never written; brand-new = `Create` → `UpdateMarkup` → publish; **one Draft per edit session**, ending Live or Cancelled.
 
@@ -195,6 +199,7 @@ One-liners; the full list with the failure each rule prevents is **[references/n
 - **`editMode` per form type** — never blanket-stamp ([edit-mode.md](references/components/edit-mode.md)).
 - **No form ships unstyled** (Step 6.5; only `--no-style` skips).
 - **One gated push path** — `clean-form-config` + `validate-guardrails.js` before every push; versioned backends via the lifecycle; session rules in [contracts.md](references/contracts.md).
+- **A build isn't finished until Step 7 pushes and Step 8 re-fetches it** — a validated local file is not a delivered form. Stopping after the Step 6.5 styling pass (its handback reads like "done" but isn't) or after validation means the push was skipped. Likewise a form bound to an entity that doesn't yet exist isn't "design-complete" — resolve the entity gate (below) first, don't rationalise around it.
 - **API namespace is per-service** — `FormConfiguration` under `/services/Shesha/`; `Metadata`/`Module`/`EntityConfig`/`ReferenceList` under `/services/app/`. A 404 is usually the wrong namespace.
 
 ## Required skill & agent invocations
