@@ -19,7 +19,7 @@ allowed-tools:
 
 Round-trip: **GET form JSON → edit → PUT/POST it back**. Also creates new forms (`Create` then `UpdateMarkup`).
 
-> **New table / list / create / detail form? Compose from `assets/blocks/`, else copy a canonical seed from `assets/examples/`** ([references/examples.md](references/examples.md)). "table"/grid ⇒ `datatable`, "list"/cards ⇒ `datalist` ([data-tables.md](references/components/data-tables.md)). The seeds encode the CRUD wiring most builds get wrong (modal Add via `Show Dialog`, in-place `Start Edit`/`Submit` detail lifecycle, child tables as `tabs` + `permanentFilter`). Copy, swap entity/properties/captions/`formId`s, re-stamp `parentId`s, push.
+> **New table / list / create / detail form? Clone the closest production archetype from `assets/golden/` (see `assets/golden/_index.json` — table-worklist, detail-view, stat-cards, report-screen, add-form, modal-dialog), else compose from `assets/blocks/`, else copy a canonical seed from `assets/examples/`** ([references/examples.md](references/examples.md)). Golden forms are real production markup (AssetManagement corpus) — adapt entityType/columns/bindings/labels, re-stamp ids, and **preserve the house styling, never strip it**. "table"/grid ⇒ `datatable`, "list"/cards ⇒ `datalist` ([data-tables.md](references/components/data-tables.md)). The seeds encode the CRUD wiring most builds get wrong (modal Add via `Show Dialog`, in-place `Start Edit`/`Submit` detail lifecycle, child tables as `tabs` + `permanentFilter`). Copy, swap entity/properties/captions/`formId`s, re-stamp `parentId`s, push.
 
 > **Requirements arriving as a layout blueprint** (`<screen>.blueprint.md` from `shesha-design-comprehension`, usually via `shesha-claude-designer`)? The blueprint is the structure spec — archetype picks the seed, `layout-tree` drives the flex splits + `parentId`s, `bindings` drive `propertyName`s; expect a placement re-measure against its `assertions`. See [references/blueprint-consumption.md](references/blueprint-consumption.md).
 
@@ -77,7 +77,18 @@ For a NEW entity-bound form or an unverified entity this session: dispatch `shes
 
 ## Step 5 — Apply the requirements
 
-Read **only** the topic files the edit touches (1–3 for most edits):
+**Step 5.0 — Mandatory lookup (mechanical, not optional).** Before authoring ANY component JSON, run the retrieval router:
+
+```
+node <skill-root>/scripts/lookup.js <componentType|topic> ...      # e.g. lookup.js datatable container new-form
+node <skill-root>/scripts/lookup.js --plan <draft-form.json>       # resolve every type already in a markup file
+```
+
+It prints the exact reference files, golden assets, and always-apply rules for what you're touching — **read every file it lists before writing that component**, and record the ledger entry (below). A non-zero exit means an unknown component type: check `assets/groups/index.json` before proceeding. Knowledge exists for nearly every failure we've logged; runs fail because it wasn't retrieved — this step makes retrieval a pipeline step, not a memory test.
+
+**Ledger (drives the Stop-gate hook):** the moment you start authoring a form, append `{"module","form","id","status":"authored","at":"<iso>"}` to `.claude/cache/shesha-form-edit/push-ledger.json` (create `{"entries":[]}` if absent). Statuses advance at Step 7 (`pushed`) and Step 8 (`verified`); abandoned work is marked `abandoned` with a reason. The plugin's Stop hook blocks session end while any entry is unpushed/unverified.
+
+The topic files (the router resolves these for you — table kept for orientation):
 
 | Topic | File |
 |---|---|
@@ -122,6 +133,7 @@ Failures come from template literals or literal newlines in script strings — r
 4. `Skill(skill="shesha-developer:clean-form-config", args="<path>")` — ONCE, on the finished markup (not per intermediate edit). Known false positives (do not strip): dataContext data props, container `direction`/`flexDirection`, `text.padding`, datatable inline props, `dimensions.minHeight`.
 5. `node <skill-root>/scripts/validate-guardrails.js <form.json> <cached metadata .raw.json>` — **always pass the metadata arg** (without it the reflist check downgrades to a warn). Zero `fail` findings before push.
 6. **Reference-list existence + items gate**: every bound reflist exists with ≥1 item ([entity-binding.md §5](references/entity-binding.md)).
+7. `node <skill-root>/scripts/validate-styledness.js <form.json> [--generation 043|045]` — **structure-only forms fail**: page chrome present, ≥40% of visual components carry explicit styling for the target generation, at least one font declaration, no inline-style-vs-block conflicts. (This is also enforced automatically by the plugin's validate-on-write hook — a FAIL there must be fixed, not worked around.)
 
 Never push a config that fails validation without user confirmation. >3 forms changed → `form-auditor` fan-out first ([orchestration.md](references/orchestration.md)); never push a `fail` verdict.
 
@@ -147,11 +159,13 @@ Non-versioned backends (no `versionStatus`, e.g. 0.45 test builds): direct `PUT 
 
 All scratch under `$WORKDIR`; one combined fetch→mutate→push script beats many probes — [contracts.md §3](references/contracts.md).
 
+**On every successful push:** update the form's ledger entry to `status:"pushed"` (add the backend-assigned `id` if new). Step 8's verified re-fetch advances it to `"verified"` — the Stop hook will not let the session end before that.
+
 **On push failure (non-200):** surface the raw response + a short diagnosis; ask retry / re-fetch & re-apply / abort (headless: re-apply once, then stop). Never silently retry. Versioned backends recover lifecycle-aware ([version-lifecycle.md §Failure recovery](references/version-lifecycle.md)) — retry `UpdateStatus` on the SAME Draft or `CancelVersion` it.
 
 ## Step 8 — Verify
 
-Re-fetch and diff against what you sent ([verification.md §1](references/verification.md) — the 200 alone proves nothing). On versioned backends confirm the lifecycle landed (new `versionNo`, old Live retired — diff against the NEW id). After create+publish, clear the FE IndexedDB stores from a static page. Anonymous forms: confirm `access === 5` stuck (re-push once if not).
+Re-fetch and diff against what you sent ([verification.md §1](references/verification.md) — the 200 alone proves nothing). On a clean diff, set the form's ledger entry to `status:"verified"`. On versioned backends confirm the lifecycle landed (new `versionNo`, old Live retired — diff against the NEW id). After create+publish, clear the FE IndexedDB stores from a static page. Anonymous forms: confirm `access === 5` stuck (re-push once if not).
 
 ## Step 8.5 — Diagnose common runtime errors
 

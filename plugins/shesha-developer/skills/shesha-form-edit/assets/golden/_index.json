@@ -1,0 +1,214 @@
+{
+  "corpus": "pd-assetmanagement2 golden forms",
+  "extracted": "2026-07-22",
+  "note": "Markup preserved verbatim from source packages (no anonymization or stripping). Clone the closest archetype when building new forms.",
+  "forms": [
+    {
+      "file": "table-worklist--asset-register.json",
+      "archetype": "table-worklist",
+      "originalName": "asset-register",
+      "sourcePackage": "package20260710_1146.shaconfig",
+      "entityTypes": [
+        "Shesha.AssetManagement.Domain.AssetCategories.AssetCategory",
+        "Shesha.AssetManagement.Domain.Assets.RegisteredAsset",
+        "Shesha.AssetManagement.Domain.CostCentres.CostCentre",
+        "Shesha.Domain.Site"
+      ],
+      "componentTypes": [
+        "Segoe UI",
+        "[default]",
+        "[not-editable]",
+        "autocomplete",
+        "buttonGroup",
+        "card",
+        "color",
+        "container",
+        "datatable",
+        "datatable.pager",
+        "datatable.quickSearch",
+        "datatableContext",
+        "dropdown",
+        "mustache",
+        "refListStatus",
+        "sectionSeparator",
+        "text",
+        "validationErrors"
+      ],
+      "description": "hideHeading card > container > datatableContext (RegisteredAsset) > header band + toolbar containers > sectionSeparators > filter/quickSearch row > 18-col datatable with tablePager"
+    },
+    {
+      "file": "detail-view--asset-item-detail.json",
+      "archetype": "detail-view",
+      "originalName": "asset-item-detail",
+      "sourcePackage": "package20260710_1804.shaconfig",
+      "entityTypes": [
+        "Shesha.AssetManagement.Domain.Assets.AssetLifecycleEvent",
+        "Shesha.AssetManagement.Domain.Assets.RegisteredAsset",
+        "Shesha.AssetManagement.Domain.CostCentres.CostCentre",
+        "Shesha.AssetManagement.Domain.DepreciationRules.DepreciationRule",
+        "Shesha.AssetManagement.Domain.Tags.Tag",
+        "Shesha.AssetManagement.Domain.VerificationCampaigns.FieldObservation",
+        "Shesha.Core.Organisation",
+        "Shesha.Core.Person",
+        "Shesha.Domain.Site"
+      ],
+      "componentTypes": [
+        "Segoe UI",
+        "alert",
+        "autocomplete",
+        "buttonGroup",
+        "card",
+        "columns",
+        "container",
+        "datalist",
+        "datatableContext",
+        "dateField",
+        "dropdown",
+        "mustache",
+        "numberField",
+        "progress",
+        "refListStatus",
+        "sectionSeparator",
+        "tabs",
+        "text",
+        "textField",
+        "validationErrors"
+      ],
+      "description": "hideHeading card > header columns (title text + refListStatus badges + textField) > 4-col key-facts band > sectionSeparator > validationErrors > tabbed/sectioned containers with entityReference links, subForm-style detail panels and a datalist history section; 2 buttonGroup toolbars"
+    },
+    {
+      "file": "list-stat-cards--verification-campaigns-list.json",
+      "archetype": "list-stat-cards",
+      "originalName": "verification-campaigns-list",
+      "sourcePackage": "package20260711_1944.shaconfig",
+      "entityTypes": [
+        "Shesha.AssetManagement.Domain.VerificationCampaigns.VerificationCampaign"
+      ],
+      "componentTypes": [
+        "Segoe UI",
+        "[default]",
+        "[not-editable]",
+        "action",
+        "buttonGroup",
+        "card",
+        "color",
+        "container",
+        "datatable",
+        "datatable.pager",
+        "datatable.quickSearch",
+        "datatableContext",
+        "progress",
+        "refListStatus",
+        "text",
+        "validationErrors"
+      ],
+      "description": "hideHeading card > page container > title band (text pair + buttonGroup) > validationErrors > 4 hideHeading stat cards in a flex row > datatableContext (VerificationCampaign) > toolbar + filter containers > 9-col datatable"
+    },
+    {
+      "file": "queue-stat-cards--provisional-assets-queue.json",
+      "archetype": "queue-stat-cards",
+      "originalName": "provisional-assets-queue",
+      "sourcePackage": "package20260710_1804.shaconfig",
+      "entityTypes": [
+        "Shesha.AssetManagement.Domain.ProvisionalAssets.ProvisionalAsset"
+      ],
+      "componentTypes": [
+        "Segoe UI",
+        "buttonGroup",
+        "card",
+        "color",
+        "container",
+        "datalist",
+        "datatable.pager",
+        "datatable.quickSearch",
+        "datatableContext",
+        "text",
+        "validationErrors"
+      ],
+      "description": "hideHeading card > page container > title band > 4 hideHeading stat cards > datatableContext (ProvisionalAsset) > buttonGroup toolbar + quickSearch container > card-style datalist (not datatable) > validationErrors"
+    },
+    {
+      "file": "report-screen--report-full-asset-register.json",
+      "archetype": "report-screen",
+      "originalName": "report-full-asset-register",
+      "sourcePackage": "package20260709_1703.shaconfig",
+      "entityTypes": [
+        "Shesha.AssetManagement.Domain.Assets.RegisteredAsset"
+      ],
+      "componentTypes": [
+        "Segoe UI",
+        "[default]",
+        "[not-editable]",
+        "alert",
+        "buttonGroup",
+        "card",
+        "color",
+        "container",
+        "datatable",
+        "datatableContext",
+        "mustache",
+        "sectionSeparator",
+        "text",
+        "validationErrors"
+      ],
+      "description": "hideHeading card > container > datatableContext (RegisteredAsset) > header band + export alert > sectionSeparator > validationErrors > filter containers > wide 50-col datatable for full-register export"
+    },
+    {
+      "file": "add-form--single-asset-registration.json",
+      "archetype": "add-form",
+      "originalName": "single-asset-registration",
+      "sourcePackage": "package20260712_1125.shaconfig",
+      "entityTypes": [
+        "Shesha.AssetManagement.Domain.AssetCategories.AssetCategory",
+        "Shesha.AssetManagement.Domain.Assets.RegisteredAsset",
+        "Shesha.AssetManagement.Domain.CostCentres.CostCentre",
+        "Shesha.AssetManagement.Domain.Tags.Tag",
+        "Shesha.Core.Organisation",
+        "Shesha.Core.Person",
+        "Shesha.Domain.Site"
+      ],
+      "componentTypes": [
+        "Segoe UI",
+        "alert",
+        "autocomplete",
+        "buttonGroup",
+        "card",
+        "color",
+        "container",
+        "dateField",
+        "dropdown",
+        "error",
+        "mustache",
+        "numberField",
+        "success",
+        "text",
+        "textField",
+        "validationErrors"
+      ],
+      "description": "hideHeading card > page container > title band (text pair) > two-column layout: left column stacked section cards (validationErrors + grouped input cards), right column summary/action card; single buttonGroup for submit actions"
+    },
+    {
+      "file": "modal-dialog--variance-resolve-dialog.json",
+      "archetype": "modal-dialog",
+      "originalName": "variance-resolve-dialog",
+      "sourcePackage": "package20260713_1619.shaconfig",
+      "entityTypes": [
+        "Shesha.AssetManagement.Domain.CostCentres.CostCentre",
+        "Shesha.AssetManagement.Domain.Variances.Variance",
+        "Shesha.Domain.Person",
+        "Shesha.Domain.Site"
+      ],
+      "componentTypes": [
+        "Segoe UI",
+        "autocomplete",
+        "buttonGroup",
+        "container",
+        "dropdown",
+        "text",
+        "textArea",
+        "validationErrors"
+      ],
+      "description": "flat container (no page card - rendered in modal) > validationErrors > stacked dropdowns/autocompletes/textArea bound to Variance resolution fields > footer container with buttonGroup"
+    }
+  ]
+}
